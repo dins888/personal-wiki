@@ -26,42 +26,28 @@ export default defineConfig({
       },
       sidebar: [
         {
-          label: ' 全部词条',
+          label: '📖 全部词条',
           link: '/entries/',
         },
         {
           label: '📚 AI 基础概念',
-          items: [
-            { label: '🏠 分类首页', link: '/entries/ai-basics/' },
-            { autogenerate: { directory: 'entries/ai-basics', collapsed: true } },
-          ],
+          items: [{ autogenerate: { directory: 'entries/ai-basics' } }],
         },
         {
           label: '🤖 大语言模型',
-          items: [
-            { label: '🏠 分类首页', link: '/entries/llm/' },
-            { autogenerate: { directory: 'entries/llm', collapsed: true } },
-          ],
+          items: [{ autogenerate: { directory: 'entries/llm' } }],
         },
         {
           label: '🎓 训练与优化',
-          items: [
-            { label: '🏠 分类首页', link: '/entries/training/' },
-            { autogenerate: { directory: 'entries/training', collapsed: true } },
-          ],
+          items: [{ autogenerate: { directory: 'entries/training' } }],
         },
         {
           label: '🔧 技术应用',
-          items: [
-            { label: '🏠 分类首页', link: '/entries/tech/' },
-            { autogenerate: { directory: 'entries/tech', collapsed: true } },
-          ],
+          items: [{ autogenerate: { directory: 'entries/tech' } }],
         },
         {
           label: '📋 关于',
-          items: [
-            { label: '项目说明', slug: 'about' },
-          ],
+          items: [{ slug: 'about' }],
         },
       ],
       lastUpdated: true,
