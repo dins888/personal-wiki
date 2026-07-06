@@ -20,7 +20,7 @@ export default defineConfig({
         { icon: 'github', label: 'GitHub', href: 'https://github.com/dins888/personal-wiki' },
       ],
       logo: {
-        src: new URL('./src/assets/logo.jpg', import.meta.url),
+        src: './src/assets/logo.jpg',
         alt: '个人百科知识库',
         replacesTitle: true,
       },
