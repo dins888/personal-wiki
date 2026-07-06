@@ -4,34 +4,34 @@ description: 个人百科知识库的全部词条索引
 template: splash
 ---
 
-import { Steps, Tabs, TabItem, CardGrid, Card } from '@astrojs/starlight/components';
+import { CardGrid, Card } from '@astrojs/starlight/components';
 
 # 📖 全部词条索引
 
 本知识库涵盖 AI 领域的核心概念，按四大类别组织。每个词条均经过信源权威性验证和交叉验证，确保信息准确可靠。
 
-##  AI 基础概念（7 个词条）
+## AI 基础概念（7 个词条）
 
 <CardGrid>
-  <Card icon="" title="[人工智能（AI）](./ai-basics/ai/)">
+  <Card title="<a href=&quot;./ai-basics/ai/&quot;>人工智能（AI）</a>">
     让计算机模拟人类智能行为的技术总称
   </Card>
-  <Card icon="📊" title="[机器学习](./ai-basics/machine-learning/)">
+  <Card icon="📊" title="<a href=&quot;./ai-basics/machine-learning/&quot;>机器学习</a>">
     让计算机从数据中自动学习规律的技术
   </Card>
-  <Card icon="" title="[深度学习](./ai-basics/deep-learning/)">
+  <Card title="<a href=&quot;./ai-basics/deep-learning/&quot;>深度学习</a>">
     基于多层神经网络的机器学习分支
   </Card>
-  <Card icon="️" title="[神经网络](./ai-basics/neural-network/)">
+  <Card icon="️" title="<a href=&quot;./ai-basics/neural-network/&quot;>神经网络</a>">
     模仿生物神经网络结构的计算模型
   </Card>
-  <Card icon="✨" title="[生成式 AI](./ai-basics/generative-ai/)">
+  <Card icon="✨" title="<a href=&quot;./ai-basics/generative-ai/&quot;>生成式 AI</a>">
     能够生成新内容（文本、图像、代码等）的 AI 系统
   </Card>
-  <Card icon="️" title="[基础模型](./ai-basics/foundation-model/)">
+  <Card icon="️" title="<a href=&quot;./ai-basics/foundation-model/&quot;>基础模型</a>">
     在大规模数据上预训练的通用 AI 模型
   </Card>
-  <Card icon="🌐" title="[多模态 AI](./ai-basics/multimodal-ai/)">
+  <Card icon="🌐" title="<a href=&quot;./ai-basics/multimodal-ai/&quot;>多模态 AI</a>">
     能同时处理文本、图像、语音等多种信息类型的 AI
   </Card>
 </CardGrid>
@@ -39,16 +39,16 @@ import { Steps, Tabs, TabItem, CardGrid, Card } from '@astrojs/starlight/compone
 ## ️ 大语言模型（4 个词条）
 
 <CardGrid>
-  <Card icon="" title="[大语言模型（LLM）](./llm/llm/)">
+  <Card title="<a href=&quot;./llm/llm/&quot;>大语言模型（LLM）</a>">
     基于海量文本训练的深度学习语言模型
   </Card>
-  <Card icon="🔤" title="[词元（Token）](./llm/token/)">
+  <Card icon="🔤" title="<a href=&quot;./llm/token/&quot;>词元（Token）</a>">
     大语言模型处理文本的最小语义单元
   </Card>
-  <Card icon="📐" title="[上下文窗口](./llm/context-window/)">
+  <Card icon="📐" title="<a href=&quot;./llm/context-window/&quot;>上下文窗口</a>">
     模型一次能处理的最大文本长度
   </Card>
-  <Card icon="💬" title="[提示词（Prompt）](./llm/prompt/)">
+  <Card icon="💬" title="<a href=&quot;./llm/prompt/&quot;>提示词（Prompt）</a>">
     用户输入给模型的文本指令
   </Card>
 </CardGrid>
@@ -56,16 +56,16 @@ import { Steps, Tabs, TabItem, CardGrid, Card } from '@astrojs/starlight/compone
 ## 🎓 训练与优化（4 个词条）
 
 <CardGrid>
-  <Card icon="✏️" title="[微调](./training/fine-tuning/)">
+  <Card icon="✏️" title="<a href=&quot;./training/fine-tuning/&quot;>微调</a>">
     在预训练模型基础上用领域数据进一步训练
   </Card>
-  <Card icon="🎯" title="[RLHF](./training/rlhf/)">
+  <Card icon="🎯" title="<a href=&quot;./training/rlhf/&quot;>RLHF</a>">
     用人类反馈来优化模型行为的训练方法
   </Card>
-  <Card icon="📦" title="[数据集](./training/dataset/)">
+  <Card icon="📦" title="<a href=&quot;./training/dataset/&quot;>数据集</a>">
     用于训练和评估 AI 模型的结构化数据集合
   </Card>
-  <Card icon="⚙️" title="[算法](./training/algorithm/)">
+  <Card icon="⚙️" title="<a href=&quot;./training/algorithm/&quot;>算法</a>">
     解决特定问题的有限步骤指令序列
   </Card>
 </CardGrid>
@@ -73,19 +73,19 @@ import { Steps, Tabs, TabItem, CardGrid, Card } from '@astrojs/starlight/compone
 ##  技术应用（5 个词条）
 
 <CardGrid>
-  <Card icon="" title="[提示工程](./tech/prompt-engineering/)">
+  <Card title="<a href=&quot;./tech/prompt-engineering/&quot;>提示工程</a>">
     系统性地设计和优化提示词的技术
   </Card>
-  <Card icon="🔗" title="[思维链](./tech/chain-of-thought/)">
+  <Card icon="🔗" title="<a href=&quot;./tech/chain-of-thought/&quot;>思维链</a>">
     引导模型展示推理过程的提示技术
   </Card>
-  <Card icon="🤖" title="[AI Agent](./tech/agent/)">
+  <Card icon="🤖" title="<a href=&quot;./tech/agent/&quot;>AI Agent</a>">
     能自主规划、调用工具、完成复杂任务的 AI 系统
   </Card>
-  <Card icon="📚" title="[检索增强生成（RAG）](./tech/rag/)">
+  <Card icon="📚" title="<a href=&quot;./tech/rag/&quot;>检索增强生成（RAG）</a>">
     将外部知识检索与模型生成相结合的技术
   </Card>
-  <Card icon="🔌" title="[API](./tech/api/)">
+  <Card icon="🔌" title="<a href=&quot;./tech/api/&quot;>API</a>">
     应用程序编程接口，软件系统间的通信契约
   </Card>
 </CardGrid>
