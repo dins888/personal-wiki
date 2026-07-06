@@ -4,6 +4,8 @@ import starlight from '@astrojs/starlight';
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://dins888.github.io',
+  base: '/personal-wiki',
   integrations: [
     starlight({
       title: '个人百科知识库',
