@@ -1,0 +1,100 @@
+---
+title: 大语言模型（LLM）
+description: 基于海量文本训练、拥有数十亿以上参数的深度学习语言模型，能理解、生成和推理自然语言
+version: 1.0
+created: 2026-07-06
+updated: 2026-07-06
+status: confirmed
+consensus: 广泛共识
+category: 技术
+channel: quick
+---
+
+## 定义
+
+大语言模型（Large Language Model，简称 LLM）是一种通过在海量文本数据上训练、拥有数十亿甚至数千亿参数的深度神经网络模型。它能够理解人类语言、生成连贯文本、进行逻辑推理，并在对话、翻译、编程等多种任务中表现出接近甚至超越人类的能力。你可以把它想象成一个"读了整个互联网的书"的超级大脑——你向它提问，它根据阅读积累来回答。
+
+## 英文术语拆解
+
+### 英文全称
+
+| 缩写 | 全称 |
+|------|------|
+| LLM | Large Language Model |
+
+### IPA 音标
+
+| 术语 | IPA 音标 |
+|------|----------|
+| Large | /lɑːrdʒ/ |
+| Language | /ˈlæŋɡwɪdʒ/ |
+| Model | /ˈmɑːdl/ |
+| LLM（整体） | /ˌel el ˈem/ |
+
+### 逐词解释
+
+| 英文 | 词性 | 中文释义 | 在术语中的含义 |
+|------|------|----------|----------------|
+| Large | 形容词 | 大的、规模巨大的 | 强调模型参数规模庞大（通常数十亿以上） |
+| Language | 名词 | 语言 | 指模型处理的对象是自然语言（文本） |
+| Model | 名词 | 模型 | 指通过机器学习训练得到的数学计算框架 |
+
+### 组合理解
+
+三个词组合在一起，表达的核心含义是：**规模足够大**（Large）的、专门处理**自然语言**（Language）的**计算模型**（Model）。"大"是关键——正是参数规模突破一定阈值后，模型才展现出"涌现能力"（Emergent Abilities），如上下文学习、指令跟随和多步推理等小模型不具备的能力 [(Zhao et al., 2023, A Survey of Large Language Models)](https://arxiv.org/pdf/2303.18223v12.pdf)。
+
+## 详细说明
+
+### 核心原理
+
+LLM 的本质是一个**概率预测引擎**：给定一段上下文文本，模型预测下一个最可能出现的词元（Token），然后不断重复这个过程来生成完整的回答。这种"预测下一个词"的机制，看似简单，但当参数规模足够大、训练数据足够多时，模型就能学会语法规则、世界知识甚至推理逻辑 [(Chu et al., 2024, History, Development, and Principles of Large Language Models)](https://arxiv.org/html/2402.06853v2)。
+
+### 架构基础：Transformer
+
+几乎所有现代 LLM 都基于 **Transformer 架构**，该架构于 2017 年由 Google 在论文《Attention is All You Need》中提出。Transformer 的核心创新是**自注意力机制**（Self-Attention），它允许模型在处理每个词时，同时关注句子中所有其他词的关系，从而有效捕捉长距离的语义依赖 [(Vaswani et al., 2017)](https://arxiv.org/abs/1706.03762)。
+
+主流 LLM 架构分为三类：
+
+| 架构类型 | 特点 | 代表模型 |
+|----------|------|----------|
+| Decoder-Only（仅解码器） | 当前主流，专注文本生成 | GPT 系列、LLaMA、Qwen |
+| Encoder-Only（仅编码器） | 擅长文本理解与分类 | BERT |
+| Encoder-Decoder（编码器-解码器） | 适合序列到序列任务 | T5、BART |
+
+### 训练流程
+
+LLM 的训练通常分为三个阶段：
+
+1. **预训练（Pre-training）**：在 PB 级无标注文本上进行自监督学习，目标是"预测下一个词"，使模型掌握语言规律和世界知识。
+2. **监督微调（Supervised Fine-Tuning, SFT）**：用高质量的"指令-回答"对进行训练，让模型学会听懂人类指令。
+3. **人类偏好对齐（RLHF/DPO）**：通过人类反馈的强化学习或直接偏好优化，使模型的回答更安全、更有用、更符合人类价值观。
+
+### 使用场景
+
+- **对话助手**：ChatGPT、文心一言、通义千问等聊天机器人
+- **文本创作**：写文章、写代码、写邮件、写剧本
+- **信息抽取与摘要**：从长文档中提取关键信息
+- **翻译与多语言处理**：跨语言交流与翻译
+- **推理与分析**：数学解题、逻辑分析、方案设计
+
+## 相关概念
+
+- **Token（词元）**：LLM 处理文本的最小单元。所有输入文本先被切分为 Token，模型才能理解和处理。Token 是 LLM 与人类语言之间的桥梁。
+- **Prompt（提示词）**：用户输入给 LLM 的文本指令。Prompt 的质量直接影响 LLM 的输出质量——好的 Prompt 能让模型精准理解你的需求。
+- **Context Window（上下文窗口）**：LLM 单次能处理的最大 Token 数量，相当于模型的"短期工作记忆"。窗口越大，模型能同时参考的信息越多。
+- **Transformer**：LLM 的核心架构，提供自注意力机制来处理长文本。没有 Transformer 就没有现代 LLM。
+- **涌现能力（Emergent Abilities）**：当模型参数规模突破一定阈值后自动出现的能力，如上下文学习和链式推理，是小模型所不具备的。
+
+## 信源
+
+1. **T2** — Zhao, W.X. et al. "A Survey of Large Language Models." arXiv:2303.18223, 2023. [(arxiv)](https://arxiv.org/pdf/2303.18223v12.pdf)
+2. **T2** — Chu, Z. et al. "History, Development, and Principles of Large Language Models—An Introductory Survey." arXiv:2402.06853, 2024. [(arxiv)](https://arxiv.org/html/2402.06853v2)
+3. **T2** — Mhaoide, A. et al. "A Survey of Large Language Models: Evolution, Architectures, Adaptation, Benchmarking, Applications, Challenges, and Societal Implications." Electronics, 14(18):3580, 2025. [(MDPI)](https://www.mdpi.com/2079-9292/14/18/3580)
+4. **T3** — Georgetown Law Technology Review. "Understanding Large Language Models." 2025. [(PDF)](https://georgetownlawtechreview.org/wp-content/uploads/2025/01/Understanding_LLMs_Solberg-2025.pdf)
+5. **T3** — 百度百科. "大语言模型." [(baike)](https://m.baike.com/wiki/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/7313444589142409242)
+
+## 变更记录
+
+| 版本 | 日期 | 变更内容 |
+|------|------|----------|
+| 1.0 | 2026-07-06 | 初始版本：创建 LLM 词条，涵盖定义、术语拆解、原理、架构、训练流程和使用场景 |

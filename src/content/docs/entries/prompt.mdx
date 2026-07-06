@@ -1,0 +1,105 @@
+---
+title: 提示词（Prompt）
+description: 用户输入给大语言模型的文本指令，用于引导模型生成所需的回答或完成特定任务
+version: 1.0
+created: 2026-07-06
+updated: 2026-07-06
+status: confirmed
+consensus: 广泛共识
+category: 技术
+channel: quick
+---
+
+## 定义
+
+提示词（Prompt）是用户输入给大语言模型（LLM）的文本指令，用来告诉模型"你要做什么"和"你该怎么做"。它可以是简单的一句话（如"帮我写一首诗"），也可以是包含角色设定、背景信息、任务要求和输出格式的复杂文本。Prompt 就像是你给 AI 写的"工作说明书"——写得越清楚，AI 的回答越精准。
+
+## 英文术语拆解
+
+### 英文全称
+
+| 术语 | 全称 |
+|------|------|
+| Prompt | Prompt（无缩写扩展，该词本身即为完整术语） |
+
+### IPA 音标
+
+| 术语 | IPA 音标 |
+|------|----------|
+| Prompt | /prɑːmpt/ |
+
+### 逐词解释
+
+| 英文 | 词性 | 中文释义 | 在术语中的含义 |
+|------|------|----------|----------------|
+| Prompt | 形容词/动词/名词 | 迅速的；提示；提示词 | 作为名词，指输入给模型的引导性文本指令 |
+
+> **词源说明**：Prompt 源自拉丁语 *promptus*（准备好的、即时的），在计算机领域引申为"提示、引导输入"。在 LLM 语境中，它从动词"提示"演变为名词"提示词"，强调其作为人机交互核心媒介的角色。
+
+### 组合理解
+
+在 LLM 语境下，Prompt 的核心含义是**"引导模型输出的提示指令"**。这个名字源于 GPT 系列模型的工作方式——模型的核心任务是"补全"（Completion），而用户提供的文本就是"提示"模型该往什么方向补全的信号 [(OpenAI 官方文档)](https://help.openai.com/zh-hans-cn/articles/4936856)。
+
+## 详细说明
+
+### Prompt 的三层结构
+
+现代 LLM 的 Prompt 通常遵循三层结构：
+
+| 层级 | 名称 | 作用 | 示例 |
+|------|------|------|------|
+| 第一层 | System Prompt（系统提示词） | 定义模型身份、行为规则、语气风格 | "你是一位专业医疗顾问，回答严谨、有依据" |
+| 第二层 | User Prompt（用户提示词） | 用户的具体任务请求 | "请解释什么是高血压" |
+| 第三层 | Assistant Prompt（助手回复） | 模型生成的回答 | ——模型输出—— |
+
+System Prompt 相当于 AI 的"出厂设置"，决定了它的角色和行为边界；User Prompt 是用户每次对话的具体需求。两者共同构成完整的 Prompt 输入 [(技术栈)](https://jishuzhan.net/article/1982614381985857538)。
+
+### Prompt 的核心组成要素
+
+一个高质量的 Prompt 通常包含以下要素：
+
+| 要素 | 说明 | 示例 |
+|------|------|------|
+| 角色（Role） | 告诉模型"你是谁" | "你是一位资深 Python 开发者" |
+| 任务（Task） | 告诉模型"做什么" | "编写一个快速排序函数" |
+| 上下文（Context） | 提供背景信息 | "该函数需要处理百万级数据" |
+| 格式（Format） | 指定输出格式 | "以 Markdown 代码块输出，附带中文注释" |
+| 约束（Constraint） | 限制回答范围 | "不超过 200 字" |
+
+### Prompt 的质量差异
+
+同一个需求，不同的 Prompt 写法会产生截然不同的效果：
+
+| 模糊的 Prompt | 清晰的 Prompt |
+|---------------|---------------|
+| "帮我写个排序算法" | "用 Python 写一个快速排序函数，函数名 quick_sort，输入为整数列表，返回排序后的列表，附带中文注释" |
+| "讲讲 AI" | "用 200 字向高中生解释人工智能的三个主要应用领域，语言通俗易懂" |
+| "总结一下" | "请用 3-5 个要点总结以下文章的核心观点，每点不超过 20 字" |
+
+核心原则：**说得越清楚，AI 猜得越准**。AI 不会读心术，模糊的指令只会得到模糊的回答 [(掘金)](https://juejin.cn/post/7642013733049696282)。
+
+### Prompt 与 Token 的关系
+
+Prompt 本身由 Token 构成。Prompt 越长，消耗的 Token 越多，API 调用成本也越高。同时，Prompt 占用上下文窗口的空间，过长的 Prompt 会压缩模型输出和对话历史的空间。因此，好的 Prompt 既要清晰明确，又要简洁高效。
+
+## 相关概念
+
+- **Prompt Engineering（提示工程）**：系统性地设计、优化和迭代 Prompt 的方法论，是 Prompt 从"随意提问"升级为"工程实践"的学科。
+- **Token（词元）**：Prompt 由 Token 构成，Token 数量决定 Prompt 的计费成本和上下文占用。
+- **Context Window（上下文窗口）**：Prompt 存在于上下文窗口中，窗口大小限制了 Prompt + 对话历史 + 模型输出的总 Token 量。
+- **LLM（大语言模型）**：Prompt 是人与 LLM 交互的唯一媒介，是驱动 LLM 行为的核心输入。
+- **System Prompt（系统提示词）**：Prompt 的一种特殊形式，在对话开始时设定模型的角色和行为规则，对整个对话持续生效。
+
+## 信源
+
+1. **T1** — OpenAI Help Center. "What is a Token?" — Prompt 与 Completion 的定义 [(OpenAI官方)](https://help.openai.com/zh-hans-cn/articles/4936856)
+2. **T3** — 掘金. "同样的问题 AI 答得又差又离谱？因为你不会'说话'." 2026. [(掘金)](https://juejin.cn/post/7642013733049696282)
+3. **T3** — 技术栈. "什么是提示词（Prompt），提示词类型、结构解析." 2025. [(技术栈)](https://jishuzhan.net/article/1982614381985857538)
+4. **T3** — CSDN. "万字长文之—学会写提示词." 2026. [(CSDN)](https://blog.csdn.net/u012373815/article/details/162074029)
+5. **T2** — Ekin, S. "Prompt Engineering for ChatGPT: A Quick Guide to Techniques, Tips, and Best Practices." Journal of Engineering Technology, 2026. [(PDF)](https://jet.scholasticahq.com/article/161283.pdf)
+
+## 变更记录
+
+| 版本 | 日期 | 变更内容 |
+|------|------|----------|
+| 1.0 | 2026-07-06 | 初始版本：创建 Prompt 词条，涵盖定义、术语拆解、三层结构、组成要素和质量对比 |

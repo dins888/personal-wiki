@@ -1,0 +1,95 @@
+---
+title: 基于人类反馈的强化学习（RLHF）
+description: 一种通过收集人类偏好反馈来训练奖励模型，再用强化学习优化 AI 模型行为，使其输出更符合人类意图和价值观的技术方法。
+version: 1.0
+created: 2026-07-06
+updated: 2026-07-06
+status: confirmed
+consensus: 广泛共识
+category: 技术
+channel: quick
+---
+
+## 定义
+
+RLHF（Reinforcement Learning from Human Feedback，基于人类反馈的强化学习）是一种将人类偏好引入模型训练的方法。简单来说，就是让人类给 AI 的不同回答"打分"或"排序"，然后让 AI 学习人类更喜欢哪种回答，从而逐渐变得更有帮助、更诚实、更安全。就像训练宠物：不是靠硬编码规则，而是通过"好"和"不好"的反馈来引导行为。
+
+## 英文术语拆解
+
+### 英文全称
+
+| 缩写 | 全称 |
+|------|------|
+| RLHF | Reinforcement Learning from Human Feedback |
+
+### IPA 音标
+
+| 术语 | IPA 音标 |
+|------|----------|
+| Reinforcement | /ˌriːɪnˈfɔːrsmənt/ |
+| Learning | /ˈlɜːnɪŋ/ |
+| from | /frɒm/ |
+| Human | /ˈhjuːmən/ |
+| Feedback | /ˈfiːdbæk/ |
+| RLHF（逐字母读） | /ɑːr el eɪtʃ ef/ |
+
+### 逐词解释
+
+| 英文词 | 词性 | 中文含义 | 在本术语中的含义 |
+|--------|------|----------|------------------|
+| Reinforcement | 名词 | 强化、增强 | 通过奖励信号来强化（鼓励）期望行为 |
+| Learning | 名词 | 学习 | 机器通过试错和反馈来优化策略 |
+| from | 介词 | 来自、从 | 学习的信号来源 |
+| Human | 形容词 | 人类的 | 反馈由人类提供，而非自动设计的奖励函数 |
+| Feedback | 名词 | 反馈 | 人类对模型输出的评价和偏好判断 |
+
+### 组合理解
+
+RLHF = Reinforcement Learning（强化学习）+ from Human Feedback（基于人类反馈）→ 用人类提供的偏好反馈来指导强化学习过程。传统强化学习依赖预先设计的奖励函数，而 RLHF 用人类的判断来替代或补充这个奖励函数，使 AI 的行为更贴近人的真实期望。
+
+## 详细说明
+
+### 核心原理
+
+RLHF 解决的核心问题是"奖励对齐"：AI 模型能力强，但其行为目标不一定与人类意图一致。传统方法难以用规则穷尽"什么是好的回答"，而 RLHF 让人类直接评判，从而将模糊的人类偏好转化为可计算的奖励信号。
+
+### 三阶段训练流程
+
+RLHF 的典型训练流程分为三个阶段：
+
+1. **监督微调（SFT）**：先用人工编写的"指令-回答"对训练基础模型，使其初步学会按要求回答问题。
+2. **奖励模型训练（Reward Model, RM）**：让模型对同一问题生成多个回答，由人类标注者排序偏好；用这些偏好数据训练一个"奖励模型"，使其能自动预测人类偏好。
+3. **强化学习优化（PPO）**：以奖励模型给出的分数作为奖励信号，用 PPO（Proximal Policy Optimization）算法优化主模型。同时加入 KL 散度惩罚，防止模型偏离预训练分布太远。
+
+### 关键技术点
+
+- **偏好建模**：人类标注者不需要给出绝对分数，只需比较"哪个回答更好"，降低了标注难度。
+- **KL 散度约束**：防止模型为追求高分而走向极端（如生成无意义的高分回答），保持与原始模型分布的接近程度。
+- **PPO 算法**：一种稳定、高效的策略梯度强化学习算法，适合大规模语言模型的训练。
+
+### 使用场景
+
+- 使大语言模型更安全、更有帮助（如 ChatGPT、Claude 的对齐训练）
+- 减少模型生成有害、不实或无用的内容
+- 将模型行为与特定用户群体或文化价值观对齐
+- 机器人控制中，将人类直觉偏好融入控制策略
+
+## 相关概念
+
+- **强化学习（Reinforcement Learning, RL）**：RLHF 所属的更大学科框架。传统 RL 依赖设计好的奖励函数，RLHF 则用人类反馈替代。
+- **微调（Fine-tuning）**：RLHF 的第一阶段（SFT）就是监督微调。RLHF 可视为在微调基础上的进一步对齐优化。
+- **对齐（Alignment）**：RLHF 的核心目标——使 AI 系统的行为与人类意图和价值观对齐，是 AI 安全领域的关键课题。
+- **PPO（Proximal Policy Optimization）**：RLHF 第三阶段使用的强化学习算法，保证训练过程稳定、可控。
+- **DPO（Direct Preference Optimization）**：RLHF 的简化替代方案，直接用偏好数据优化模型，跳过奖励模型训练步骤，近年被广泛采用。
+
+## 信源
+
+1. **Ouyang, Long et al. — "Training Language Models to Follow Instructions with Human Feedback"（NeurIPS 2022）** — InstructGPT 论文，RLHF 应用于大语言模型对齐的里程碑工作，详细描述了三阶段训练流程。[T1] https://arxiv.org/abs/2203.02155
+2. **Casper, Stephen et al. — "A Survey of Reinforcement Learning from Human Feedback"（arXiv 2023）** — RLHF 综述论文，系统覆盖 RLHF 的基本原理、算法、反馈类型及跨领域应用。[T1] https://arxiv.org/abs/2312.14925
+3. **NVIDIA Glossary — Autonomous AI Agents** — 从工程实践角度介绍 RLHF 在智能体训练中的作用。[T2] https://www.nvidia.com/en-us/glossary/ai-agents/
+
+## 变更记录
+
+| 版本 | 日期 | 变更内容 |
+|------|------|----------|
+| 1.0 | 2026-07-06 | 初始版本，包含定义、术语拆解、详细说明、相关概念与信源 |

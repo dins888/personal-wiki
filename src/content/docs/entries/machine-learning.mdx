@@ -1,0 +1,96 @@
+---
+title: 机器学习（ML）
+description: 让计算机从数据中自动学习规律并做出预测的技术
+version: 1.0
+created: 2026-07-06
+updated: 2026-07-06
+status: confirmed
+consensus: 广泛共识
+category: 技术
+channel: quick
+---
+
+## 定义
+
+机器学习（Machine Learning，简称 ML）是人工智能的一个子集，它让计算机通过分析数据自动发现规律，从而对新数据做出预测或决策，而无需人类为每一种情况手动编写规则。简单来说，就是**让机器从经验（数据）中学习，而不是靠人一条条教规则**。
+
+## 英文术语拆解
+
+### 英文全称
+
+| 缩写 | 全称 |
+|------|------|
+| ML | Machine Learning |
+
+| 全称部分 | IPA 音标 |
+|----------|----------|
+| Machine | /məˈʃiːn/ |
+| Learning | /ˈlɜːrnɪŋ/ |
+
+### 逐词解释
+
+| 英文 | 词性 | 中文释义 | 在术语中的含义 |
+|------|------|----------|----------------|
+| Machine | 名词 | 机器 | 计算机/算法系统 |
+| Learning | 名词 | 学习 | 从数据中获取规律的过程 |
+
+### 组合理解
+
+**Machine + Learning = 机器 + 学习**：让机器（计算机）像人一样拥有"学习"的能力——通过观察大量数据中的模式，自动归纳出规律，并用这些规律来处理新问题。
+
+## 详细说明
+
+### 核心内容
+
+机器学习与传统编程的根本区别在于问题解决范式：
+
+| 维度 | 传统编程 | 机器学习 |
+|------|----------|----------|
+| 输入 | 规则 + 数据 | 数据 + 结果 |
+| 输出 | 结果 | 规则 |
+| 特点 | 人类编写规则 | 算法自动发现规则 |
+
+经典的形式化定义来自卡内基梅隆大学的 Tom Mitchell 教授（1997）：*"假设用 P 来评估一个计算机程序在某个特定任务 T 上的表现。如果一个程序通过利用经验 E 来提升在任务 T 上的性能 P，那么就可以说这个程序正在对经验 E 进行学习。"* [(Tom Mitchell, Machine Learning, 1997)](https://m.baike.com/wiki/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/337489)
+
+### 三大学习范式
+
+1. **监督学习（Supervised Learning）**：使用带标签的数据训练模型，学习输入到输出的映射。例如：给模型看标注好"猫""狗"的图片，让它学会分类
+2. **无监督学习（Unsupervised Learning）**：在没有标签的数据中发现隐藏结构。例如：将客户自动分群
+3. **强化学习（Reinforcement Learning）**：通过"试错+奖励"的方式学习最优策略。例如：AlphaGo 下围棋
+
+### 历史起源
+
+"机器学习"一词由 IBM 的 Arthur Samuel 于 1959 年在其论文 *"Some Studies in Machine Learning Using the Game of Checkers"* 中首次提出。他将机器学习定义为"在不直接针对问题进行编程的情况下，赋予计算机学习能力的研究领域" [(IBM)](https://www.ibm.com/think/topics/machine-learning)。
+
+### 使用场景
+
+- **垃圾邮件过滤**：学习邮件特征，自动识别垃圾邮件
+- **推荐系统**：分析用户行为，推荐可能感兴趣的内容
+- **欺诈检测**：识别异常交易模式，防范金融欺诈
+- **医疗诊断**：从病历数据中学习，辅助疾病判断
+- **自动驾驶**：从海量驾驶数据中学习，实现安全行驶
+
+## 相关概念
+
+| 概念 | 关系 |
+|------|------|
+| 人工智能（AI） | ML 的父集，ML 是实现 AI 的核心方法 |
+| 深度学习（Deep Learning） | ML 的子集，使用多层神经网络的 ML 方法 |
+| 神经网络（Neural Network） | ML 的一种重要模型结构，是深度学习的基础 |
+| 数据科学（Data Science） | 与 ML 密切相关的学科，ML 可视为数据科学的算法工具集 |
+| 特征工程（Feature Engineering） | ML 的关键环节，将原始数据转化为模型可用的特征 |
+
+## 信源
+
+| 等级 | 来源 | 说明 | 链接 |
+|------|------|----------|------|
+| T1 | IBM | "Machine learning is the subset of artificial intelligence (AI) focused on algorithms that can 'learn' the patterns of training data and, subsequently, make accurate inferences about new data." | https://www.ibm.com/think/topics/machine-learning |
+| T2 | ISO | "ML is a type of artificial intelligence that allows machines to learn from data without being explicitly programmed." | https://www.iso.org/cms/live/live/en/sites/isoorg/contents/news/insights/AI/machine-learning-need-to-know.html |
+| T2 | Stanford HAI | "Machine Learning (ML) is the part of AI studying how computer agents can improve their perception, knowledge, thinking, or actions based on experience or data."（2020） | https://hai.stanford.edu/sites/default/files/2020-09/AI-Definitions-HAI.pdf |
+| T3 | Databricks | "Machine learning (ML) is a subset of artificial intelligence (AI) that enables systems to learn from data rather than relying on explicit programming." | https://www.databricks.com/blog/machine-learning |
+
+## 变更记录
+
+| 版本 | 日期 | 变更内容 |
+|------|------|----------|
+| 1.0 | 2026-07-06 | 初始版本，完成词条撰写 |

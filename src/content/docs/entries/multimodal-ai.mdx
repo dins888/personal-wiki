@@ -1,0 +1,110 @@
+---
+title: 多模态AI（Multimodal AI）
+description: 能够同时处理和整合多种数据类型（如文本、图像、音频）的人工智能系统
+version: 1.0
+created: 2026-07-06
+updated: 2026-07-06
+status: confirmed
+consensus: 广泛共识
+category: 技术
+channel: quick
+---
+
+## 定义
+
+多模态AI（Multimodal AI）是指能够同时处理、理解和整合多种数据类型（即"模态"，Modality）信息的AI系统。这些模态可以包括文本、图像、音频、视频和其他形式的感官输入。与只能处理单一数据类型的传统AI模型不同，多模态AI能够像人类一样综合多种感知信息来获得更全面的理解并生成更可靠的输出。
+
+## 英文术语拆解
+
+### 英文全称
+
+| 英文 | 含义 |
+|------|------|
+| Multi | 多、多种 |
+| Modal | 模态的、模式的 |
+| AI | 人工智能 |
+
+### IPA 音标
+
+- **Multi**: /ˈmʌlti/
+- **Modal**: /ˈmoʊdl/
+- **AI**: /ˌeɪˈaɪ/
+
+### 逐词解释
+
+| 单词 | 词源 | 中文解释 |
+|------|------|----------|
+| Multi | 拉丁语 *multus*（多的） | 多、多种；表示数量上的多样性和丰富性 |
+| Modal | 拉丁语 *modus*（方式、模式） | 模态的；指数据的存在形式或感知方式，如文本、图像、声音各为一种模态 |
+| AI | Artificial Intelligence 的缩写 | 人工智能；使计算机模拟人类智能行为的技术领域 |
+
+### 组合理解
+
+"Multimodal AI" 字面含义为"多模态的人工智能"。"模态"（Modality）一词在AI语境中指数据的类型或形式——文本是一种模态，图像是另一种，音频、视频又各是一种模态。"多模态"意味着系统能够跨越不同模态之间的鸿沟，在统一的框架中理解和关联不同形式的信息。这正如人类同时运用视觉、听觉和语言来理解世界，多模态AI追求的正是这种综合感知能力。
+
+## 详细说明
+
+### 核心原理
+
+多模态AI的工作流程通常包含四个阶段：
+
+1. **输入处理**：接收不同类型的数据输入（文本、图像、音频等），每种模态由专门的编码器处理。
+
+2. **编码（Encoding）**：将各模态的原始数据转换为嵌入向量（Embedding），即数值化的语义表示。文本通过Transformer语言模型编码，图像通过Vision Transformer（ViT）或CNN编码，音频通常转为频谱图后编码。
+
+3. **融合（Fusion）**：将不同模态的嵌入向量对齐或融合到共享的表示空间中。融合策略分为三种：
+   - **早期融合（Early Fusion）**：在模型处理之前就将各模态数据合并
+   - **中期融合（Mid-level Fusion）**：通过跨注意力机制（Cross-attention）在中间层交互
+   - **晚期融合（Late Fusion）**：各模态独立处理后仅在决策层合并
+
+4. **推理与生成（Reasoning & Generation）**：在融合的多模态表示上进行推理，生成文本、图像或其他形式的输出。[(IBM - What is Multimodal AI)](https://www.ibm.com/think/topics/multimodal-ai)
+
+### 关键技术
+
+- **对比学习（Contrastive Learning）**：CLIP模型使用对比损失将匹配的图文对在嵌入空间中拉近，不匹配的推远，实现跨模态对齐。
+- **跨注意力机制（Cross-attention）**：让一种模态（如文本）直接"关注"另一种模态（如图像）的特征，实现细粒度的跨模态交互。
+- **原生多模态（Native Multimodality）**：将所有模态数据映射到同一个共享向量空间中，无需在独立模型之间"翻译"，实现更深层的跨模态理解。[(IBM Technology)](https://gln75.com/en/blog/how-multimodal-ai-works)
+
+### 三大特征
+
+根据卡内基梅隆大学2022年的论文，多模态AI具有三大特征：[(Liang et al., 2022)](https://arxiv.org/abs/2209.03430)
+
+1. **异构性（Heterogeneity）**：不同模态在品质、结构和表示上存在本质差异
+2. **连接性（Connections）**：不同模态之间存在互补信息，可能体现在统计相似性或语义对应中
+3. **交互性（Interactions）**：不同模态组合在一起时会产生新的交互模式
+
+### 典型应用
+
+- **GPT-4V/GPT-4o**：接受文本和图像输入，生成文本回答
+- **DALL·E / Midjourney**：根据文本描述生成图像
+- **自动驾驶**：融合摄像头视频、激光雷达、雷达等多传感器数据
+- **医疗诊断**：结合医学影像和临床文本进行综合诊断
+- **虚拟助手**：同时理解语音指令和视觉场景
+
+## 相关概念
+
+- **基础模型（Foundation Model）**：多模态AI的底层支撑。当前最先进的多模态AI系统（如GPT-4V、Gemini）本质上是在基础模型架构上扩展多模态能力。
+
+- **单模态AI（Unimodal AI）**：只处理一种数据类型的AI模型。传统的大多数AI系统（如纯文本ChatGPT、纯图像分类器）都是单模态的。多模态AI是单模态AI的进阶和扩展。
+
+- **模态对齐（Modality Alignment）**：将不同模态的数据映射到共享语义空间的过程，是多模态AI的核心技术挑战。对比学习（如CLIP）是当前主流的对齐方法。
+
+- **跨模态推理（Cross-modal Reasoning）**：利用来自多个模态的证据进行综合推理的能力，例如同时分析图像内容和文本问题来生成答案，是多模态AI区别于单模态AI的关键能力。
+
+- **数据融合（Data Fusion）**：将多种来源的数据合并处理的技术，在多模态AI中体现为早期融合、中期融合和晚期融合三种策略。
+
+## 信源
+
+1. **T1** — IBM, "What is Multimodal AI?", 官方技术文档. [(IBM)](https://www.ibm.com/think/topics/multimodal-ai)
+
+2. **T1** — Liang et al., "Multimodal AI: Heterogeneity, Connections, Interactions", Carnegie Mellon University, arXiv:2209.03430, 2022年9月. [(arXiv)](https://arxiv.org/abs/2209.03430)
+
+3. **T2** — IEEE Computer Society, "Demystifying Multi-Modal AI", 2025年6月. [(IEEE Computer Society)](https://www.computer.org/publications/tech-news/trends/demystifying-multi-modal-ai)
+
+4. **T3** — IBM Technology, "How Multimodal AI Actually Works", 2026年4月. [(IBM Technology)](https://gln75.com/en/blog/how-multimodal-ai-works)
+
+## 变更记录
+
+| 版本 | 日期 | 变更内容 |
+|------|------|----------|
+| 1.0 | 2026-07-06 | 初始版本，包含定义、术语拆解、详细说明、相关概念与信源 |

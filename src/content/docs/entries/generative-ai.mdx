@@ -1,0 +1,120 @@
+---
+title: 生成式AI（GenAI）
+description: 能够根据提示创造全新内容的人工智能技术
+version: 1.0
+created: 2026-07-06
+updated: 2026-07-06
+status: confirmed
+consensus: 广泛共识
+category: 技术
+channel: quick
+---
+
+## 定义
+
+生成式 AI（Generative AI，简称 GenAI）是人工智能的一个分支，能够根据用户的提示（Prompt）创造出全新的内容，包括文本、图像、音频、视频和代码等。与传统的"分析型 AI"（如分类、检测）不同，生成式 AI 的核心能力是**创造而非判断**——它不只是告诉你"这是什么"，而是能"无中生有"地生成从未存在过的内容。
+
+## 英文术语拆解
+
+### 英文全称
+
+| 缩写 | 全称 |
+|------|------|
+| GenAI | Generative AI / Generative Artificial Intelligence |
+
+| 全称部分 | IPA 音标 |
+|----------|----------|
+| Generative | /ˈdʒenərətɪv/ |
+| Artificial | /ˌɑːrtɪˈfɪʃəl/ |
+| Intelligence | /ɪnˈtelɪdʒəns/ |
+
+### 逐词解释
+
+| 英文 | 词性 | 中文释义 | 在术语中的含义 |
+|------|------|----------|----------------|
+| Generative | 形容词 | 生成的、产生的 | 具有生成新内容的能力 |
+| Artificial | 形容词 | 人工的 | 由人类技术创造的 |
+| Intelligence | 名词 | 智能 | 学习和推理的能力 |
+
+### 组合理解
+
+**Generative + AI = 生成式 + 人工智能**：能够"生成"新内容的人工智能。关键词在于"生成（Generative）"——不是对已有数据做分析判断，而是基于学习到的模式创造出全新的、从未见过的内容。就像一个画家看过很多风景画后，能画出一幅全新的风景画——这幅画不是对任何一幅画的复制，而是对"风景"这一概念的创造性表达。
+
+## 详细说明
+
+### 核心内容
+
+生成式 AI 的工作原理可以概括为三步：
+
+1. **训练（Training）**：在海量数据上训练一个深度学习模型（称为基础模型/Foundation Model），让它学习数据中的模式和规律
+2. **微调（Tuning）**：根据特定应用需求，对基础模型进行调整优化
+3. **生成（Generation）**：用户给出提示（Prompt），模型基于学到的模式生成全新内容
+
+IBM 定义：*"生成式 AI 是能够根据用户提示创建原创内容（如文本、图像、视频、音频或软件代码）的人工智能。"* [(IBM)](https://www.ibm.com/think/topics/generative-ai)
+
+OECD 定义：*"一种能够根据用户提示创建内容（包括文本、图像、音频或视频）的技术。"* [(WIPO/OECD)](https://www.wipo.int/web-publications/patent-landscape-report-generative-artificial-intelligence-genai/en/1-generative-ai-the-main-concepts.html)
+
+### 关键特征
+
+| 特征 | 说明 |
+|------|------|
+| 创造性 | 生成全新的、不存在于训练数据中的内容 |
+| 多模态 | 可以处理和生成文本、图像、音频、视频等多种形式 |
+| 交互性 | 通过自然语言提示即可使用，无需编程技能 |
+| 涌现性 | 大规模模型可能展现出训练时未明确教授的能力 |
+
+### 核心模型类型
+
+| 模型类型 | 原理 | 代表应用 |
+|----------|------|----------|
+| 大语言模型（LLM） | 基于 Transformer，生成文本 | ChatGPT、Claude |
+| 扩散模型（Diffusion Model） | 从噪声逐步去噪生成图像 | Stable Diffusion、DALL·E |
+| 生成对抗网络（GAN） | 生成器与判别器对抗训练 | 早期图像生成 |
+| 多模态模型 | 同时理解多种数据类型 | GPT-4o、Gemini |
+
+### 里程碑事件
+
+- **2014 年**：Ian Goodfellow 提出生成对抗网络（GAN），开创深度生成模型时代
+- **2022 年**：ChatGPT 发布，生成式 AI 进入大众视野，引发全球关注
+- **2023 年**：生成式人工智能入选"2023 年度十大科技名词" [(百度百科)](https://m.baike.com/wiki/%E7%94%9F%E6%88%90%E5%BC%8F%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/7301937455015968809)
+- **2024 年**：Gartner 预测超过 80% 的组织将在 2026 年前部署生成式 AI 应用 [(IBM/Gartner)](https://www.ibm.com/think/topics/generative-ai)
+
+### 使用场景
+
+- **文本创作**：写文章、写代码、翻译、摘要
+- **图像生成**：AI 绘画、设计辅助、图像编辑
+- **音视频**：音乐创作、视频生成、配音
+- **商业应用**：客服自动化、营销内容生成、数据分析报告
+- **教育科研**：个性化学习、论文辅助、知识问答
+
+### 局限与风险
+
+- **幻觉（Hallucination）**：可能生成看似合理但实际错误的内容
+- **偏见（Bias）**：训练数据中的偏见可能被放大
+- **版权争议**：生成内容的版权归属尚存法律争议
+- **安全风险**：可能被用于生成虚假信息或深度伪造（Deepfake）
+
+## 相关概念
+
+| 概念 | 关系 |
+|------|------|
+| 深度学习（Deep Learning） | GenAI 的技术基础，GenAI 依靠深度学习模型实现内容生成 |
+| 大语言模型（LLM） | GenAI 的核心模型类型之一，专注于文本生成 |
+| 扩散模型（Diffusion Model） | GenAI 的核心模型类型之一，主要用于图像生成 |
+| 提示工程（Prompt Engineering） | 与 GenAI 交互的关键技能，通过优化提示获得更好的生成效果 |
+| 基础模型（Foundation Model） | GenAI 的底层架构，在大规模数据上预训练的通用模型 |
+
+## 信源
+
+| 等级 | 来源 | 说明 | 链接 |
+|------|------|----------|------|
+| T1 | IBM | "Generative AI is artificial intelligence (AI) that can create original content such as text, images, video, audio or software code in response to a user's prompt or request." | https://www.ibm.com/think/topics/generative-ai |
+| T1 | NVIDIA | "Generative AI enables users to quickly generate new content based on a variety of inputs. Inputs and outputs to these models can include text, images, sounds, animation, 3D models, or other types of data." | https://www.nvidia.com/en-us/glossary/data-science/generative-ai/ |
+| T2 | WIPO/OECD | OECD 定义 GenAI 为 "a technology that can create content, including text, images, audio, or video, when prompted by a user" | https://www.wipo.int/web-publications/patent-landscape-report-generative-artificial-intelligence-genai/en/1-generative-ai-the-main-concepts.html |
+| T2 | 欧盟 AI 法案 | EU defines GenAI as a specific subset of foundation models "specifically intended to generate, with varying levels of autonomy, content such as complex text, images, audio or video."（2023） | https://www.wipo.int/web-publications/patent-landscape-report-generative-artificial-intelligence-genai/en/1-generative-ai-the-main-concepts.html |
+
+## 变更记录
+
+| 版本 | 日期 | 变更内容 |
+|------|------|----------|
+| 1.0 | 2026-07-06 | 初始版本，完成词条撰写 |

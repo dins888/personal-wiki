@@ -1,0 +1,104 @@
+---
+title: 基础模型（Foundation Model）
+description: 在大规模广泛数据上训练、可适配多种下游任务的AI模型
+version: 1.0
+created: 2026-07-06
+updated: 2026-07-06
+status: confirmed
+consensus: 广泛共识
+category: 技术
+channel: quick
+---
+
+## 定义
+
+基础模型（Foundation Model）是一种在大规模广泛数据上训练（通常使用自监督学习）、可以适配到多种下游任务的AI模型。它就像一栋大楼的地基——本身不是最终产品，但为各种上层应用提供了通用的知识基础，开发者可以通过微调（Fine-tuning）、提示（Prompting）等方式在其上构建具体应用。
+
+## 英文术语拆解
+
+### 英文全称
+
+| 英文 | 含义 |
+|------|------|
+| Foundation | 基础、地基 |
+| Model | 模型 |
+
+### IPA 音标
+
+- **Foundation**: /faʊnˈdeɪʃən/
+- **Model**: /ˈmɒdl/（英）/ˈmɑːdl/（美）
+
+### 逐词解释
+
+| 单词 | 词源 | 中文解释 |
+|------|------|----------|
+| Foundation | 拉丁语 *fundatio*（建立、奠基） | 基础、根基；指建筑的地基部分，引申为事物赖以建立的根本 |
+| Model | 拉丁语 *modulus*（小尺度、标准） | 模型；对现实世界的数学或计算抽象，用于描述和预测现象 |
+
+### 组合理解
+
+"Foundation Model" 强调的是该模型的**功能性角色**——它如同建筑的地基，是最先建造的部分，自身并不完整，需要在其上进行后续建设才能发挥作用。"Foundation"（而非 "Foundational"）一词是有意选择的，避免暗示这些模型提供了AI的基本原理，而是强调它们作为基础设施被广泛复用的定位。该术语由斯坦福大学以人为本AI研究所（HAI）的基础模型研究中心（CRFM）于2021年8月正式提出。
+
+## 详细说明
+
+### 核心特征
+
+基础模型具有以下关键特征：
+
+1. **大规模广泛数据训练**：基础模型在海量、多样化的数据上进行预训练，数据规模通常达到网页级（web-scale），涵盖文本、图像、音频、代码等多种类型。训练数据远超任何单一下游任务所需。[(Stanford CRFM Report, 2021)](https://arxiv.org/abs/2108.07258)
+
+2. **自监督学习**：训练过程通常不需要人工标注的标签，而是通过自监督目标（如下一个词元预测、遮蔽词元预测、对比学习等）从数据本身学习模式。这极大降低了对标注数据的依赖。[(Stanford HAI - Reflections on Foundation Models, 2021)](https://hai.stanford.edu/news/reflections-foundation-models)
+
+3. **可适配性（Adaptability）**：预训练完成后，同一个模型可以通过微调（Fine-tuning）、提示工程（Prompt Engineering）、蒸馏（Distillation）等方式适配到多种下游任务，无需从头训练新模型。
+
+4. **涌现能力（Emergence）**：随着模型规模增大，某些能力会自发涌现，而非被显式编程。例如大语言模型在参数规模达到一定程度后展现出少样本学习、链式推理等未预期到的能力。[(Stanford CRFM Report, 2021)](https://arxiv.org/abs/2108.07258)
+
+5. **同质化（Homogenization）**：少数基础模型被反复复用为众多应用的基础，形成技术栈的收敛。这既是优势（集中改进可惠及众多下游应用），也是风险（单一故障点可辐射影响无数下游系统）。[(Stanford HAI - Reflections on Foundation Models, 2021)](https://hai.stanford.edu/news/reflections-foundation-models)
+
+### 典型示例
+
+- **语言类**：GPT系列（OpenAI）、BERT（Google）、LLaMA（Meta）
+- **视觉类**：DALL·E、Stable Diffusion（图像生成）
+- **多模态类**：CLIP（图文对齐）、GPT-4V（图文理解）
+- **专业领域**：AlphaFold（蛋白质结构预测）、Whisper（语音识别）
+
+### 基础模型 vs 大语言模型
+
+所有大语言模型（LLM）都是基础模型，但并非所有基础模型都是LLM。基础模型是更广泛的概念，涵盖了语言、视觉、语音、蛋白质等多种模态。LLM强调的是训练方式和规模（大型文本语料、语言建模目标），而基础模型强调的是功能角色（作为下游应用的基础）。[(Stanford HAI - Reflections on Foundation Models, 2021)](https://hai.stanford.edu/news/reflections-foundation-models)
+
+### 发展历程
+
+基础模型的范式并非凭空出现，其历史可追溯至：
+- 2012年：AlexNet 在 ImageNet 上的监督预训练，开创了深度学习迁移范式
+- 2013年：Word2Vec 展示了自监督词嵌入的跨任务复用能力
+- 2018年：ELMo、GPT、BERT 相继发布，确立了"预训练+微调"的工作流
+- 2020年：GPT-3 展示了大模型的零样本和少样本能力
+- 2021年：斯坦福CRFM正式提出"Foundation Model"术语
+
+## 相关概念
+
+- **大语言模型（LLM）**：基础模型的子集，专注于文本模态。所有LLM都是基础模型，但基础模型还包括视觉、语音等其他模态的模型。两者强调的维度不同：LLM强调训练方式和规模，基础模型强调功能角色。
+
+- **预训练（Pretraining）**：基础模型生命周期的第一阶段，在大规模数据上通过自监督学习获取通用知识。预训练是基础模型之所以成为"基础"的核心环节。
+
+- **微调（Fine-tuning）**：在预训练基础模型上使用特定任务的标注数据进行进一步训练，使模型适配具体应用场景。这是基础模型适配下游任务的主要方式之一。
+
+- **迁移学习（Transfer Learning）**：将一个领域学到的知识应用到另一个领域的机器学习范式。基础模型是迁移学习在大规模深度学习时代的最成功实践。
+
+- **Transformer**：当前绝大多数基础模型采用的核心神经网络架构，由Vaswani等人于2017年提出，以其自注意力机制实现了高效的并行序列建模。
+
+## 信源
+
+1. **T1** — Stanford CRFM, Bommasani et al., "On the Opportunities and Risks of Foundation Models", arXiv:2108.07258, 2021年8月. [(arXiv)](https://arxiv.org/abs/2108.07258)
+
+2. **T1** — Stanford HAI, "Reflections on Foundation Models", 2021年10月. [(Stanford HAI)](https://hai.stanford.edu/news/reflections-foundation-models)
+
+3. **T2** — HandWiki, "Foundation Model", 2026年3月修订. [(HandWiki)](https://handwiki.org/wiki/Organization:Foundation_model)
+
+4. **T3** — Merriam-Webster Dictionary, "Algorithm" etymology reference; 同源方法论参考. [(Merriam-Webster)](https://www.merriam-webster.com/dictionary/algorithm)
+
+## 变更记录
+
+| 版本 | 日期 | 变更内容 |
+|------|------|----------|
+| 1.0 | 2026-07-06 | 初始版本，包含定义、术语拆解、详细说明、相关概念与信源 |

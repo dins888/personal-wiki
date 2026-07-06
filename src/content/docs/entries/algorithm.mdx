@@ -1,0 +1,113 @@
+---
+title: 算法（Algorithm）
+description: 解决特定问题的一系列明确、有限的步骤规则
+version: 1.0
+created: 2026-07-06
+updated: 2026-07-06
+status: confirmed
+consensus: 广泛共识
+category: 技术
+channel: quick
+---
+
+## 定义
+
+算法（Algorithm）是解决特定问题或完成特定任务的一系列明确、有限的步骤规则。在计算机科学中，算法是一种精确的计算过程描述——它接收输入数据，经过一系列定义明确的操作步骤，最终产生输出结果。算法独立于任何具体的编程语言，是逻辑步骤的抽象表达。
+
+## 英文术语拆解
+
+### 英文全称
+
+| 英文 | 含义 |
+|------|------|
+| Algorithm | 算法 |
+
+### IPA 音标
+
+- **Algorithm**: /ˈælɡəˌrɪðəm/（美式）
+
+### 逐词解释
+
+| 单词 | 词源 | 中文解释 |
+|------|------|----------|
+| Al- | 阿拉伯语定冠词 *al-*（the） | 阿拉伯语中的定冠词，相当于英语的"the" |
+| -gorithm | 阿拉伯语 *al-Khwārizmī*（花剌子模人） | 源自9世纪波斯数学家穆罕默德·伊本·穆萨·花剌子密（Muḥammad ibn Mūsā al-Khwārizmī）的名字，他是代数学的奠基人之一 |
+
+### 组合理解
+
+"Algorithm"一词源自9世纪波斯数学家花剌子密（Al-Khwārizmī）的名字的拉丁化形式。花剌子密在其著作中系统化了代数解法，他的名字进入中世纪拉丁语后变为 *algorismus*，最初指"使用阿拉伯数字进行计算的方法"。后来受到古希腊语 *arithmós*（数字）的影响，发音从 *algorismus* 演变为 *algorithm*。现代意义上的"算法"一词最早出现于1926年，用来指代任何有限步骤的问题求解过程。[(Merriam-Webster - Algorithm)](https://www.merriam-webster.com/dictionary/algorithm) [(Wiktionary - Algorithm)](https://zh.m.wiktionary.org/zh/algorithm)
+
+## 详细说明
+
+### 算法的五大特性
+
+根据计算机科学的经典定义，一个合格的算法应具备以下特性：
+
+1. **有限性（Finiteness）**：算法必须在有限步骤内终止，不能无限执行
+2. **确定性（Definiteness）**：每一步的描述必须明确无歧义，不存在模糊的指令
+3. **输入（Input）**：有零个或多个输入，即算法开始前给定的初始量
+4. **输出（Output）**：至少有一个输出，即算法执行后产生的结果
+5. **有效性（Effectiveness）**：每一步都必须是可执行的，能在有限时间内完成
+
+### 日常类比
+
+理解算法最简单的方式是将其类比为**菜谱**：
+- 菜谱的食材清单 = 算法的输入
+- 菜谱的步骤说明 = 算法的处理过程
+- 做好的菜 = 算法的输出
+
+与菜谱不同的是，算法的每一步必须完全精确、无歧义，且保证能在有限步骤内完成。
+
+### 算法效率与复杂度
+
+衡量算法好坏的核心指标是效率，通常用**大O记号（Big-O Notation）**来描述：
+
+| 复杂度 | 名称 | 含义 |
+|--------|------|------|
+| O(1) | 常数时间 | 无论数据多大，执行时间不变 |
+| O(log n) | 对数时间 | 数据翻倍只需增加常数步 |
+| O(n) | 线性时间 | 执行时间与数据量成正比 |
+| O(n log n) | 线性对数时间 | 高效排序算法的典型复杂度 |
+| O(n²) | 二次时间 | 数据翻倍，时间变为4倍 |
+| O(2ⁿ) | 指数时间 | 数据稍增，时间爆炸式增长 |
+
+[(Princeton COS109 - Algorithms)](https://www.cs.princeton.edu/courses/archive/fall21/cos109/05algs.pdf)
+
+### 常见算法类型
+
+- **排序算法**：如快速排序（Quicksort）、归并排序（Merge Sort），将数据按特定顺序排列
+- **搜索算法**：如二分查找（Binary Search），在有序数据中高效定位目标
+- **图算法**：如Dijkstra最短路径算法，用于导航、网络路由等
+- **机器学习算法**：如梯度下降（Gradient Descent）、反向传播（Backpropagation），是AI训练的核心
+
+### 算法在AI中的角色
+
+在AI领域，算法是模型训练和推理的引擎。例如，梯度下降算法决定了模型如何从错误中学习并更新参数，注意力算法（Attention Mechanism）使Transformer能够捕捉序列中的长距离依赖关系。
+
+## 相关概念
+
+- **数据结构（Data Structure）**：组织和存储数据的方式，与算法密不可分。选择合适的数据结构往往决定了算法的效率。常见搭配如：哈希表+查找算法、图+最短路径算法。
+
+- **模型（Model）**：AI中，模型是算法在数据上运行后的产物——它包含了算法从数据中学到的模式和参数。算法是"学习方法"，模型是"学习成果"。
+
+- **复杂度（Complexity）**：衡量算法效率的理论框架，包括时间复杂度（执行速度）和空间复杂度（内存消耗），是评价和选择算法的核心标准。
+
+- **启发式方法（Heuristic）**：不保证最优解但在实践中有效的近似算法策略。当精确算法计算代价过高时，启发式方法提供可接受的折中方案。
+
+- **伪代码（Pseudocode）**：用自然语言和编程结构的混合形式描述算法，不依赖任何具体编程语言的语法，是表达算法逻辑的标准方式。
+
+## 信源
+
+1. **T1** — Merriam-Webster Dictionary, "Algorithm", 含词源与定义. [(Merriam-Webster)](https://www.merriam-webster.com/dictionary/algorithm)
+
+2. **T1** — Wiktionary, "Algorithm", 含IPA音标与词源详解. [(Wiktionary)](https://zh.m.wiktionary.org/zh/algorithm)
+
+3. **T2** — Princeton University, COS109 Lecture 7: Algorithms, 2021年秋季. [(Princeton)](https://www.cs.princeton.edu/courses/archive/fall21/cos109/05algs.pdf)
+
+4. **T2** — Cormen, Leiserson, Rivest, and Stein, "Introduction to Algorithms" (CLRS), MIT Press, 经典算法教材.
+
+## 变更记录
+
+| 版本 | 日期 | 变更内容 |
+|------|------|----------|
+| 1.0 | 2026-07-06 | 初始版本，包含定义、术语拆解、详细说明、相关概念与信源 |

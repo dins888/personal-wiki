@@ -1,0 +1,131 @@
+---
+title: 应用程序接口（API）
+description: 允许不同软件应用程序之间相互通信和交换数据的规则与协议集合
+version: 1.0
+created: 2026-07-06
+updated: 2026-07-06
+status: confirmed
+consensus: 广泛共识
+category: 技术
+channel: quick
+---
+
+## 定义
+
+API（应用程序接口，Application Programming Interface）是一组规则和协议，允许不同的软件应用程序之间相互通信和交换数据、功能与服务。API定义了一个软件组件可以被其他组件调用的方式——你能请求什么、需要提供什么信息、会得到什么响应——而无需了解其内部实现细节。简单来说，API是软件之间的"中间人"和"合同"。
+
+## 英文术语拆解
+
+### 英文全称
+
+| 英文 | 含义 |
+|------|------|
+| Application | 应用程序 |
+| Programming | 编程 |
+| Interface | 接口 |
+
+### IPA 音标
+
+- **Application**: /ˌæplɪˈkeɪʃən/
+- **Programming**: /ˈproʊɡræmɪŋ/
+- **Interface**: /ˈɪntərfeɪs/
+- **API**: /ˌeɪˌpiːˈaɪ/
+
+### 逐词解释
+
+| 单词 | 词源 | 中文解释 |
+|------|------|----------|
+| Application | 拉丁语 *applicatio*（连接、附着） | 应用程序；具有特定功能的软件，如手机App、网站后端服务 |
+| Programming | 希腊语 *programma*（事先写好的内容）→ 英语 *program* | 编程；开发者通过编写代码来使用API，发出请求并处理响应 |
+| Interface | 拉丁语 *inter*（之间）+ *facies*（面、外观） | 接口；两个系统之间的交互边界和接触面，定义了它们如何"对话" |
+
+### 组合理解
+
+"Application Programming Interface" 三个词的组合含义为"面向应用程序编程的接口"。核心词是"Interface"（接口）——它规定了两个软件系统在何处相接、如何交互。"Application"限定了使用场景是软件应用之间，"Programming"强调这是通过编写代码来使用的，而非人类直接操作的界面。API的实质是一份"服务合同"：提供方承诺按照接口规范响应请求，使用方按照规范发起调用，双方不需要了解彼此的内部实现。该术语最早可追溯至1968年，Roy Fielding在2000年的博士论文中提出的REST架构则塑造了现代Web API的标准模型。[(api7.ai - What Does API Mean)](https://api7.ai/ko/blog/what-does-api-mean-in-tech)
+
+## 详细说明
+
+### 工作原理：请求-响应模型
+
+API的通信遵循**客户端-服务器（Client-Server）**模型：
+
+1. **客户端发送请求**：包含HTTP方法（GET/POST/PUT/DELETE）、端点URL、请求头（如认证信息）和可选的请求体
+2. **服务器处理请求**：验证输入、执行业务逻辑、查询数据库或调用其他服务
+3. **服务器返回响应**：包含状态码（如200成功、404未找到、500服务器错误）、响应头和响应体（通常为JSON格式数据）
+
+### 日常类比：餐厅
+
+理解API最直观的方式是想象一家餐厅：
+- 你（客户端）看菜单（API文档）
+- 你向服务员点餐（发送API请求）
+- 厨房（服务器）做菜（处理请求）
+- 服务员把菜端给你（返回API响应）
+
+你不需要进厨房，不需要知道菜的做法。菜单定义了你能点什么、需要说明什么（如牛排几分熟）。这正是API对软件做的事情。[(AWS - What is an API)](https://aws.amazon.com/ko/what-is/api/)
+
+### API的主要类型
+
+**按架构风格划分**：
+
+| 类型 | 协议 | 数据格式 | 适用场景 |
+|------|------|----------|----------|
+| REST | HTTP/HTTPS | JSON, XML | 通用Web API，增删改查操作 |
+| GraphQL | HTTP/HTTPS | JSON | 客户端需要精确控制返回字段 |
+| gRPC | HTTP/2 | Protocol Buffers | 高性能微服务通信 |
+| SOAP | HTTP, SMTP | XML | 企业级系统，需严格契约 |
+| WebSocket | WS/WSS | 任意 | 实时双向通信 |
+
+**按访问级别划分**：
+
+| 类型 | 说明 |
+|------|------|
+| 开放API（Public API） | 对外公开，任何人都可使用 |
+| 合作伙伴API（Partner API） | 仅对特定合作伙伴开放 |
+| 内部API（Private API） | 仅限公司内部使用 |
+
+### API在AI中的应用
+
+在AI领域，API是访问和使用AI模型的主要方式：
+- **OpenAI API**：通过REST接口调用GPT系列模型
+- **Hugging Face Inference API**：在线调用开源模型
+- **Stability AI API**：调用Stable Diffusion生成图像
+- **语音识别API**：如Google Speech-to-Text、Whisper API
+
+开发者无需了解模型的内部架构和训练过程，只需按照API文档发送请求即可获得AI能力，这极大地降低了AI技术的使用门槛。
+
+### 常见技术概念
+
+- **端点（Endpoint）**：API的访问地址，如 `https://api.example.com/v1/chat`
+- **API密钥（API Key）**：用于身份验证的唯一标识符
+- **速率限制（Rate Limiting）**：限制单位时间内的请求次数
+- **HTTP方法**：GET（获取）、POST（创建）、PUT（更新）、DELETE（删除）
+
+## 相关概念
+
+- **SDK（Software Development Kit）**：软件开发工具包，通常包含API的封装库、示例代码和文档，使开发者更容易使用API。SDK是API的"便利包装"，API是SDK背后的"通信协议"。
+
+- **微服务（Microservices）**：一种将应用拆分为小型独立服务的架构风格，各服务之间通常通过REST API进行通信。API是微服务架构的连接纽带。
+
+- **Webhook**：一种反向API——不是由客户端主动请求数据，而是由服务端在特定事件发生时主动向客户端推送通知。如果说API是"打电话问询"，Webhook就是"订阅通知"。
+
+- **REST（Representational State Transfer）**：当前最主流的Web API架构风格，由Roy Fielding于2000年提出。REST强调无状态、统一接口和资源导向的设计原则，绝大多数现代Web API都采用REST风格。
+
+- **JSON（JavaScript Object Notation）**：当前Web API最常用的数据交换格式，以键值对形式组织数据，轻量且易于人类阅读和机器解析。
+
+## 信源
+
+1. **T1** — IBM, "什么是 API（应用程序编程接口）？", 官方技术文档. [(IBM)](https://www.ibm.com/cn-zh/think/topics/api)
+
+2. **T1** — AWS, "What is an API?", 官方技术文档. [(AWS)](https://aws.amazon.com/ko/what-is/api/)
+
+3. **T2** — TechTarget, "What is an API (application programming interface)?", 2024年8月更新. [(TechTarget)](https://www.techtarget.com/searchapparchitecture/definition/application-program-interface-API)
+
+4. **T3** — api7.ai, "What Does API Mean? A Complete Guide", 2025年10月. [(api7.ai)](https://api7.ai/ko/blog/what-does-api-mean-in-tech)
+
+5. **T3** — Postman, "API Glossary", API术语参考. [(Postman)](https://www.postman.com/api-glossary/)
+
+## 变更记录
+
+| 版本 | 日期 | 变更内容 |
+|------|------|----------|
+| 1.0 | 2026-07-06 | 初始版本，包含定义、术语拆解、详细说明、相关概念与信源 |

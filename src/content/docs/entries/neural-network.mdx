@@ -1,0 +1,122 @@
+---
+title: 神经网络（NN）
+description: 模拟人脑神经元连接方式的计算模型
+version: 1.0
+created: 2026-07-06
+updated: 2026-07-06
+status: confirmed
+consensus: 广泛共识
+category: 技术
+channel: quick
+---
+
+## 定义
+
+神经网络（Neural Network，简称 NN），也称人工神经网络（Artificial Neural Network, ANN），是一种受人类大脑神经元结构启发的计算模型。它由大量相互连接的"神经元"（节点）按层排列组成，通过调整神经元之间连接的"权重"来学习数据中的模式，从而实现从输入到输出的映射。简单来说，就是**一个模仿大脑信息处理方式的数学系统——接收信息、层层传递、逐步提炼、最终输出判断**。
+
+## 英文术语拆解
+
+### 英文全称
+
+| 缩写 | 全称 |
+|------|------|
+| NN | Neural Network |
+| ANN | Artificial Neural Network |
+
+| 全称部分 | IPA 音标 |
+|----------|----------|
+| Neural | /ˈnʊərəl/ |
+| Network | /ˈnetwɜːrk/ |
+| Artificial | /ˌɑːrtɪˈfɪʃəl/ |
+
+### 逐词解释
+
+| 英文 | 词性 | 中文释义 | 在术语中的含义 |
+|------|------|----------|----------------|
+| Neural | 形容词 | 神经的 | 与生物神经系统相关的 |
+| Network | 名词 | 网络 | 由节点相互连接构成的结构 |
+| Artificial | 形容词 | 人工的 | 由人类创造而非生物自然的 |
+
+### 组合理解
+
+**Neural + Network = 神经 + 网络**：模拟生物神经系统的网络结构。加上"人工（Artificial）"是为了强调这不是真正的生物神经网络，而是用数学和代码实现的仿生模型。就像"人造花"不是真花但形似真花，"人工神经网络"不是真脑但借鉴了大脑的工作方式。
+
+## 详细说明
+
+### 核心内容
+
+神经网络的基本组成单元是**神经元（Neuron）**，也叫节点（Node）。每个神经元做的事情很简单：
+
+1. **接收**多个输入信号（来自上一层神经元或原始数据）
+2. **加权求和**：每个输入乘以一个权重（Weight），加上一个偏置（Bias）
+3. **激活**：通过一个激活函数（Activation Function）处理，决定是否向下一层传递信号
+
+将这些神经元按层组织，就构成了神经网络的基本结构：
+
+| 层级 | 功能 | 说明 |
+|------|------|------|
+| 输入层（Input Layer） | 接收原始数据 | 如一张图片的像素值、一段文本的词向量 |
+| 隐藏层（Hidden Layer） | 提取和变换特征 | 可以有多层，层越多网络越"深" |
+| 输出层（Output Layer） | 给出最终结果 | 如分类概率、预测数值 |
+
+### 学习过程
+
+神经网络的"学习"本质上是**调整权重和偏置**的过程：
+
+1. **前向传播（Forward Propagation）**：数据从输入层逐层传递到输出层，产生预测结果
+2. **计算误差（Loss）**：比较预测结果与真实答案的差异
+3. **反向传播（Backpropagation）**：将误差从输出层逐层反向传回，计算每个权重的"贡献"
+4. **更新权重**：根据误差调整权重，使下次预测更准确
+
+这个循环反复进行，直到模型的预测足够准确。
+
+IBM 定义神经网络为：*"一种机器学习模型，将简单的'神经元'分层堆叠，从数据中学习模式识别所需的权重和偏置，从而将输入映射到输出。"* [(IBM)](https://www.ibm.com/think/topics/neural-networks)
+
+### 历史里程碑
+
+- **1943 年**：McCulloch 和 Pitts 提出第一个人工神经元的数学模型 [(IBM)](https://www.ibm.com/think/topics/neural-networks)
+- **1958 年**：Frank Rosenblatt 发明感知机（Perceptron），最早的神经网络实现
+- **1986 年**：Hinton 等人推广反向传播算法，使多层网络训练成为可能
+- **2024 年**：Hopfield 和 Hinton 因神经网络基础性工作获诺贝尔物理学奖 [(百度百科)](https://m.baike.com/wiki/%E4%BA%BA%E5%B7%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/1038719)
+
+### 常见类型
+
+| 类型 | 特点 | 典型应用 |
+|------|------|----------|
+| 前馈神经网络（FNN） | 信息单向流动，无循环 | 分类、回归 |
+| 卷积神经网络（CNN） | 使用卷积操作，擅长空间特征 | 图像识别 |
+| 循环神经网络（RNN） | 有循环连接，能处理序列 | 语音、文本 |
+| Transformer | 基于注意力机制，并行处理 | 大语言模型 |
+
+### 使用场景
+
+- **图像识别**：人脸解锁、医学影像分析
+- **自然语言处理**：机器翻译、情感分析
+- **语音技术**：语音识别、语音助手
+- **推荐系统**：个性化内容推荐
+- **游戏与决策**：游戏 AI、机器人控制
+
+## 相关概念
+
+| 概念 | 关系 |
+|------|------|
+| 深度学习（Deep Learning） | 使用多层（深层）神经网络的学习方法，NN 是 DL 的基础结构 |
+| 机器学习（Machine Learning） | NN 是 ML 的一种重要模型，属于 ML 的子领域 |
+| 感知机（Perceptron） | 最简单的神经网络形式，只有单层，是 NN 的历史起源 |
+| 激活函数（Activation Function） | NN 中引入非线性的关键组件，决定神经元是否"激活" |
+| 反向传播（Backpropagation） | 训练 NN 的核心算法，用于计算梯度并更新权重 |
+
+## 信源
+
+| 等级 | 来源 | 说明 | 链接 |
+|------|------|----------|------|
+| T1 | IBM | "A neural network is a machine learning model that stacks simple 'neurons' in layers and learns pattern-recognizing weights and biases from data to map inputs to outputs." | https://www.ibm.com/think/topics/neural-networks |
+| T1 | AWS | "A neural network is a method in artificial intelligence (AI) that teaches computers to process data in a way that is inspired by the human brain." | https://aws.amazon.com/ru/what-is/neural-network/ |
+| T2 | NCBI/PMC | "Three components define a neural network: structure, activation functions, and loss function."（2025 年综述） | https://pmc.ncbi.nlm.nih.gov/articles/PMC12133272/ |
+| T2 | MIT | 芝加哥大学数学论文从数学角度系统定义了人工神经网络的通用逼近定理 | https://math.uchicago.edu/~may/REU2018/REUPapers/Guilhoto.pdf |
+
+## 变更记录
+
+| 版本 | 日期 | 变更内容 |
+|------|------|----------|
+| 1.0 | 2026-07-06 | 初始版本，完成词条撰写 |

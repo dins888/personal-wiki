@@ -1,0 +1,102 @@
+---
+title: 词元（Token）
+description: 大语言模型处理文本的最小语义单元，是连接人类自然语言与模型数学计算的桥梁
+version: 1.0
+created: 2026-07-06
+updated: 2026-07-06
+status: confirmed
+consensus: 广泛共识
+category: 技术
+channel: quick
+---
+
+## 定义
+
+词元（Token）是大语言模型处理自然语言时的最小语义单元。当你输入一段文字给 AI 时，模型不会逐字逐句地"阅读"，而是先把文字切成一个个小片段——每个片段就是一个 Token。一个 Token 可以是一个完整的词、一个汉字、一个词的前缀后缀，甚至是一个标点符号。Token 就是 AI 理解人类语言的"最小积木"。
+
+## 英文术语拆解
+
+### 英文全称
+
+| 术语 | 全称 |
+|------|------|
+| Token | Token（无缩写扩展，该词本身即为完整术语） |
+
+### IPA 音标
+
+| 术语 | IPA 音标 |
+|------|----------|
+| Token | /ˈtoʊkən/ |
+
+### 逐词解释
+
+| 英文 | 词性 | 中文释义 | 在术语中的含义 |
+|------|------|----------|----------------|
+| Token | 名词 | 标记、符号、信物 | 指文本经分词处理后得到的最小可计算语义单元 |
+
+> **词源说明**：Token 一词源于古英语 *tācen*，意为"符号"或"标记"。在自然语言处理中，它被用来指代文本切分后的最小离散符号单元 [(人民日报专家解读)](https://developer.cloud.tencent.com/article/2652502)。
+
+### 组合理解
+
+Token 在 LLM 语境下的核心含义是**"标记"或"符号"**——它是将连续的自然语言文本切分为离散的、模型可计算的符号单元。中文正式译名"词元"由全国科学技术名词审定委员会于 2026 年推荐使用 [(GB/T 41867-2022)](https://blog.csdn.net/qq_44866828/article/details/159435932)，强调其作为语言最小语义单元的属性。
+
+## 详细说明
+
+### 为什么需要 Token？
+
+计算机无法直接理解人类的文字，需要把文本转化为数字才能计算。Token 就是这个"翻译"过程的中间产物，它解决了三个核心矛盾：
+
+| 矛盾 | 问题 | Token 的解决方案 |
+|------|------|------------------|
+| 语言的连续性 vs 计算的离散性 | 模型只能处理离散数字，无法处理连续文本流 | 将文本切分为离散的 Token 序列，每个 Token 分配唯一整数 ID |
+| 词汇的无限性 vs 内存的有限性 | 新词不断出现，无法为每个词分配独立空间 | 用子词（Subword）组合覆盖无限词汇，如"GPT-4o"拆为"GPT"/"4"/"o" |
+| 语言的多样性 vs 模型的通用性 | 不同语言结构差异大 | 统一的 Token 表示跨语言通用 |
+
+### Token 的粒度
+
+Token 的切分粒度有三种主要级别：
+
+| 粒度 | 说明 | 示例 |
+|------|------|------|
+| 词级别（Word-level） | 按完整词切分 | "I love AI" → ["I", "love", "AI"] |
+| 字符级别（Character-level） | 按单个字符切分 | "hello" → ["h","e","l","l","o"] |
+| **子词级别（Subword-level）** | 当前主流，在词与字符间取平衡 | "unhappiness" → ["un","happi","ness"] |
+
+子词级别是现代 LLM 的标准方案，常用算法包括 BPE（Byte Pair Encoding，GPT 系列使用）、WordPiece（BERT 使用）和 SentencePiece（多语言模型使用）[(OpenAI Help Center)](https://help.openai.com/zh-hans-cn/articles/4936856)。
+
+### Token 与中文
+
+中文的 Token 化与英文有显著差异。由于中文没有天然空格分词，且一个汉字的语义密度更高，同一段内容用中文表达通常需要更多的 Token 数：
+
+| 语言 | 经验换算 |
+|------|----------|
+| 英文 | 1 Token ≈ 4 个字符 ≈ ¾ 个单词 |
+| 中文 | 1 个汉字 ≈ 1.5~2.5 个 Token |
+
+这意味着中文在使用 API 时通常比英文"更贵"，因为计费以 Token 数为单位 [(OpenAI Help Center)](https://help.openai.com/zh-hans-cn/articles/4936856)。
+
+### Token 与计费
+
+API 调用按 Token 计费，Token 数 = 输入 Token + 输出 Token。输入 Token 是你发送给模型的文本，输出 Token 是模型生成的回答。因此，精简输入、控制输出长度是降低使用成本的关键。
+
+## 相关概念
+
+- **LLM（大语言模型）**：Token 是 LLM 处理文本的基础单元——所有文本必须先被 Token 化，LLM 才能理解和生成。
+- **Context Window（上下文窗口）**：上下文窗口的大小以 Token 数为单位衡量，决定了模型一次能处理多少 Token。
+- **Tokenizer（分词器）**：将原始文本转换为 Token 序列的算法工具，如 BPE、WordPiece 等，是 Token 化过程的执行者。
+- **Embedding（嵌入）**：Token 被分词后，会通过嵌入层映射为高维向量，使模型能进行数学运算。
+- **Prompt（提示词）**：用户输入的提示词本身也由 Token 构成，Prompt 越长消耗的 Token 越多。
+
+## 信源
+
+1. **T1** — OpenAI Help Center. "什么是 Token，如何计算 Token？" [(OpenAI官方)](https://help.openai.com/zh-hans-cn/articles/4936856-什么是token如何计算-token)
+2. **T2** — Liao, D. & Shi, F. "How Tokenization Limits Phonological Knowledge Representation in Language Models." ACL 2026. [(ACL Anthology)](https://aclanthology.org/2026.acl-long.634.pdf)
+3. **T3** — 腾讯云开发者社区. "从'词元'到'符元'：Token 中文名背后的 AI 底层认知之争." 2026. [(腾讯云)](https://developer.cloud.tencent.com/article/2652502)
+4. **T3** — CSDN. "大模型中的 Token 和 Tokenizer：核心概念解析." 2026. [(CSDN)](https://blog.csdn.net/jiaquan3011/article/details/149886742)
+5. **T3** — IBM. "What is a context window?" [(IBM)](https://www.ibm.com/think/topics/context-window)
+
+## 变更记录
+
+| 版本 | 日期 | 变更内容 |
+|------|------|----------|
+| 1.0 | 2026-07-06 | 初始版本：创建 Token 词条，涵盖定义、术语拆解、粒度、中文场景和计费说明 |
