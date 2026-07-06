@@ -1,104 +1,44 @@
 ---
 title: 全部词条
-description: 个人百科知识库的全部词条索引
-template: splash
+description: 个人百科知识库全部词条索引
+sidebar:
+  hidden: true
 ---
 
-import { CardGrid, Card } from '@astrojs/starlight/components';
+# 📖 全部词条
 
-# 📖 全部词条索引
+共计 **22 个词条**，分属 **4 大分类**。
 
-本知识库涵盖 AI 领域的核心概念，按四大类别组织。每个词条均经过信源权威性验证和交叉验证，确保信息准确可靠。
+## 📚 AI 基础概念
 
-## AI 基础概念（7 个词条）
+- [人工智能（AI）](./ai-basics/ai/) — 让计算机模拟人类智能行为的技术总称
+- [机器学习](./ai-basics/machine-learning/) — 让计算机从数据中自动学习规律的技术
+- [深度学习](./ai-basics/deep-learning/) — 基于多层神经网络的机器学习分支
+- [神经网络](./ai-basics/neural-network/) — 模仿生物神经网络结构的计算模型
+- [生成式 AI](./ai-basics/generative-ai/) — 能够生成新内容的 AI 系统
+- [基础模型](./ai-basics/foundation-model/) — 在大规模数据上预训练的通用 AI 模型
+- [多模态 AI](./ai-basics/multimodal-ai/) — 能同时处理文本、图像、语音等信息的 AI
 
-<CardGrid>
-  <Card title="<a href=&quot;./ai-basics/ai/&quot;>人工智能（AI）</a>">
-    让计算机模拟人类智能行为的技术总称
-  </Card>
-  <Card icon="📊" title="<a href=&quot;./ai-basics/machine-learning/&quot;>机器学习</a>">
-    让计算机从数据中自动学习规律的技术
-  </Card>
-  <Card title="<a href=&quot;./ai-basics/deep-learning/&quot;>深度学习</a>">
-    基于多层神经网络的机器学习分支
-  </Card>
-  <Card icon="️" title="<a href=&quot;./ai-basics/neural-network/&quot;>神经网络</a>">
-    模仿生物神经网络结构的计算模型
-  </Card>
-  <Card icon="✨" title="<a href=&quot;./ai-basics/generative-ai/&quot;>生成式 AI</a>">
-    能够生成新内容（文本、图像、代码等）的 AI 系统
-  </Card>
-  <Card icon="️" title="<a href=&quot;./ai-basics/foundation-model/&quot;>基础模型</a>">
-    在大规模数据上预训练的通用 AI 模型
-  </Card>
-  <Card icon="🌐" title="<a href=&quot;./ai-basics/multimodal-ai/&quot;>多模态 AI</a>">
-    能同时处理文本、图像、语音等多种信息类型的 AI
-  </Card>
-</CardGrid>
+## 🤖 大语言模型
 
-## ️ 大语言模型（4 个词条）
+- [大语言模型（LLM）](./llm/llm/) — 基于海量文本训练的深度学习语言模型
+- [词元（Token）](./llm/token/) — 大语言模型处理文本的最小语义单元
+- [上下文窗口](./llm/context-window/) — 模型一次能处理的最大文本长度
+- [提示词（Prompt）](./llm/prompt/) — 用户输入给模型的文本指令
 
-<CardGrid>
-  <Card title="<a href=&quot;./llm/llm/&quot;>大语言模型（LLM）</a>">
-    基于海量文本训练的深度学习语言模型
-  </Card>
-  <Card icon="🔤" title="<a href=&quot;./llm/token/&quot;>词元（Token）</a>">
-    大语言模型处理文本的最小语义单元
-  </Card>
-  <Card icon="📐" title="<a href=&quot;./llm/context-window/&quot;>上下文窗口</a>">
-    模型一次能处理的最大文本长度
-  </Card>
-  <Card icon="💬" title="<a href=&quot;./llm/prompt/&quot;>提示词（Prompt）</a>">
-    用户输入给模型的文本指令
-  </Card>
-</CardGrid>
+## 🎓 训练与优化
 
-## 🎓 训练与优化（4 个词条）
+- [微调](./training/fine-tuning/) — 在预训练模型基础上用领域数据进一步训练
+- [RLHF](./training/rlhf/) — 用人类反馈来优化模型行为的训练方法
+- [数据集](./training/dataset/) — 用于训练和评估 AI 模型的结构化数据集合
+- [算法](./training/algorithm/) — 解决特定问题的有限步骤指令序列
 
-<CardGrid>
-  <Card icon="✏️" title="<a href=&quot;./training/fine-tuning/&quot;>微调</a>">
-    在预训练模型基础上用领域数据进一步训练
-  </Card>
-  <Card icon="🎯" title="<a href=&quot;./training/rlhf/&quot;>RLHF</a>">
-    用人类反馈来优化模型行为的训练方法
-  </Card>
-  <Card icon="📦" title="<a href=&quot;./training/dataset/&quot;>数据集</a>">
-    用于训练和评估 AI 模型的结构化数据集合
-  </Card>
-  <Card icon="⚙️" title="<a href=&quot;./training/algorithm/&quot;>算法</a>">
-    解决特定问题的有限步骤指令序列
-  </Card>
-</CardGrid>
+## 🔧 技术应用
 
-##  技术应用（7 个词条）
-
-<CardGrid>
-  <Card title="<a href=&quot;./tech/prompt-engineering/&quot;>提示工程</a>">
-    系统性地设计和优化提示词的技术
-  </Card>
-  <Card icon="🔗" title="<a href=&quot;./tech/chain-of-thought/&quot;>思维链</a>">
-    引导模型展示推理过程的提示技术
-  </Card>
-  <Card icon="🤖" title="<a href=&quot;./tech/agent/&quot;>AI Agent</a>">
-    能自主规划、调用工具、完成复杂任务的 AI 系统
-  </Card>
-  <Card icon="📚" title="<a href=&quot;./tech/rag/&quot;>检索增强生成（RAG）</a>">
-    将外部知识检索与模型生成相结合的技术
-  </Card>
-  <Card icon="" title="<a href=&quot;./tech/api/&quot;>API</a>">
-    应用程序编程接口，软件系统间的通信契约
-  </Card>
-  <Card icon="💬" title="<a href=&quot;./tech/v2ex/&quot;>V2EX</a>">
-    面向程序员和创意工作者的中文技术社区
-  </Card>
-  <Card icon="⌨️" title="<a href=&quot;./tech/cli/&quot;>CLI（命令列接口）</a>">
-    通过纯文本命令与计算机程序进行交互的用户界面
-  </Card>
-</CardGrid>
-
----
-
-共计 **21 个词条**，分属 **4 大分类**。
-
-> 💡 每个词条均包含：定义、英文术语拆解（含音标与逐词解释）、详细说明、相关概念、信源验证、版本记录。
-> 词条内容持续更新中，欢迎随时补充新词条！
+- [提示工程](./tech/prompt-engineering/) — 系统性地设计和优化提示词的技术
+- [思维链](./tech/chain-of-thought/) — 引导模型展示推理过程的提示技术
+- [AI Agent](./tech/agent/) — 能自主规划、调用工具、完成复杂任务的 AI 系统
+- [检索增强生成（RAG）](./tech/rag/) — 将外部知识检索与模型生成相结合的技术
+- [API](./tech/api/) — 应用程序编程接口，软件系统间的通信契约
+- [V2EX](./tech/v2ex/) — 面向程序员和创意工作者的中文技术社区
+- [CLI（命令列接口）](./tech/cli/) — 通过纯文本命令与计算机交互的界面

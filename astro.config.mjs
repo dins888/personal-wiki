@@ -26,10 +26,6 @@ export default defineConfig({
       },
       sidebar: [
         {
-          label: '📖 全部词条',
-          link: '/entries/',
-        },
-        {
           label: '📚 AI 基础概念',
           items: [{ autogenerate: { directory: 'entries/ai-basics' } }],
         },
@@ -46,8 +42,8 @@ export default defineConfig({
           items: [{ autogenerate: { directory: 'entries/tech' } }],
         },
         {
-          label: '📋 关于',
-          items: [{ slug: 'about' }],
+          label: '关于',
+          link: '/about/',
         },
       ],
       lastUpdated: true,
