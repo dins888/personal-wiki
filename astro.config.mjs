@@ -17,8 +17,13 @@ export default defineConfig({
         },
       },
       social: [
-        { icon: 'github', label: 'GitHub', href: 'https://github.com/' },
+        { icon: 'github', label: 'GitHub', href: 'https://github.com/dins888/personal-wiki' },
       ],
+      logo: {
+        src: new URL('./src/assets/logo.jpg', import.meta.url),
+        alt: '个人百科知识库',
+        replacesTitle: true,
+      },
       sidebar: [
         {
           label: '📖 百科词条',
