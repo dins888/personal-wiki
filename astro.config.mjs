@@ -20,7 +20,9 @@ export default defineConfig({
       sidebar: [
         {
           label: '📖 百科词条',
-          autogenerate: { directory: 'entries' },
+          items: [
+            { autogenerate: { directory: 'entries' } },
+          ],
         },
         {
           label: '📂 分类索引',
