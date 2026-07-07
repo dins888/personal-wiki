@@ -1,0 +1,98 @@
+---
+title: Neo4j Desktop
+description: Neo4j Desktop 的定义、核心功能和信源考证。
+version: 1.0
+created: 2026-07-07
+updated: 2026-07-07
+status: confirmed
+consensus: 广泛共识
+category: 技术
+---
+
+## 定义
+
+**Neo4j Desktop** 是 Neo4j 官方提供的**本地图数据库管理应用**，适用于 macOS、Windows 和 Linux。它允许用户创建和管理本地 Neo4j 数据库实例、使用 Neo4j Browser 可视化查询图数据（Cypher 语言）、导入导出数据和安装 APOC 等插件。
+
+Neo4j Desktop 是开发者在本地开发、学习和原型设计阶段的理想工具，提供了完整的图数据库管理和可视化能力。
+
+## 英文术语拆解
+
+| 英文全称 | Neo4j Desktop |
+|----------|---------------|
+| 音标 | /ˌniːoʊ fɔːr tiː dɛsktɒp/ |
+
+**逐词解释：**
+
+- **Neo**：/ˈniːoʊ/，源自希腊语前缀 "neo-"，意为"新的"。
+- **4j**：代表 "for Java"，因 Neo4j 最初使用 Java 语言开发。
+- **Desktop**：/ˈdɛsktɒp/，意为"桌面"，表示这是一个桌面端应用程序。
+
+**组合理解：** Neo4j Desktop 即"面向 Java 开发的新一代图数据库桌面应用"，是 Neo4j 图数据库生态中的本地管理工具。
+
+## 核心功能
+
+### 数据库实例管理
+支持创建、启动、停止和删除多个本地 Neo4j 数据库实例，每个实例可独立配置版本和参数。
+
+### Neo4j Browser
+内置可视化查询界面，支持使用 Cypher 查询语言执行查询，以图形化方式展示节点（Node）和关系（Relationship）。
+
+### Cypher 查询语言
+Neo4j 的声明式图查询语言，语法直观，使用 ASCII 艺术风格表示模式匹配。
+
+### 插件管理
+支持安装和管理 Neo4j 插件，如 APOC（Awesome Procedures on Cypher，提供大量实用函数和过程）、GDS（Graph Data Science，图数据科学算法库）等。
+
+### 数据导入导出
+支持从 CSV、JSON 等格式导入数据，也支持将查询结果导出为多种格式。
+
+### 项目（Project）管理
+通过项目概念组织多个数据库实例，方便在不同项目间切换和管理。
+
+## 常见用法示例
+
+```text
+// Cypher 查询示例 - 创建节点和关系
+CREATE (alice:Person &#123;name: "Alice", age: 30&#125;)
+CREATE (bob:Person &#123;name: "Bob", age: 35&#125;)
+CREATE (alice)-[:KNOWS]-&gt;(bob)
+RETURN alice, bob
+```
+
+```text
+// Cypher 查询示例 - 查找朋友的朋友
+MATCH (a:Person &#123;name: "Alice"&#125;)-[:KNOWS]-&gt;()-[:KNOWS]-&gt;(fof)
+RETURN fof.name
+```
+
+```text
+// APOC 常用过程调用
+CALL apoc.load.json("https://api.example.com/data") YIELD value
+CREATE (n:ImportedNode) SET n = value
+```
+
+## 相关概念
+
+- **Neo4j**：全球领先的图数据库管理系统
+- **图数据库（Graph Database）**：以图结构（节点和关系）存储数据的数据库类型
+- **Cypher**：Neo4j 的声明式查询语言
+- **APOC**：Neo4j 的实用过程库，提供 400+ 函数和过程
+- **GDS（Graph Data Science）**：Neo4j 的图算法和机器学习库
+- **属性图（Property Graph）**：节点和关系都可以携带属性的图模型
+- **Bolt 协议**：Neo4j 的高效二进制通信协议
+
+## 信源
+
+| 来源 | 等级 | 内容摘要 |
+|------|------|---------|
+| [Neo4j Desktop 官方文档](https://neo4j.com/docs/desktop-manual/) | T1 | Neo4j Desktop 的官方使用手册 |
+| [Neo4j 官网](https://neo4j.com/) | T1 | Neo4j 官方网站，提供下载和产品概览 |
+| [Neo4j 官方文档中心](https://neo4j.com/docs/) | T1 | Neo4j 全部产品文档的入口 |
+| [Cypher 官方参考](https://neo4j.com/docs/cypher-manual/) | T1 | Cypher 查询语言的官方参考手册 |
+| [Wikipedia - Neo4j](https://en.wikipedia.org/wiki/Neo4j) | T2 | Neo4j 的百科全书介绍 |
+
+## 变更记录
+
+| 版本 | 日期 | 变更内容 |
+|------|------|---------|
+| v1.0 | 2026-07-07 | 初始创建 |

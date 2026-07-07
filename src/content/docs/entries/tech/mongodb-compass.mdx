@@ -1,0 +1,97 @@
+---
+title: MongoDB Compass
+description: MongoDB Compass 的定义、核心功能和信源考证。
+version: 1.0
+created: 2026-07-07
+updated: 2026-07-07
+status: confirmed
+consensus: 广泛共识
+category: 技术
+---
+
+## 定义
+
+**MongoDB Compass** 是 MongoDB 官方提供的**图形化管理工具**（GUI，Graphical User Interface）。用户可以通过可视化界面连接 MongoDB 数据库，浏览集合和数据文档、执行查询、分析性能（聚合管道可视化）、管理索引和查看服务器状态，无需编写命令行操作。
+
+Compass 是 MongoDB 生态中面向开发者和数据库管理员的桌面客户端，降低了使用 MongoDB 的门槛。
+
+## 英文术语拆解
+
+| 英文全称 | MongoDB Compass |
+|----------|-----------------|
+| 音标 | /ˌmɒŋɡoʊ diː biː ˈkʌmpəs/ |
+
+**逐词解释：**
+
+- **MongoDB**：源自 "humongous"（巨大的）+ "DB"（Database，数据库），意为"超大数据库"。MongoDB 是一个基于文档的 NoSQL 数据库。
+- **Compass**：/ˈkʌmpəs/，意为"指南针"，寓意该工具帮助开发者在 MongoDB 的数据世界中导航。
+
+**组合理解：** MongoDB Compass 就像使用 MongoDB 时的指南针，帮助用户在复杂的数据库操作中找到方向。
+
+## 核心功能
+
+### 可视化文档浏览
+以 JSON 格式直观展示集合中的文档，支持树形视图、表格视图和 JSON 视图切换。
+
+### 查询构建与执行
+提供图形化的查询界面，支持 MongoDB 查询语法（Query Language）和聚合管道（Aggregation Pipeline）的可视化编辑与执行。
+
+### 聚合管道可视化
+通过拖拽方式构建和调试聚合管道（Aggregation Pipeline），每一步的输出实时可见，是学习 MongoDB 聚合语法的利器。
+
+### 索引管理
+可视化创建、查看和管理索引，支持分析查询性能并给出索引建议。
+
+### 性能分析（Profiler）
+内置性能分析工具，可查看慢查询日志和数据库操作统计信息。
+
+### Schema 分析
+自动分析集合中文档的结构（Schema），展示字段类型分布和数据分布情况。
+
+### 服务器状态监控
+查看 MongoDB 实例的运行状态、连接信息、副本集（Replica Set）和分片集群（Sharded Cluster）信息。
+
+## 常见用法示例
+
+```javascript
+// 在 Compass 的查询栏中常用的查询示例
+
+// 查找特定条件的文档
+&#123; "status": "active", "age": &#123; "$gt": 25 &#125; &#125;
+
+// 聚合管道示例（可在 Compass 的 Aggregations 面板中使用）
+[
+  &#123; "$match": &#123; "status": "active" &#125; &#125;,
+  &#123; "$group": &#123; "_id": "$city", "count": &#123; "$sum": 1 &#125; &#125; &#125;,
+  &#123; "$sort": &#123; "count": -1 &#125; &#125;
+]
+```
+
+```text
+# 连接字符串示例（在 Compass 的连接界面中填入）
+mongodb+srv://username:password@cluster0.example.mongodb.net/myDatabase
+```
+
+## 相关概念
+
+- **MongoDB**：开源的文档型 NoSQL 数据库
+- **mongosh**：MongoDB 官方命令行 Shell 工具
+- **聚合管道（Aggregation Pipeline）**：MongoDB 的数据处理管道，由多个阶段（Stage）组成
+- **副本集（Replica Set）**：MongoDB 的高可用方案，由多个节点组成
+- **CRUD**：创建（Create）、读取（Read）、更新（Update）、删除（Delete）操作的统称
+- **NoSQL**：非关系型数据库的统称
+
+## 信源
+
+| 来源 | 等级 | 内容摘要 |
+|------|------|---------|
+| [MongoDB Compass 官方文档](https://www.mongodb.com/docs/compass/) | T1 | Compass 的官方使用文档和功能说明 |
+| [MongoDB 官网](https://www.mongodb.com/) | T1 | MongoDB 产品官网，提供下载和概览 |
+| [MongoDB University](https://learn.mongodb.com/) | T1 | 官方学习平台，包含 Compass 相关课程 |
+| [Wikipedia - MongoDB](https://en.wikipedia.org/wiki/MongoDB) | T2 | MongoDB 技术的百科全书介绍 |
+
+## 变更记录
+
+| 版本 | 日期 | 变更内容 |
+|------|------|---------|
+| v1.0 | 2026-07-07 | 初始创建 |

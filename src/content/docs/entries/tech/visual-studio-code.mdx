@@ -1,0 +1,126 @@
+---
+title: Visual Studio Code
+description: Visual Studio Code 的定义、核心功能和信源考证。
+version: 1.0
+created: 2026-07-07
+updated: 2026-07-07
+status: confirmed
+consensus: 广泛共识
+category: 技术
+---
+
+## 定义
+
+**Visual Studio Code**（简称 **VS Code**）是微软开发的**免费、开源的轻量级代码编辑器**。支持跨平台（Windows、macOS、Linux），拥有丰富的扩展生态系统（插件市场），支持代码高亮、智能补全（IntelliSense）、调试、Git 集成、终端和远程开发等功能。使用 TypeScript 语言开发，基于 Electron 框架。
+
+VS Code 自 2015 年发布以来，已成为全球最受欢迎的代码编辑器。根据 Stack Overflow 开发者调查，它连续多年位居"最受喜爱和使用最广泛的开发环境"榜首。
+
+## 英文术语拆解
+
+| 英文全称 | Visual Studio Code |
+|----------|-------------------|
+| 音标 | /ˈvɪʒuəl ˈstuːdioʊ koʊd/ |
+
+**逐词解释：**
+
+- **Visual**：/ˈvɪʒuəl/，意为"视觉的"，表示以图形化界面呈现。
+- **Studio**：/ˈstuːdioʊ/，意为"工作室"，通常指功能丰富的集成开发环境（IDE），如 Visual Studio。
+- **Code**：/koʊd/，意为"代码"，表明这是一个代码编辑工具。
+
+**名称辨析：** Visual Studio Code 与 Visual Studio 是两个不同的产品。Visual Studio 是微软的全功能 IDE（集成开发环境），体积庞大、功能全面；而 Visual Studio Code 是基于 Electron 的轻量级编辑器，通过插件可扩展功能，但启动更快、资源占用更少。
+
+## 核心功能
+
+### IntelliSense 智能补全
+基于语义理解的代码智能提示，包括变量补全、函数签名提示、参数信息、自动导入等，支持多种编程语言。
+
+### 扩展生态系统
+通过扩展市场（Extension Marketplace）安装数千种插件，覆盖语言支持、主题、调试器、代码片段、Lint 工具等。热门扩展包括 Python、ESLint、Prettier、GitLens 等。
+
+### 内置终端
+集成多种终端（命令提示符、PowerShell、Bash、Zsh 等），可在编辑器内直接执行命令，无需切换窗口。
+
+### Git 集成
+内置 Git 版本控制支持，可在界面中查看文件差异（Diff）、提交变更、解决合并冲突、查看 Git 历史记录等。
+
+### 调试支持
+内置调试器，支持断点设置、变量查看、调用栈追踪、条件断点等。可通过扩展添加更多语言的调试支持。
+
+### 远程开发（Remote Development）
+通过 Remote - SSH、Remote - WSL、Dev Containers 等扩展，可在远程服务器、Windows 子系统 Linux（WSL）或 Docker 容器中进行开发，本地仅作为编辑器前端。
+
+### 多光标与多行编辑
+支持多光标编辑（Ctrl/Cmd + D 选中下一个相同文本）、列选择模式（Alt + 点击）等高效编辑技巧。
+
+### 设置与快捷键自定义
+支持丰富的自定义配置，包括主题、字体、快捷键映射（可导入 Vim、Emacs、Sublime Text 等快捷键方案）。
+
+## 常见用法示例
+
+```text
+# 常用快捷键（Windows / macOS）
+
+Ctrl+P / Cmd+P        → 快速打开文件
+Ctrl+Shift+P / Cmd+Shift+P → 打开命令面板
+Ctrl+` / Ctrl+`       → 打开/关闭终端
+Ctrl+B / Cmd+B        → 切换侧边栏
+Ctrl+D / Cmd+D        → 选中下一个相同文本
+Alt+Shift+F / Alt+Shift+F → 格式化文档
+F12                   → 跳转到定义
+Shift+F12             → 查看所有引用
+Ctrl+Shift+X / Cmd+Shift+X → 打开扩展面板
+```
+
+```text
+// settings.json 常用配置示例
+&#123;
+    "editor.fontSize": 14,
+    "editor.tabSize": 2,
+    "editor.formatOnSave": true,
+    "editor.wordWrap": "on",
+    "editor.minimap.enabled": false,
+    "files.autoSave": "afterDelay",
+    "terminal.integrated.defaultProfile.osx": "zsh"
+&#125;
+```
+
+```text
+# 常用扩展推荐
+
+- Python (Microsoft) → Python 语言支持
+- ESLint (Microsoft) → JavaScript/TypeScript 代码检查
+- Prettier → 代码格式化工具
+- GitLens (GitKraken) → Git 增强功能（blame、历史）
+- Docker (Microsoft) → Docker 集成管理
+- Remote - SSH (Microsoft) → 远程 SSH 开发
+- Live Server (Ritwick Dey) → 本地开发服务器（热重载）
+- Tailwind CSS IntelliSense → Tailwind 类名提示
+```
+
+## 相关概念
+
+- **Electron**：基于 Chromium 和 Node.js 的跨平台桌面应用框架，VS Code 的底层技术
+- **TypeScript**：微软开发的 JavaScript 超集语言，VS Code 本身使用 TypeScript 开发
+- **Monaco Editor**：VS Code 的核心编辑器组件，也被用于 Azure、GitHub 等 Web 应用中
+- **LSP（Language Server Protocol）**：语言服务器协议，VS Code 推广的编辑器语言支持标准
+- **IntelliSense**：微软的智能代码补全技术
+- **Atom**：GitHub 开发的开源编辑器（已停止维护），VS Code 的早期竞品
+- **Cursor**：基于 VS Code 的 AI 增强编辑器
+- **Neovim**：现代化的 Vim 编辑器，与 VS Code 在轻量级编辑场景中形成对比
+
+## 信源
+
+| 来源 | 等级 | 内容摘要 |
+|------|------|---------|
+| [VS Code 官方文档](https://code.visualstudio.com/docs) | T1 | 微软官方的 VS Code 使用文档 |
+| [VS Code 官网](https://code.visualstudio.com/) | T1 | VS Code 官方网站，提供下载和功能介绍 |
+| [VS Code GitHub 仓库](https://github.com/microsoft/vscode) | T1 | VS Code 开源代码仓库（MIT 协议） |
+| [VS Code 更新日志](https://code.visualstudio.com/updates) | T1 | 每月发布的版本更新日志 |
+| [Stack Overflow Developer Survey](https://survey.stackoverflow.co/) | T2 | 年度开发者调查，VS Code 连续多年排名第一 |
+| [Wikipedia - Visual Studio Code](https://en.wikipedia.org/wiki/Visual_Studio_Code) | T2 | VS Code 的百科全书介绍 |
+
+## 变更记录
+
+| 版本 | 日期 | 变更内容 |
+|------|------|---------|
+| v1.0 | 2026-07-07 | 初始创建 |

@@ -1,0 +1,103 @@
+---
+title: Cherry Studio
+description: Cherry Studio 的定义、核心功能、术语拆解和信源考证。
+version: 1.0
+created: 2026-07-07
+updated: 2026-07-07
+status: confirmed
+consensus: 广泛共识
+category: 技术
+---
+
+## 定义
+
+**Cherry Studio** 是一个开源的 **AI 聊天客户端应用**（AI Chat Client Application），支持接入多种 AI 模型服务商（包括 OpenAI、Claude、Gemini、Ollama 等）。它提供多会话管理、知识库管理、MCP 工具集成、翻译和摘要等功能，支持 macOS、Windows、Linux **跨平台**运行。Cherry Studio 作为一个统一的前端界面，让用户可以在一个应用中同时使用多个 AI 模型服务。
+
+## 英文术语拆解
+
+| 英文全称 | Cherry Studio |
+|----------|---------------|
+| 音标 | /ˈtʃɛri ˈstjuːdiəʊ/ |
+
+**逐词解释：**
+
+- **Cherry**：/ˈtʃɛri/，意为"樱桃"，作为品牌名使用，传达精致、愉悦的产品体验
+- **Studio**：/ˈstjuːdiəʊ/，意为"工作室"，暗示这是一个功能丰富的创作工具平台，而非单一的聊天窗口
+
+**组合理解：** Cherry Studio 即"樱桃工作室"，寓意一个精致且功能完善的 AI 交互工作台，用户可以在这个"工作室"中与多种 AI 模型协作。
+
+## 核心功能/特性
+
+### 多模型接入
+支持同时配置和切换多个 AI 服务商，包括 OpenAI（GPT 系列）、Anthropic（Claude 系列）、Google（Gemini）、Ollama（本地模型）等，一个界面管理所有模型。
+
+### 多会话管理
+支持创建和管理多个独立对话会话，每个会话可绑定不同的模型和系统提示词（System Prompt），方便不同场景的对话管理。
+
+### 知识库管理
+支持上传文档构建本地知识库（RAG），AI 可以基于知识库内容进行回答，实现私有数据的智能问答。
+
+### MCP 工具集成
+集成 Model Context Protocol（MCP）工具，允许 AI 调用外部工具完成特定任务，扩展 AI 的能力边界。
+
+### 翻译功能
+内置翻译功能，支持多语言文本翻译，可选择不同的 AI 模型作为翻译引擎。
+
+### 摘要功能
+支持对长文本或文档进行自动摘要，提取关键信息。
+
+### 跨平台支持
+基于 Electron 框架开发，支持 macOS、Windows、Linux 三大桌面操作系统。
+
+## 常见用法示例
+
+### 典型使用场景
+
+1. **多模型对比**：同一问题发送给 GPT-4、Claude 和 Gemini，对比不同模型的回答质量
+2. **本地模型使用**：通过 Ollama 运行本地开源模型（如 Llama、Qwen），在 Cherry Studio 中统一交互
+3. **知识库问答**：上传技术文档到知识库，AI 基于文档内容回答技术问题
+4. **写作辅助**：利用 AI 模型辅助撰写文档、邮件、代码，通过多会话管理不同写作项目
+5. **MCP 工具调用**：通过 MCP 协议让 AI 调用外部 API 或执行本地操作
+
+### 配置示例
+
+```
+# 典型模型配置
+OpenAI:
+  API Key: sk-xxxx
+  Model: gpt-4o, gpt-4o-mini
+
+Anthropic:
+  API Key: sk-ant-xxxx
+  Model: claude-sonnet-4-20250514
+
+Ollama (本地):
+  Endpoint: http://localhost:11434
+  Model: llama3, qwen2
+```
+
+## 相关概念
+
+- **MCP（Model Context Protocol）**：模型上下文协议，标准化 AI 模型与外部工具的交互方式
+- **RAG（Retrieval-Augmented Generation）**：检索增强生成，知识库问答的核心技术
+- **Ollama**：本地大模型运行工具，Cherry Studio 支持的本地模型后端
+- **OpenAI API**：GPT 系列模型的 API 服务
+- **Anthropic API**：Claude 系列模型的 API 服务
+- **Electron**：跨平台桌面应用开发框架，Cherry Studio 的底层技术
+- **Hermes**：另一个开源 AI 聊天客户端，Cherry Studio 的替代品
+
+## 信源
+
+| 来源 | 等级 | 内容摘要 |
+|------|------|---------|
+| [Cherry Studio GitHub 仓库](https://github.com/kangfenmao/cherry-studio) | T1 | Cherry Studio 的官方开源代码仓库 |
+| [Cherry Studio 官方网站](https://cherryai.com/) | T1 | 官方网站，提供下载和功能介绍 |
+| [Cherry Studio 用户文档](https://cherryai.com/docs) | T1 | 官方使用文档和配置指南 |
+| [少数派 - AI 客户端推荐](https://sspai.com/) | T3 | 第三方媒体对 AI 聊天客户端的测评文章 |
+| [V2EX 社区讨论](https://www.v2ex.com/) | T4 | 中文开发者社区对 Cherry Studio 的讨论和反馈 |
+
+## 变更记录
+
+| 版本 | 日期 | 变更内容 |
+|------|------|---------|
+| v1.0 | 2026-07-07 | 初始创建 |

@@ -1,0 +1,123 @@
+---
+title: Postman
+description: Postman 的定义、核心功能和信源考证。
+version: 1.0
+created: 2026-07-07
+updated: 2026-07-07
+status: confirmed
+consensus: 广泛共识
+category: 技术
+---
+
+## 定义
+
+**Postman** 是一个广泛使用的 **API 开发和测试工具**。它提供图形化界面来发送 HTTP 请求（GET、POST、PUT、DELETE 等）、管理 API 集合、自动化测试、生成 API 文档和协作分享。支持环境变量、Pre-request Script 和 Test Script（基于 JavaScript）。
+
+Postman 最初是 Chrome 浏览器扩展，由 Abhinav Asthana 于 2012 年开发，现已发展为功能丰富的独立桌面应用和云端协作平台，是开发者日常工作中最常用的 API 工具之一。
+
+## 英文术语拆解
+
+| 英文全称 | Postman |
+|----------|---------|
+| 音标 | /ˈpoʊstmən/ |
+
+**词源说明：**
+
+"Postman" 字面意思是"邮递员"（post = 邮件/邮政，man = 人）。这个名字寓意为在 API 世界中日趋传递"信件"（HTTP 请求）的角色——正如邮递员负责在发件人和收件人之间传递邮件，Postman 负责在客户端和服务器之间发送和接收 API 请求与响应。
+
+## 核心功能
+
+### HTTP 请求发送
+支持所有标准 HTTP 方法（GET、POST、PUT、PATCH、DELETE、HEAD、OPTIONS 等），可设置请求头（Headers）、请求体（Body）、查询参数（Query Params）和路径参数。
+
+### 集合（Collection）
+将相关的 API 请求组织到集合中，支持嵌套文件夹结构，方便管理和分享。集合是 Postman 的核心组织单元。
+
+### 环境变量
+支持多套环境配置（开发环境、测试环境、生产环境等），通过变量替换实现同一请求在不同环境间无缝切换。
+
+### 自动化测试
+通过 Test Script（基于 JavaScript）编写断言和测试逻辑，可验证响应状态码、返回数据结构、性能指标等。支持通过 Collection Runner 批量执行测试。
+
+### Pre-request Script
+在请求发送前执行的 JavaScript 脚本，常用于生成动态参数（如时间戳、签名）、设置变量等。
+
+### API 文档生成
+自动根据集合中的请求生成格式化的 API 文档，支持在线发布和分享。
+
+### Mock Server
+提供 Mock 服务器功能，可在 API 尚未开发完成时模拟返回预期的响应。
+
+### 团队协作
+支持团队工作区（Workspace），多人协作管理 API 集合，具备版本控制和评论功能。
+
+## 常见用法示例
+
+```text
+// Test Script 示例（JavaScript）
+// 验证响应状态码
+pm.test("Status code is 200", function () &#123;
+    pm.response.to.have.status(200);
+&#125;);
+
+// 验证响应体包含特定字段
+pm.test("Response has token", function () &#123;
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.token).to.not.be.undefined;
+&#125;);
+
+// 将 token 存入环境变量供后续请求使用
+pm.test("Save token", function () &#123;
+    var jsonData = pm.response.json();
+    pm.environment.set("auth_token", jsonData.token);
+&#125;);
+```
+
+```text
+// Pre-request Script 示例
+// 生成时间戳
+pm.environment.set("timestamp", new Date().getTime());
+
+// 生成请求签名
+var crypto = require('crypto-js');
+var secret = pm.environment.get("api_secret");
+var hash = crypto.HmacSHA256("request_body", secret).toString();
+pm.environment.set("signature", hash);
+```
+
+```text
+// 环境变量示例
+// 开发环境：
+// BASE_URL = http://localhost:3000
+// API_KEY = dev-key-12345
+
+// 生产环境：
+// BASE_URL = https://api.example.com
+// API_KEY = prod-key-67890
+```
+
+## 相关概念
+
+- **REST API**：基于 HTTP 协议的 API 设计风格，Postman 主要用于测试 REST API
+- **HTTP 方法**：GET（获取）、POST（创建）、PUT（更新）、DELETE（删除）等
+- **cURL**：命令行 HTTP 工具，Postman 支持将 cURL 命令导入为请求
+- **OpenAPI / Swagger**：API 描述规范，Postman 支持导入 OpenAPI 规范生成集合
+- **GraphQL**：另一种 API 查询语言，Postman 也支持 GraphQL 请求
+- **Newman**：Postman 的命令行运行工具，用于在 CI/CD 中执行 Postman 集合测试
+- **Insomnia**：与 Postman 类似的 API 开发工具
+
+## 信源
+
+| 来源 | 等级 | 内容摘要 |
+|------|------|---------|
+| [Postman 官方文档](https://learning.postman.com/docs/) | T1 | Postman 官方学习中心，涵盖所有功能的使用指南 |
+| [Postman 官网](https://www.postman.com/) | T1 | Postman 官方网站，提供下载和云端服务 |
+| [Postman GitHub](https://github.com/postmanlabs) | T1 | Postman 开源项目和相关工具的代码仓库 |
+| [Postman Blog](https://blog.postman.com/) | T1 | 官方博客，包含 API 技术文章和产品更新 |
+| [Wikipedia - Postman (software)](https://en.wikipedia.org/wiki/Postman_(software)) | T2 | Postman 软件的百科全书介绍 |
+
+## 变更记录
+
+| 版本 | 日期 | 变更内容 |
+|------|------|---------|
+| v1.0 | 2026-07-07 | 初始创建 |

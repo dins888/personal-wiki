@@ -1,0 +1,102 @@
+---
+title: Docker Desktop
+description: Docker Desktop 的定义、核心功能、术语拆解和信源考证。
+version: 1.0
+created: 2026-07-07
+updated: 2026-07-07
+status: confirmed
+consensus: 广泛共识
+category: 技术
+---
+
+## 定义
+
+**Docker Desktop** 是 Docker 官方提供的**桌面应用程序**（Desktop Application），适用于 **macOS** 和 **Windows** 操作系统。它将 Docker Engine、Docker CLI、Docker Compose 和 Kubernetes 等工具封装在一个安装包中，提供**图形化界面**（GUI）来管理容器、镜像、卷和网络。用户无需手动配置底层虚拟机或 Linux 环境，即可在本地开发和运行容器化应用。
+
+## 英文术语拆解
+
+| 英文全称 | Docker Desktop |
+|----------|----------------|
+| 音标 | /ˈdɒkər ˈdɛsktɒp/ |
+
+**逐词解释：**
+
+- **Docker**：/ˈdɒkər/，开源容器化平台名称（详见 Docker 词条）
+- **Desktop**：/ˈdɛsktɒp/，意为"桌面"，指运行在个人电脑桌面操作系统上的应用程序，区别于服务器端（Server）或云端（Cloud）部署
+
+**组合理解：** Docker Desktop 即"桌面版 Docker"，是 Docker 平台面向个人开发者的桌面端集成应用，将容器运行所需的全部工具链打包为一体化产品。
+
+## 核心功能/特性
+
+### 图形化管理界面
+提供 Dashboard 面板，可视化查看和管理容器、镜像、卷、网络等资源，无需记忆命令行。
+
+### 内置 Docker Engine
+在 macOS/Windows 上自动配置和运行 Docker Engine（底层通过轻量级虚拟机实现），用户开箱即用。
+
+### Docker Compose 集成
+内置 Docker Compose 工具，支持通过 YAML 文件定义和运行多容器应用。
+
+### Kubernetes 支持
+内置单节点 Kubernetes 集群，开发者可在本地测试 K8s 部署配置。
+
+### 扩展（Extensions）
+支持通过扩展市场安装第三方插件，增强 Docker Desktop 的功能（如磁盘清理、日志查看、安全扫描等）。
+
+### 资源管理
+允许用户自定义分配给 Docker 的 CPU、内存、磁盘和 Swap 资源。
+
+### Dev Environments
+支持从 Git 仓库自动创建开发环境，团队成员可一键复现一致的开发环境。
+
+## 常见用法示例
+
+### 安装后典型操作
+
+```bash
+# 验证 Docker 是否正常运行
+docker --version
+docker run hello-world
+
+# 查看 Docker Desktop 中运行的容器
+docker ps
+
+# 使用 Docker Compose 启动多容器应用
+docker compose up -d
+
+# 查看镜像列表
+docker images
+```
+
+### 典型使用场景
+
+1. **本地开发**：开发者在 macOS/Windows 上运行 Linux 容器，构建和测试应用
+2. **环境一致性**：团队成员使用相同的 Docker 镜像，消除"在我机器上能跑"的问题
+3. **微服务开发**：通过 Docker Compose 同时运行多个微服务容器进行联调
+4. **学习 K8s**：利用内置 Kubernetes 在本地学习容器编排
+
+## 相关概念
+
+- **Docker Engine**：Docker 的核心运行时组件，Docker Desktop 内置了该组件
+- **Docker CLI**：Docker 命令行工具，Docker Desktop 内置
+- **Docker Compose**：多容器应用编排工具
+- **Kubernetes（K8s）**：容器编排系统
+- **WSL 2**：Windows Subsystem for Linux 2，Docker Desktop 在 Windows 上的后端引擎
+- **Colima / Rancher Desktop**：Docker Desktop 的开源替代方案
+- **容器化（Containerization）**：将应用打包为标准容器的技术范式
+
+## 信源
+
+| 来源 | 等级 | 内容摘要 |
+|------|------|---------|
+| [Docker Desktop 官方文档](https://docs.docker.com/desktop/) | T1 | Docker Desktop 的官方安装、配置和使用文档 |
+| [Docker Desktop 下载页面](https://www.docker.com/products/docker-desktop/) | T1 | 官方下载页面，含系统要求和安装指南 |
+| [Docker 官方博客](https://www.docker.com/blog/) | T1 | Docker 团队发布 Docker Desktop 新特性和更新日志 |
+| [Wikipedia - Docker (software)](https://en.wikipedia.org/wiki/Docker_(software)) | T2 | 百科全书对 Docker 软件生态的介绍 |
+| [Docker Desktop 许可证变更公告](https://www.docker.com/pricing/) | T1 | 2021 年 Docker Desktop 收费政策变更的官方公告 |
+
+## 变更记录
+
+| 版本 | 日期 | 变更内容 |
+|------|------|---------|
+| v1.0 | 2026-07-07 | 初始创建 |

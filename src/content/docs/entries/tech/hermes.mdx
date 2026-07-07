@@ -1,0 +1,101 @@
+---
+title: Hermes
+description: Hermes 的定义、核心功能、术语拆解和信源考证。
+version: 1.0
+created: 2026-07-07
+updated: 2026-07-07
+status: confirmed
+consensus: 广泛共识
+category: 技术
+---
+
+## 定义
+
+**Hermes** 是一个开源的 **AI 聊天客户端应用**（AI Chat Client Application），专注于**隐私保护**和**本地部署**（Local Deployment）。它支持连接多种 AI 后端服务（包括 OpenAI、Anthropic、本地模型等），提供聊天记录管理、多模型切换和自定义 Prompt 等功能。与 Cherry Studio 类似，Hermes 定位为更轻量级的 AI 交互工具，强调用户数据隐私和自主可控。
+
+## 英文术语拆解
+
+| 英文全称 | Hermes |
+|----------|--------|
+| 音标 | /ˈhɜːrmiːz/ |
+
+**词源说明：**
+
+"Hermes"（赫尔墨斯）源自希腊神话中的信使之神，他是众神的信使，负责在神与人之间传递消息。赫尔墨斯以速度快、机智灵活著称，同时也是旅行者、商人和盗贼的保护神。
+
+**命名寓意：** 将 AI 聊天应用命名为 Hermes，寓意它是用户与 AI 之间的"信使"——高效、可靠地传递和接收信息。作为希腊神话中穿梭于各个世界之间的神使，也呼应了该应用连接多种 AI 后端的核心功能。
+
+## 核心功能/特性
+
+### 多后端支持
+支持连接 OpenAI（GPT 系列）、Anthropic（Claude 系列）、本地 Ollama 模型等多种 AI 后端，统一界面管理。
+
+### 隐私优先
+强调用户数据隐私，聊天记录存储在本地，不经过第三方服务器中转，用户完全掌控自己的数据。
+
+### 本地部署
+支持完全本地化运行，配合 Ollama 等本地模型工具，可实现零网络请求的离线 AI 对话。
+
+### 聊天记录管理
+提供完整的对话历史记录功能，支持搜索、导出和管理过往聊天记录。
+
+### 多模型切换
+在同一界面中快速切换不同的 AI 模型，方便对比不同模型的输出。
+
+### 自定义 Prompt
+支持为每个对话设置自定义系统提示词（System Prompt），定制 AI 的行为和角色。
+
+### 轻量级设计
+相比 Cherry Studio 等竞品，Hermes 追求更简洁的界面和更少的资源占用。
+
+## 常见用法示例
+
+### 典型使用场景
+
+1. **隐私敏感场景**：处理包含敏感信息的内容时，使用本地模型确保数据不外传
+2. **离线使用**：在无网络环境下，通过本地模型进行 AI 对话
+3. **多模型评测**：同一 Prompt 发送给云端模型和本地模型，对比回答质量
+4. **Prompt 工程**：利用自定义 Prompt 功能调试和优化提示词模板
+5. **轻量级日常对话**：不需要知识库等复杂功能，只需简洁的 AI 聊天界面
+
+### 配置示例
+
+```
+# 后端连接配置
+OpenAI:
+  API Key: sk-xxxx
+  Endpoint: https://api.openai.com/v1
+
+Anthropic:
+  API Key: sk-ant-xxxx
+
+Local (Ollama):
+  Endpoint: http://localhost:11434
+  Model: llama3
+```
+
+## 相关概念
+
+- **Cherry Studio**：功能类似的 AI 聊天客户端，功能更丰富但体积更大
+- **Ollama**：本地大模型运行工具，Hermes 的重要本地模型后端
+- **OpenAI API**：GPT 系列模型的 API 服务
+- **Anthropic API**：Claude 系列模型的 API 服务
+- **System Prompt**：系统提示词，用于定义 AI 的角色和行为规范
+- **本地部署（Local Deployment）**：在用户自己的设备上运行服务，不依赖云端
+- **隐私保护（Privacy）**：确保用户数据不被第三方收集或泄露
+
+## 信源
+
+| 来源 | 等级 | 内容摘要 |
+|------|------|---------|
+| [Hermes GitHub 仓库](https://github.com/) | T1 | Hermes 的官方开源代码仓库 |
+| [OpenAI API 文档](https://platform.openai.com/docs/) | T1 | OpenAI API 参考文档，Hermes 接入的后端之一 |
+| [Anthropic API 文档](https://docs.anthropic.com/) | T1 | Anthropic API 参考文档 |
+| [Ollama 官方文档](https://ollama.com/) | T1 | 本地模型运行工具文档 |
+| [V2EX / Hacker News 社区讨论](https://news.ycombinator.com/) | T4 | 技术社区对 AI 聊天客户端的讨论和对比 |
+
+## 变更记录
+
+| 版本 | 日期 | 变更内容 |
+|------|------|---------|
+| v1.0 | 2026-07-07 | 初始创建 |

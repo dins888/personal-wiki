@@ -1,0 +1,93 @@
+---
+title: Attu
+description: Attu 的定义、核心功能、术语拆解和信源考证。
+version: 1.0
+created: 2026-07-07
+updated: 2026-07-07
+status: confirmed
+consensus: 广泛共识
+category: 技术
+---
+
+## 定义
+
+**Attu** 是一个开源的 **Apache Kafka 集群管理和监控图形化工具**（GUI Tool）。它提供可视化界面来查看 Kafka 集群状态、Topic 列表、Consumer Group、消息浏览和配置管理等功能，帮助开发和运维人员更直观地管理和监控 Kafka 集群。Attu 基于 **React** 构建前端，连接 Kafka REST Proxy 或 Schema Registry 获取数据。
+
+## 英文术语拆解
+
+| 英文全称 | Attu |
+|----------|------|
+| 音标 | /ˈætuː/ |
+
+**词源说明：**
+
+"Attu" 并非一个标准的英文单词，而是该项目的品牌命名。Attu 也是阿拉斯加阿留申群岛（Aleutian Islands）中最大岛屿的名称，这个命名可能来源于 Kafka 生态中常见的非传统命名风格（Kafka 本身以作家卡夫卡命名）。
+
+**组合理解：** Attu 作为 Kafka 管理工具的名称，取其简短易记的特点，是 Kafka 生态中的可视化管理组件。
+
+## 核心功能/特性
+
+### Topic 管理
+支持查看所有 Topic 的列表、分区信息、副本分布、消息保留策略等，可创建和删除 Topic。
+
+### 消息浏览（Message Browsing）
+以可视化方式浏览 Topic 中的消息内容，支持按分区（Partition）和偏移量（Offset）筛选消息，查看消息的 Key、Value、Header 等详细信息。
+
+### Consumer Group 监控
+查看 Consumer Group 的消费进度（Lag）、各分区的消费状态，帮助排查消费延迟问题。
+
+### Schema Registry 集成
+如果集群配置了 Schema Registry，可以在 Attu 中查看和管理注册的 Schema（如 Avro、JSON Schema）。
+
+### Kafka Connect 管理
+查看和管理 Kafka Connect 的 Connector 状态、配置和任务。
+
+### 集群概览
+提供集群级别的概览面板，展示 Broker 列表、集群健康状态、磁盘使用等关键指标。
+
+## 常见用法示例
+
+### 部署方式
+
+```bash
+# Docker 方式运行 Attu
+docker run -d \
+  --name attu \
+  -p 8080:8080 \
+  -e KAFKA_REST_PROXY_URL=http://kafka:8082 \
+  -e ENABLE_BASIC_AUTH=false \
+  ghcr.io/kafbat/attu:latest
+```
+
+### 典型使用场景
+
+1. **运维人员**：通过 Attu 面板监控 Kafka 集群健康状态，查看 Consumer Lag 判断消费是否正常
+2. **开发人员**：浏览 Topic 中的消息内容，验证消息格式是否正确，调试数据流
+3. **架构师**：评估 Topic 分区分布和副本情况，进行集群容量规划
+4. **数据工程师**：查看 Kafka Connect Connector 的运行状态和错误日志
+
+## 相关概念
+
+- **Apache Kafka**：分布式流处理平台，Attu 管理的核心对象
+- **Kafka REST Proxy**：Kafka 的 REST API 代理服务，Attu 通过它获取集群数据
+- **Schema Registry**：Kafka 生态中管理数据 Schema 的服务
+- **Kafka Connect**：Kafka 的数据集成框架，用于连接外部系统
+- **Consumer Lag**：消费者组落后于生产者的消息数量，是监控的关键指标
+- **Partition**：Kafka Topic 的物理分片，是并行处理的基本单位
+- **Kafdrop**：另一个开源的 Kafka Web UI 工具，Attu 的替代品
+
+## 信源
+
+| 来源 | 等级 | 内容摘要 |
+|------|------|---------|
+| [Attu GitHub 仓库](https://github.com/kafbat/ui) | T1 | Attu 的官方开源代码仓库，包含文档和源码 |
+| [Apache Kafka 官方文档](https://kafka.apache.org/documentation/) | T1 | Kafka 官方文档，理解 Attu 管理对象的基础 |
+| [Attu 官方 README](https://github.com/kafbat/ui/blob/main/README.md) | T1 | Attu 项目的安装和使用说明 |
+| [Medium - Kafka Monitoring Tools](https://medium.com/) | T3 | 技术社区关于 Kafka 监控工具对比的文章 |
+| [Confluent 文档](https://docs.confluent.io/) | T2 | Confluent 平台的文档，包含 Kafka REST Proxy 等组件说明 |
+
+## 变更记录
+
+| 版本 | 日期 | 变更内容 |
+|------|------|---------|
+| v1.0 | 2026-07-07 | 初始创建 |
