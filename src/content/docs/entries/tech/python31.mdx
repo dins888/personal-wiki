@@ -1,0 +1,96 @@
+---
+title: Python 3.1
+description: Python 3.1 的定义、版本特性和技术背景。
+version: 1.0
+created: 2026-07-07
+updated: 2026-07-07
+status: confirmed
+consensus: 广泛共识
+category: 技术
+---
+
+## 定义
+
+**Python 3.1** 是 Python 编程语言 3.x 系列的第二个版本，于 2009 年 6 月 27 日发布。它是 Python 3 过渡早期的一个重要版本，在 Python 3.0 的基础上进行了性能优化和标准库扩展，但未引起广泛的迁移浪潮（大多数用户仍停留在 Python 2.x）。
+
+Python 3.1 的主要目标是**修复 Python 3.0 的性能问题**并**完善标准库**，而非引入大量新语法特性。
+
+## 英文术语拆解
+
+| 英文全称 | Python 3.1 |
+|----------|------------|
+| 音标 | /ˈpaɪθɒn θriː pɔɪnt wʌn/ |
+
+**逐词解释：**
+
+| 单词 | 音标 | 含义 |
+|------|------|------|
+| Python | /ˈpaɪθɒn/ | 蟒蛇。编程语言名称，由 Guido van Rossum 以其喜爱的英国喜剧团体 Monty Python 命名。 |
+| 3 | /θriː/ | 三。主版本号，代表与 Python 2 不兼容的重大重构世代。 |
+| .1 | /pɔɪnt wʌn/ | 点一。次版本号，表示在 3.0 基础上的增量更新。 |
+
+**组合理解：** Python 语言第 3 大版本的第 1 次增量更新。
+
+## 主要特性
+
+### 性能优化
+- **打包整数（Packaged integers）**：大幅提升了整数运算性能（在某些场景下提升达数倍）
+- **短字符串优化**：改进了字符串处理效率
+
+### 新增语法特性
+- **有序字典（Ordered Dictionary）提案**：虽然 `collections.OrderedDict` 在 Python 3.1 中正式加入标准库
+
+### 标准库改进
+- 新增 `collections.OrderedDict`：保持插入顺序的字典类型
+- 新增 `zipimport` 模块：支持直接从 ZIP 压缩包导入模块
+- 改进了 `io` 模块的性能
+- 新增对 `tkinter` 的 ttk 主题支持
+
+## 常见用法示例
+
+```python
+# OrderedDict - Python 3.1 新增
+from collections import OrderedDict
+
+d = OrderedDict()
+d['first'] = 1
+d['second'] = 2
+d['third'] = 3
+
+for key, value in d.items():
+    print(f"{key}: {value}")  # 按插入顺序输出
+
+# zipimport - Python 3.1 新增
+import zipimport
+importer = zipimport.zipimporter('my_package.zip')
+module = importer.load_module('my_module')
+```
+
+## 历史背景
+
+Python 3.0 于 2008 年 12 月发布，引入了大量不兼容改动（如 `print` 语句变为函数、Unicode 默认编码等），导致社区迁移阻力极大。Python 3.1 在发布后一年内推出，重点解决 3.0 的性能退步问题，但实际效果有限——直到 Python 3.3~3.5 时期，社区才开始大规模向 Python 3 迁移。
+
+Python 2.7（2010 年发布）成为 Python 2 系列的最终版本，许多用户长期停留在此版本直至 2020 年 Python 2 正式停止支持。
+
+## 相关概念
+
+- **Python 2.7**：Python 2 系列的最终版本，与 Python 3 长期共存
+- **Python 3.0**：Python 3 系列的起始版本，引入了大量破坏性变更
+- **PEP 3000**：Python 3000 开发计划，定义了 Python 3 的设计方向
+- **Guido van Rossum**：Python 语言的创造者（1991 年发布首个版本）
+
+## 信源
+
+| 来源 | 等级 | 内容摘要 |
+|------|------|---------|
+| [Python 3.1 Release Notes](https://docs.python.org/3.1/whatsnew/3.1.html) | T1 | Python 官方文档：3.1 版本的新特性与变更说明 |
+| [PEP 3000 - Python 3000](https://peps.python.org/pep-3000/) | T1 | Python 3 的设计哲学与开发计划 |
+| [Python 官方网站](https://www.python.org/) | T1 | Python 语言的官方网站与下载页 |
+| [Wikipedia - History of Python](https://en.wikipedia.org/wiki/History_of_Python) | T2 | Python 的历史发展时间线 |
+| [Real Python - Python 3 vs Python 2](https://realpython.com/) | T3 | Python 2 与 Python 3 的对比与迁移指南 |
+
+## 变更记录
+
+| 版本 | 日期 | 变更内容 |
+|------|------|---------|
+| v1.0 | 2026-07-07 | 初始创建 |

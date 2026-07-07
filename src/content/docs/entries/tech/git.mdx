@@ -1,0 +1,110 @@
+---
+title: Git
+description: Git 的定义、核心概念、术语拆解和信源考证。
+version: 1.0
+created: 2026-07-07
+updated: 2026-07-07
+status: confirmed
+consensus: 广泛共识
+category: 技术
+---
+
+## 定义
+
+**Git** 是一个免费、开源的**分布式版本控制系统**（Distributed Version Control System），用于跟踪文件和代码的变更历史。它由 Linus Torvalds 于 2005 年创建，最初是为了替代 Linux 内核开发中使用的商业工具 BitKeeper。
+
+Git 的核心设计理念是：**每个开发者的本地仓库都是完整的代码历史副本**，不需要依赖中央服务器。这使得 Git 在分支管理、离线操作和团队协作方面远优于传统的集中式版本控制系统（如 SVN、CVS）。
+
+## 英文术语拆解
+
+| 英文全称 | Git |
+|----------|-----|
+| 音标 | /ɡɪt/ |
+
+**词源说明：**
+
+"Git" 在英式英语俚语中是"蠢货、讨厌的人"的意思。Linus Torvalds 本人曾幽默地解释过这个命名的由来：
+
+> "I'm an egotistical bastard, and I name all my projects after myself. First 'Linux', now 'git'."
+> （我是个自负的混蛋，我所有的项目都以我自己命名。先是 'Linux'，现在是 'git'。）
+
+不过 Linus 也在 README 中说明这个名字可以理解为 "get" 的俚语发音，即"获取"的意思。
+
+## 核心概念
+
+### 工作区（Working Directory）
+当前正在编辑的文件所在的目录。
+
+### 暂存区（Staging Area / Index）
+准备提交到仓库的变更暂存在此。通过 `git add` 将修改加入暂存区。
+
+### 本地仓库（Local Repository）
+存储在本地 `.git` 目录中的完整版本历史。
+
+### 远程仓库（Remote Repository）
+存储在服务器（如 GitHub、GitLab）上的共享仓库。
+
+### 提交（Commit）
+对暂存区内容的快照保存，附带提交者信息和说明。
+
+### 分支（Branch）
+从主线分叉出来的独立开发线，互不影响。
+
+## 常见用法示例
+
+```bash
+# 初始化新仓库
+git init
+
+# 克隆远程仓库
+git clone https://github.com/user/repo.git
+
+# 查看状态
+git status
+
+# 添加文件到暂存区
+git add filename.txt
+
+# 提交变更
+git commit -m "Add new feature"
+
+# 创建并切换到新分支
+git checkout -b feature-branch
+
+# 推送至远程仓库
+git push origin main
+
+# 拉取远程更新
+git pull origin main
+```
+
+## 与 GitHub 的关系
+
+- **Git** 是底层的版本控制工具（命令行软件）
+- **GitHub** 是基于 Git 的代码托管平台（商业服务）
+- 类似的平台还有 GitLab、Bitbucket、Gitee 等
+
+## 相关概念
+
+- **GitHub**：基于 Git 的代码托管和协作平台
+- **分支（Branch）**：Git 的并行开发机制
+- **合并（Merge）**：将不同分支的变更整合
+- **冲突（Conflict）**：多人修改同一文件时产生的矛盾，需手动解决
+- **SVN（Subversion）**：传统的集中式版本控制系统，Git 的前辈之一
+- **Linus Torvalds**：Git 的创造者，也是 Linux 内核的创造者
+
+## 信源
+
+| 来源 | 等级 | 内容摘要 |
+|------|------|---------|
+| [Git 官方网站](https://git-scm.com/) | T1 | Git 官方文档和下载页 |
+| [Pro Git Book（第二版）](https://git-scm.com/book/zh/v2) | T1 | Git 官方推荐的权威教程，免费在线阅读 |
+| [Git 源码仓库](https://github.com/git/git) | T1 | Git 项目的 GitHub 源码仓库 |
+| [Linus Torvalds - Git 创建始末](https://en.wikipedia.org/wiki/Git) | T2 | Wikipedia 对 Git 创建历史和命名的详细记录 |
+| [Atlassian - Git Tutorials](https://www.atlassian.com/git/tutorials) | T3 | Atlassian 提供的 Git 入门教程系列 |
+
+## 变更记录
+
+| 版本 | 日期 | 变更内容 |
+|------|------|---------|
+| v1.0 | 2026-07-07 | 初始创建 |

@@ -1,0 +1,114 @@
+---
+title: Docker
+description: Docker 的定义、核心概念、术语拆解和信源考证。
+version: 1.0
+created: 2026-07-07
+updated: 2026-07-07
+status: confirmed
+consensus: 广泛共识
+category: 技术
+---
+
+## 定义
+
+**Docker** 是一个开源的**容器化平台**（Containerization Platform），允许开发者将应用程序及其所有依赖项（代码、运行时、系统库、配置文件）打包成一个标准化的单元——称为**容器**（Container），在任何支持 Docker 的环境中一致地运行。
+
+Docker 的核心理念是 **"Build once, run anywhere"**（一次构建，到处运行），解决了传统部署中"在我机器上能跑"的环境一致性问题。
+
+## 英文术语拆解
+
+| 英文全称 | Docker |
+|----------|--------|
+| 音标 | /ˈdɒkər/ |
+
+**词源说明：**
+
+"Docker" 源自英语单词 "dock"（码头）+ "-er"（从事某事的人或物）。在英语俚语中，"docker" 也有"剪短尾巴"的意思。
+
+Logo 是一条鲸鱼背上驮着集装箱——呼应了码头（dock）的主题。这个命名灵感来自集装箱运输对航运业的革命性影响，正如 Docker 对软件部署的革命性影响。
+
+**组合理解：** 就像码头工人（docker）在港口搬运标准化的集装箱一样，Docker 让软件以标准化的容器形式在不同环境间搬运和运行。
+
+## 核心概念
+
+### 镜像（Image）
+一个只读模板，包含运行应用所需的一切（代码、运行时、库、环境变量、配置文件）。
+
+### 容器（Container）
+镜像的运行实例，类似一个轻量级的隔离环境。多个容器共享宿主机内核，但彼此隔离。
+
+### Dockerfile
+一个文本文件，包含构建 Docker 镜像的所有指令。
+
+### 仓库（Registry）
+存储和分发 Docker 镜像的服务，最知名的是 Docker Hub。
+
+### 编排（Orchestration）
+管理多个容器的部署、扩缩容和网络配置，常用工具有 Docker Compose 和 Kubernetes。
+
+## 与虚拟机的区别
+
+| 特性 | Docker 容器 | 虚拟机（VM） |
+|------|------------|-------------|
+| 启动速度 | 秒级 | 分钟级 |
+| 资源占用 | 极小（MB 级） | 较大（GB 级） |
+| 隔离程度 | 进程级隔离 | 完整操作系统隔离 |
+| 共享内核 | 是（共享宿主机内核） | 否（每个 VM 有自己的内核） |
+| 密度 | 单台机器可运行数百个容器 | 单台机器通常运行数十个 VM |
+
+## 常见用法示例
+
+```dockerfile
+# Dockerfile 示例 - 构建一个 Python 应用的镜像
+FROM python:3.11-slim
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+COPY . .
+
+EXPOSE 8000
+
+CMD ["python", "app.py"]
+```
+
+```bash
+# 构建镜像
+docker build -t my-app:1.0 .
+
+# 运行容器
+docker run -d -p 8000:8000 my-app:1.0
+
+# 查看运行中的容器
+docker ps
+
+# 进入容器内部
+docker exec -it container_id /bin/bash
+```
+
+## 相关概念
+
+- **容器化（Containerization）**：将应用打包为容器的技术范式
+- **Kubernetes（K8s）**：容器编排系统，管理大规模容器集群
+- **Docker Compose**：多容器应用的定义和运行工具
+- **Docker Hub**：官方的公共镜像仓库
+- **微服务架构（Microservices）**：Docker 推动流行的软件架构模式
+- **CI/CD**：持续集成/持续部署，Docker 是现代 CI/CD 流程的核心组件
+
+## 信源
+
+| 来源 | 等级 | 内容摘要 |
+|------|------|---------|
+| [Docker 官方文档](https://docs.docker.com/) | T1 | Docker 官方文档和最佳实践 |
+| [Docker GitHub 仓库](https://github.com/moby/moby) | T1 | Docker 引擎（Moby）的开源代码仓库 |
+| [Docker 官方博客](https://www.docker.com/blog/) | T1 | Docker 团队的官方博客，发布新特性和技术解读 |
+| [Wikipedia - Docker (software)](https://en.wikipedia.org/wiki/Docker_(software)) | T2 | Docker 技术的百科全书介绍 |
+| [IBM - What is Docker?](https://www.ibm.com/cloud/learn/docker) | T2 | IBM 对 Docker 概念的解释 |
+
+## 变更记录
+
+| 版本 | 日期 | 变更内容 |
+|------|------|---------|
+| v1.0 | 2026-07-07 | 初始创建 |
