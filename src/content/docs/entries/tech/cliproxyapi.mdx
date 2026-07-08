@@ -1,0 +1,112 @@
+---
+title: CLIProxyAPI
+description: 开源 AI CLI 代理服务器，将 Gemini/Claude/Codex 等 CLI 接口统一转换为标准 API，支持 OAuth 和多账号负载均衡。
+version: 1.0
+created: 2026-07-08
+updated: 2026-07-08
+status: confirmed
+consensus: 广泛共识
+category: 技术应用
+---
+
+## 定义
+
+CLIProxyAPI 是一款开源的 AI CLI 代理服务器，由 Go 语言编写，旨在将 Gemini CLI、Claude Code、OpenAI Codex、Qwen Code 等命令行工具的原生接口统一转换为兼容 OpenAI / Gemini / Claude 格式的标准 REST API。它允许用户通过 OAuth 登录直接使用各厂商提供的 CLI 订阅服务，无需购买独立的 API Key，同时提供多账号轮询负载均衡、自动故障转移等生产级能力，适用于个人开发者及中小团队的大模型 API 接入场景。
+
+## 英文术语拆解
+
+CLIProxyAPI 由三个英文术语组合而成：
+
+| 术语 | IPA 音标 | 含义 |
+|------|----------|------|
+| **CLI** | /&#609;si&#720;&middot;el&aacute;&middot;a&iacute;/ (command-line interface) | 命令行界面，用户通过文本终端与程序交互的方式 |
+| **Proxy** | /&#712;pr&ocirc;ksi/ | 代理，在计算机领域指代为客户端转发请求的中间服务 |
+| **API** | /&eacute;&middot;pi&#720;&middot;a&iacute;/ (application programming interface) | 应用程序编程接口，定义了软件组件之间的交互规范 |
+
+组合含义：**通过代理命令行接口来提供标准 API 服务**——即在 CLI 工具的后端协议与应用层 API 之间架起一座桥梁。
+
+## 核心功能/特性
+
+- **OAuth 免 Key 登录**：支持 Google Gemini、Anthropic Claude、OpenAI Codex、Qwen Code、Kiro/AWS 等多个提供商的 OAuth 授权登录，用户可直接复用 CLI 订阅额度，无需额外申请 API Key。
+- **多账号负载均衡**：支持 round-robin（轮询）和 fill-first（填满优先）两种调度策略，可挂载多个账号并行处理请求，提升吞吐量与可用性。
+- **自动故障转移**：当某个账号或上游服务出现故障时，自动切换到可用节点，保障服务连续性。
+- **流式与非流式响应**：同时支持 SSE 流式输出和一次性返回，兼容各类客户端调用模式。
+- **函数调用与多模态**：支持 function calling（工具调用）以及图像等多模态输入，适配主流 Agent 框架。
+- **模型别名与路由映射**：可自定义模型名称映射，将统一接口路由到不同后端提供商的具体模型。
+- **轻量高效**：编译后二进制约 10 MB，运行时内存占用不到 10 MB，适合部署在低配服务器或边缘设备。
+- **多种部署方式**：支持 Docker 容器、Homebrew 一键安装及源码编译，默认监听端口 8317。
+- **管理 API 与 Web 面板**：内置管理接口和可视化 Web 控制台，方便查看账号状态、配置路由。
+- **配置热重载**：修改配置文件后无需重启服务即可生效。
+- **MIT 开源协议**：完全开源，可自由修改和商用。
+
+## 常见用法示例
+
+### 1. Docker 部署
+
+```bash
+docker run -d \
+  --name cliproxyapi \
+  -p 8317:8317 \
+  -v $(pwd)/config:/app/config \
+  ghcr.io/router-for-me/cliproxyapi:latest
+```
+
+### 2. Homebrew 安装
+
+```bash
+brew tap router-for-me/cliproxyapi
+brew install cliproxyapi
+cliproxyapi --port 8317
+```
+
+### 3. OAuth 登录后调用 API
+
+```bash
+# 通过 CLIProxyAPI 完成 Google Gemini OAuth 登录
+cliproxyapi login gemini
+
+# 使用兼容 OpenAI 格式的请求调用
+curl http://localhost:8317/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "gemini-2.5-pro",
+    "messages": [
+      {"role": "user", "content": "Hello!"}
+    ],
+    "stream": true
+  }'
+```
+
+### 4. 多账号负载均衡配置
+
+在配置文件中添加多个账号，CLIProxyAPI 会按设定的策略自动轮询分配请求，实现负载分散和故障容灾。
+
+### 5. 对接第三方客户端
+
+任何支持 OpenAI API 格式的客户端（如 ChatGPT-Next-Web、LobeChat、Open WebUI 等）均可将 API 地址指向 `http://localhost:8317/v1`，无缝接入 Gemini、Claude 等模型。
+
+## 相关概念
+
+| 概念 | 说明 |
+|------|------|
+| **OAuth** | 开放授权协议，CLIProxyAPI 利用 OAuth 机制直接复用用户已有的 CLI 订阅身份进行认证。 |
+| **Load Balancing（负载均衡）** | 将请求分散到多个后端节点处理，CLIProxyAPI 支持 round-robin 和 fill-first 策略。 |
+| **API Gateway（API 网关）** | 统一入口管理多个后端服务的请求路由、认证和限流，CLIProxyAPI 本质上是一个轻量级 API 网关。 |
+| **Reverse Proxy（反向代理）** | 代替后端服务接收客户端请求并转发，CLIProxyAPI 在 CLI 工具与调用方之间充当反向代理角色。 |
+| **CLI (Command-Line Interface)** | 命令行界面，Google Gemini CLI、Claude Code 等均属于 AI 领域的 CLI 工具。 |
+| **SSE (Server-Sent Events)** | 服务器向客户端推送事件的单向通道协议，CLIProxyAPI 用它实现流式响应。 |
+| **Function Calling** | 大模型的函数/工具调用能力，CLIProxyAPI 完整支持该特性的透传。 |
+| **Hot Reload（热重载）** | 运行时动态更新配置而无需重启服务，CLIProxyAPI 支持配置文件热重载。 |
+
+## 信源
+
+| 等级 | 来源 | 链接 |
+|------|------|------|
+| T1 | GitHub 仓库（一手源码） | https://github.com/router-for-me/CLIProxyAPI |
+| T1 | 官方文档 | https://help.router-for-me/ |
+
+## 变更记录
+
+| 日期 | 版本 | 变更内容 |
+|------|------|----------|
+| 2026-07-08 | 1.0 | 初始创建，涵盖定义、术语拆解、核心功能、用法示例、相关概念与信源。 |
