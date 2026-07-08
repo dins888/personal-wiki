@@ -1,0 +1,112 @@
+---
+title: Stable Diffusion
+description: Stable Diffusion 的定义、技术原理和信源考证。
+version: 1.0
+created: 2026-07-08
+updated: 2026-07-08
+status: confirmed
+consensus: 广泛共识
+category: AI 基础概念
+---
+
+## 定义
+
+**Stable Diffusion** 是一个开源的**潜在扩散模型**（Latent Diffusion Model），用于根据文本描述生成高质量图像。它由 Stability AI、CompVis（慕尼黑大学）和 Runway 于 2022 年 8 月联合发布。
+
+Stable Diffusion 的核心工作原理是在**潜在空间**（Latent Space）而非像素空间中进行扩散过程，大幅降低了计算成本，使得在消费级 GPU 上也能运行。它是当前最流行的开源 AI 图像生成工具之一，催生了大量社区生态（如 WebUI、ComfyUI、LoRA 微调等）。
+
+## 英文术语拆解
+
+| 英文全称 | Stable Diffusion |
+|----------|-----------------|
+| 音标 | /ˈsteɪbl dɪˈfjuːʒən/ |
+
+**逐词解释：**
+
+| 单词 | 音标 | 含义 |
+|------|------|------|
+| Stable | /ˈsteɪbl/ | 稳定的。指扩散过程经过训练后趋于稳定，能生成一致、高质量的图像。 |
+| Diffusion | /dɪˈfjuːʒən/ | 扩散。源自物理学，指粒子从高浓度向低浓度扩散的过程。在模型中指图像逐步去噪的生成过程。 |
+
+**组合理解：** 通过稳定的扩散过程（逐步去噪）从随机噪声生成图像。
+
+## 技术原理
+
+### 扩散过程
+Stable Diffusion 基于**去噪扩散概率模型**（DDPM）的思想：
+
+1. **前向过程（加噪）**：逐步向图像添加高斯噪声，直至变成纯噪声
+2. **反向过程（去噪）**：训练一个神经网络学习如何逐步去除噪声，还原出图像
+3. **生成**：从纯随机噪声开始，通过多步去噪生成新图像
+
+### 潜在空间（Latent Space）
+与传统扩散模型不同，Stable Diffusion 不直接在像素空间操作，而是：
+- 使用 **VAE**（Variational Autoencoder）将图像编码到低维潜在空间
+- 在潜在空间中进行扩散和去噪
+- 最后用 VAE 解码器将潜在表示还原为图像
+
+这种设计使计算量大幅降低（约减少 40~50 倍），同时保持生成质量。
+
+### 核心组件
+
+| 组件 | 作用 |
+|------|------|
+| **U-Net** | 去噪神经网络，在每一步预测并去除噪声 |
+| **VAE** | 变分自编码器，负责图像与潜在空间之间的转换 |
+| **CLIP Text Encoder** | 文本编码器，将用户的文字描述转化为模型可理解的向量 |
+| **Cross-Attention** | 交叉注意力机制，将文本信息注入到 U-Net 的去噪过程中 |
+
+## 主要版本
+
+| 版本 | 发布时间 | 主要改进 |
+|------|---------|---------|
+| SD 1.5 | 2022-10 | 社区最广泛使用的版本，LoRA/ControlNet 生态成熟 |
+| SD 2.0 | 2022-12 | 使用 OpenCLIP 训练器，支持 768x768 分辨率 |
+| SDXL 1.0 | 2023-07 | 更大模型（3.5B 参数），支持 1024x1024，质量显著提升 |
+| SD 3.0 | 2024-06 | 采用 MMDiT 架构，文字渲染能力大幅提升 |
+
+## 常见使用方式
+
+### 命令行生成
+```bash
+# 使用 diffusers 库
+python scripts/txt2img.py --prompt "a cat sitting on a windowsill" --plms
+```
+
+### 通过 WebUI 使用
+- **Automatic1111 WebUI**：最流行的图形化界面
+- **ComfyUI**：基于节点的可视化工作流编辑器
+- **Fooocus**：极简风格，类似 Midjourney 的使用体验
+
+### 文生图 Prompt 示例
+```
+A serene Japanese garden with cherry blossoms, koi pond, traditional wooden bridge,
+golden hour lighting, highly detailed, masterpiece, 8k resolution
+Negative prompt: blurry, low quality, deformed
+```
+
+## 相关概念
+
+- **扩散模型（Diffusion Model）**：Stable Diffusion 的底层技术框架
+- **VAE（Variational Autoencoder）**：图像压缩到潜在空间的编码器
+- **LoRA**：轻量级微调方法，社区广泛用于训练特定风格/角色
+- **ControlNet**：精确控制生成图像姿态、边缘、深度等条件的插件
+- **Midjourney**：闭源 AI 图像生成工具，Stable Diffusion 的主要竞品
+- **DALL-E**：OpenAI 的图像生成模型
+
+## 信源
+
+| 来源 | 等级 | 内容摘要 |
+|------|------|---------|
+| [Rombach et al. (2022) - High-Resolution Image Synthesis with Latent Diffusion Models](https://arxiv.org/abs/2112.10752) | T1 | Stable Diffusion 的原始论文（LDM 论文） |
+| [Stability AI 官方公告](https://stability.ai/blog/stable-diffusion-public-release) | T1 | 官方发布声明和技术概述 |
+| [Stable Diffusion GitHub](https://github.com/Stability-AI/stablediffusion) | T1 | 官方开源代码仓库 |
+| [Automatic1111 WebUI](https://github.com/AUTOMATIC1111/stable-diffusion-webui) | T2 | 最流行的 Stable Diffusion 图形化界面 |
+| [Hugging Face - Stable Diffusion](https://huggingface.co/stabilityai) | T2 | Stability AI 在 Hugging Face 上的模型发布页 |
+| [Wikipedia - Stable Diffusion](https://en.wikipedia.org/wiki/Stable_Diffusion) | T3 | 百科全书对 Stable Diffusion 的介绍 |
+
+## 变更记录
+
+| 版本 | 日期 | 变更内容 |
+|------|------|---------|
+| v1.0 | 2026-07-08 | 初始创建 |
