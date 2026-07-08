@@ -1,0 +1,90 @@
+---
+title: 稀疏（Sparse）
+description: 稀疏（Sparse）的定义、在 AI/ML 中的应用和信源考证。
+version: 1.0
+created: 2026-07-08
+updated: 2026-07-08
+status: confirmed
+consensus: 广泛共识
+category: 大语言模型
+---
+
+## 定义
+
+**稀疏**（Sparse）在数学和计算机科学中，指一个集合或结构中**大部分元素为零或缺失**的状态。在 AI 和机器学习领域，"稀疏"用于描述以下场景：
+
+- **稀疏矩阵**：大部分元素为零的矩阵
+- **稀疏模型**：推理时仅激活部分参数（如混合专家模型 MoE）
+- **稀疏注意力**：注意力计算仅关注部分 Token，而非全部
+
+与之相对的是 **稠密（Dense）**——表示大部分元素非零，或所有参数都参与计算。
+
+## 英文术语拆解
+
+| 英文全称 | Sparse |
+|----------|--------|
+| 音标 | /spɑːrs/ |
+
+**词源解释：**
+
+源自拉丁语 *sparsus*（散开的、零星的），过去分词形式 of *spargere*（撒开、散布）。
+
+**组合理解：** 形容事物分布得稀疏、分散，彼此之间间距大、数量少。
+
+## 在 AI/ML 中的应用
+
+### 稀疏模型（Sparse Models）
+- **混合专家模型（MoE）**：如 GPT-4、Mixtral 8x7B，每次推理仅激活部分"专家"网络
+- 总参数量大，但计算量小——兼顾容量和效率
+- 例：Mixtral 8x7B 总参数 46.7B，每次推理仅激活 12.9B
+
+### 稀疏注意力（Sparse Attention）
+- 长文本处理时，不计算所有 Token 之间的注意力
+- 仅关注局部窗口、稀疏模式或关键 Token
+- 代表方案：BigBird、Longformer、Sliding Window Attention
+
+### 稀疏表示（Sparse Representation）
+- 在 NLP 中，One-Hot 编码是稀疏的（仅一个位置为 1，其余全为 0）
+- 词袋模型（Bag of Words）产生的文档向量也是稀疏的
+
+### 稀疏激活（Sparse Activation）
+- ReLU 激活函数天然具有稀疏性——负值输出为 0
+- 有助于降低计算量并提升模型效率
+
+## 常见用法示例
+
+```
+# 稀疏矩阵示例（大部分为0）
+[1, 0, 0, 0, 0]
+[0, 0, 5, 0, 0]
+[0, 0, 0, 0, 3]
+
+# 稠密矩阵示例（大部分非0）
+[1, 2, 3, 4, 5]
+[6, 7, 8, 9, 1]
+[2, 3, 4, 5, 6]
+```
+
+## 相关概念
+
+- **稠密（Dense）**：稀疏的反义词，参见对应词条
+- **混合专家模型（MoE）**：稀疏模型的典型代表
+- **注意力机制（Attention）**：稀疏注意力的应用对象
+- **ReLU**：产生稀疏激活的常用激活函数
+- **One-Hot 编码**：稀疏表示的经典例子
+
+## 信源
+
+| 来源 | 等级 | 内容摘要 |
+|------|------|---------|
+| [Shazeer et al. (2017) - Outrageously Large Neural Networks](https://arxiv.org/abs/1701.06538) | T1 | 混合专家模型（MoE）的开创性论文，定义稀疏激活机制 |
+| [Beltagy et al. (2020) - Longformer](https://arxiv.org/abs/2004.05150) | T1 | 稀疏注意力的代表性方案 |
+| [Mixtral of Experts (Mistral AI, 2024)](https://mistral.ai/news/mixtral-of-experts/) | T1 | Mistral 官方发布的 MoE 模型技术博客 |
+| [Wikipedia - Sparse matrix](https://en.wikipedia.org/wiki/Sparse_matrix) | T2 | 稀疏矩阵的数学定义和应用 |
+| [Hugging Face Blog - Mixture of Experts](https://huggingface.co/blog/moe) | T3 | MoE 模型的通俗解读 |
+
+## 变更记录
+
+| 版本 | 日期 | 变更内容 |
+|------|------|---------|
+| v1.0 | 2026-07-08 | 初始创建 |

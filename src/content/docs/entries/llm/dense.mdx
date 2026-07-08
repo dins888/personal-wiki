@@ -1,0 +1,101 @@
+---
+title: 稠密（Dense）
+description: 稠密（Dense）的定义、在 AI/ML 中的应用和信源考证。
+version: 1.0
+created: 2026-07-08
+updated: 2026-07-08
+status: confirmed
+consensus: 广泛共识
+category: 大语言模型
+---
+
+## 定义
+
+**稠密**（Dense）在数学和计算机科学中，指一个集合或结构中**大部分元素非零**的状态，或所有元素都紧密参与计算。在 AI 和机器学习领域，"稠密"用于描述以下场景：
+
+- **稠密矩阵**：大部分元素非零的矩阵
+- **稠密模型**：推理时所有参数都参与计算（如 GPT-3、LLaMA 2）
+- **稠密注意力**：注意力计算关注所有 Token（标准 Transformer）
+- **稠密向量/嵌入**：低维连续向量表示（如 Word2Vec、BERT 输出）
+
+与之相对的是 **稀疏（Sparse）**——表示大部分元素为零，或仅部分参数参与计算。
+
+## 英文术语拆解
+
+| 英文全称 | Dense |
+|----------|-------|
+| 音标 | /dens/ |
+
+**词源解释：**
+
+源自拉丁语 *densus*（厚的、密的），形容物质紧密排列、没有空隙。
+
+**组合理解：** 形容事物分布得密集、紧凑，元素之间间距小、数量多。
+
+## 在 AI/ML 中的应用
+
+### 稠密模型（Dense Models）
+- 推理时激活所有参数的大语言模型
+- 代表：GPT-3 (175B)、LLaMA 2 (70B)、Qwen-72B
+- 特点：推理成本与总参数量成正比
+- 当前主流大模型多为稠密模型
+
+### 稠密注意力（Dense Attention）
+- 标准 Transformer 的注意力机制
+- 每个 Token 都与其他所有 Token 计算注意力
+- 计算复杂度为 O(n²)，n 为序列长度
+- 适合短文本，长文本场景下效率下降
+
+### 稠密向量/嵌入（Dense Embedding）
+- 将高维离散表示压缩为低维连续向量
+- 每个维度都有非零值
+- 代表：Word2Vec、BERT、Sentence-BERT 生成的向量
+- 用于语义检索（Dense Retrieval）、相似度计算
+
+### 稠密检索（Dense Retrieval）
+- 使用向量嵌入进行语义相似度检索
+- 对比传统稀疏检索（如 BM25，基于词频统计）
+- 代表模型：DPR（Dense Passage Retrieval）、ColBERT
+
+### 稠密层（Dense Layer）
+- 全连接神经网络层（Fully Connected Layer）
+- 每个神经元与上一层所有神经元相连
+- Keras/TensorFlow 中的 `Dense` 类即指全连接层
+
+## 常见用法示例
+
+```
+# 稠密向量示例（每个维度都有值）
+[0.12, 0.87, 0.45, 0.23, 0.91]
+
+# 对比：稀疏向量（大部分为零）
+[0, 0, 0.45, 0, 0]
+
+# Keras 稠密层示例
+from tensorflow.keras.layers import Dense
+layer = Dense(units=128, activation='relu')  # 128个神经元的全连接层
+```
+
+## 相关概念
+
+- **稀疏（Sparse）**：稠密的反义词，参见对应词条
+- **嵌入（Embedding）**：稠密向量的典型应用
+- **全连接层（Fully Connected Layer）**：Dense Layer 的同义词
+- **DPR（Dense Passage Retrieval）**：稠密检索的代表模型
+- **BM25**：传统的稀疏检索方法（基于词频）
+
+## 信源
+
+| 来源 | 等级 | 内容摘要 |
+|------|------|---------|
+| [Keras Documentation - Dense Layer](https://keras.io/api/layers/core_layers/dense/) | T1 | Keras 官方对 Dense 全连接层的文档说明 |
+| [Karpukhin et al. (2020) - Dense Passage Retrieval](https://arxiv.org/abs/2004.04906) | T1 | DPR 论文，定义稠密检索范式 |
+| [Devlin et al. (2019) - BERT](https://arxiv.org/abs/1810.04805) | T1 | BERT 论文，稠密嵌入的里程碑工作 |
+| [Wikipedia - Dense matrix](https://en.wikipedia.org/wiki/Dense_matrix) | T2 | 稠密矩阵的数学定义 |
+| [OpenAI - GPT-3](https://arxiv.org/abs/2005.14165) | T1 | GPT-3 论文，典型的稠密大模型 |
+
+## 变更记录
+
+| 版本 | 日期 | 变更内容 |
+|------|------|---------|
+| v1.0 | 2026-07-08 | 初始创建 |
