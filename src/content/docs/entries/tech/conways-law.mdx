@@ -1,0 +1,93 @@
+---
+title: 康威定律（Conway's Law）
+description: 康威定律的定义、背景解读和信源考证。
+version: 1.0
+created: 2026-07-08
+updated: 2026-07-08
+status: confirmed
+consensus: 广泛共识
+category: 技术
+---
+
+## 定义
+
+**康威定律**（Conway's Law）是由计算机科学家 Melvin Conway 于 1967 年提出的一条软件工程经验法则。其原始表述为：
+
+> "Any organization that designs a system (defined broadly) will produce a design whose structure is a copy of the organization's communication structure."
+>
+> （任何设计系统的组织，其产出系统的设计结构都是该组织沟通结构的副本。）
+
+简而言之：**系统的架构会反映团队的沟通结构**。如果组织分为四个独立团队，那么系统也会被设计成四大部分；如果团队之间缺乏沟通，系统的模块之间也会缺乏接口。
+
+## 英文术语拆解
+
+| 英文全称 | Conway's Law |
+|----------|--------------|
+| 音标 | /ˈkɒnweɪz lɔː/ |
+
+**逐词解释：**
+
+| 单词 | 音标 | 含义 |
+|------|------|------|
+| Conway | /ˈkɒnweɪ/ | 康威，人名。源自 Melvin Conway（1938—），美国计算机科学家。 |
+| 's | /z/ | 的所有格标记，表示"属于康威的"。 |
+| Law | /lɔː/ | 定律、法则。指被广泛观察验证的经验性规律。 |
+
+**组合理解：** 以提出者 Melvin Conway 命名的经验定律。
+
+## 定律的四个推论
+
+Melvin Conway 原文中实际包含了四个推论（虽然第一个最为知名）：
+
+1. **任何组织设计系统时，系统结构必然与组织的沟通结构一致。**
+2. **设计系统需要的时间，与组织可用的沟通时间成正比。**
+3. **系统设计中最关键的问题是选择信息流结构，而不仅仅是技术选择。**
+4. **大型系统的集成时间通常比预期更长。**
+
+## 实践意义
+
+### 反向应用（Inverse Conway Maneuver）
+现代微服务架构常提到"反向康威定律"：如果你想要的系统架构是微服务化的，那么就应该先按照该架构来组织团队，而不是等系统长出来再调团队。即：**先设计团队结构，再让它影响系统架构**。
+
+### 与微服务的关系
+- 微服务架构（Microservices）强调"按业务能力边界拆服务"
+- 康威定律解释了为什么按部门拆分微服务往往会导致耦合
+- 推荐做法：按领域（Domain）而非按职能部门来组建团队
+
+### 实际案例
+
+| 团队结构 | 系统结构 | 效果 |
+|---------|---------|------|
+| 前后端各一个团队 | 单体应用 | 符合定律，但协作效率低 |
+| 按功能模块分团队 | 模块化单体/微服务 | 模块间边界清晰 |
+| 跨职能小团队（Squad） | 独立微服务集群 | 团队自治，服务解耦 |
+
+## 历史背景
+
+Melvin Conway 于 1967 年在一篇论文中首次提出了这一观察。由于当时被认为过于激进，论文最初被拒绝发表，后经修改于 1968 年以 "How Do Committees Invent?" 为题发表在 Datamation 杂志上。
+
+"Conway's Law" 这一名称直到 1990 年代才由 Fred Brooks（《人月神话》作者）等人在讨论中广泛传播开来。此后该定律被软件工程领域反复验证，成为架构设计和组织管理的经典参考。
+
+## 相关概念
+
+- **微服务架构（Microservices）**：按业务能力拆分的分布式架构风格
+- **团队拓扑（Team Topologies）**：Matthew Skelton 提出的团队组织模型，直接应用康威定律
+- **领域驱动设计（DDD）**：按业务领域而非技术组件来划分系统边界
+- **反向康威手法（Inverse Conway Maneuver）**：先设计团队结构以期望特定的系统架构
+- **Melvin Conway**：美国计算机科学家，该定律的提出者
+
+## 信源
+
+| 来源 | 等级 | 内容摘要 |
+|------|------|---------|
+| [Conway, M. (1968) - How Do Committees Invent?](https://www.melconway.com/Home/Committees_Paper.html) | T1 | 原始论文全文，发表于 Datamation 杂志 |
+| [Martin Fowler - Conway's Law](https://martinfowler.com/bliki/ConwaysLaw.html) | T2 | Martin Fowler 对康威定律的技术解读 |
+| [Team Topologies (2019)](https://teamtopologies.com/) | T2 | Skelton &amp; Pais 著作，将康威定律系统应用于团队设计 |
+| [Wikipedia - Conway's law](https://en.wikipedia.org/wiki/Conway%27s_law) | T3 | 维基百科对康威定律的历史和影响概述 |
+| [Atlassian - Conway's Law](https://www.atlassian.com/) | T3 | Atlassian 对康威定律的工程实践解读 |
+
+## 变更记录
+
+| 版本 | 日期 | 变更内容 |
+|------|------|---------|
+| v1.0 | 2026-07-08 | 初始创建 |
