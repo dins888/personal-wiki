@@ -1,0 +1,109 @@
+---
+title: Linux
+description: 开源操作系统内核，现代服务器、移动设备和嵌入式系统的基石。
+version: 1.0
+created: 2026-07-08
+updated: 2026-07-08
+status: confirmed
+consensus: 广泛共识
+category: 技术
+---
+
+## 定义
+
+**Linux** 是一个开源的 **类 Unix 操作系统内核**（Operating System Kernel），由芬兰程序员 Linus Torvalds 于 1991 年首次发布。严格来说，Linux 仅指操作系统内核，但日常语境中"Linux"通常指包含内核、GNU 工具链、库和桌面环境在内的完整**发行版**（Distribution）。
+
+Linux 内核采用 **GPL v2** 开源许可证，任何人都可以自由使用、修改和分发。如今 Linux 运行在全球绝大多数服务器、超级计算机、Android 手机、嵌入式设备以及云端基础设施上。
+
+## 英文术语拆解
+
+| 英文全称 | Linux |
+|----------|-------|
+| 音标 | /ˈlɪnəks/ 或 /ˈliːnʊks/ |
+
+**词源说明：**
+
+"Linux" 是创建者名字的组合：
+
+- **Lin** — 来自 **Linus**（Linus Torvalds 的名）
+- **-ux** — 来自 **UNIX**（操作系统名），暗示其类 Unix 特性
+
+**组合理解：** Linus + Unix = Linux，即"Linus 的 Unix 类系统"。
+
+**发音说明：** Linus Torvalds 本人推荐的发音为 /ˈliːnʊks/（LEE-nuks），但英语世界中也广泛使用 /ˈlɪnəks/（LIN-uks）。
+
+## 核心功能/特性
+
+### 多用户与多任务
+支持多个用户同时登录，多个进程并行执行，每个进程独立隔离。
+
+### 内存管理（Memory Management）
+虚拟内存机制为每个进程提供独立的地址空间，支持分页和交换（Swap），有效管理物理内存。
+
+### 进程管理
+采用抢占式多任务调度，支持优先级、进程组和信号机制。CFS（完全公平调度器）是默认调度算法。
+
+### 文件系统
+支持 ext4、XFS、Btrfs、ZFS 等多种文件系统，统一的虚拟文件系统（VFS）层抽象了底层差异。
+
+### 网络栈
+内置完整的 TCP/IP 网络协议栈，支持 IPv4/IPv6、防火墙（iptables/nftables）、虚拟网络设备等。
+
+### 模块化设计
+内核功能以可加载模块（Loadable Kernel Module）形式动态加载，无需重新编译整个内核。
+
+### 安全性
+支持 SELinux、AppArmor 等强制访问控制机制，配合权限管理和 namespaces 实现安全隔离。
+
+## 常见用法示例
+
+```bash
+# 系统信息
+uname -r              # 查看内核版本
+uname -a              # 查看完整系统信息
+
+# 包管理（以 Ubuntu/Debian 为例）
+sudo apt update       # 更新软件源
+sudo apt install nginx  # 安装软件
+
+# 进程管理
+ps aux                # 查看所有进程
+top                   # 实时查看系统资源
+kill -9 PID           # 强制终止进程
+
+# 文件权限
+chmod 755 script.sh   # 设置执行权限
+chown user:group file # 更改文件所有者
+
+# 网络
+ip addr               # 查看网络接口
+ss -tlnp              # 查看监听端口
+```
+
+## 相关概念
+
+- **GNU**：自由软件运动项目，提供了 Linux 发行版中的大部分用户态工具
+- **发行版（Distribution）**：将 Linux 内核与软件打包在一起的系统，如 Ubuntu、CentOS、Debian、Fedora
+- **Kernel（内核）**：操作系统的核心，管理硬件资源并为程序提供底层服务
+- **Shell**：命令行解释器，如 Bash、Zsh、Fish
+- **POSIX**：可移植操作系统接口标准，Linux 遵循的标准之一
+- **GNU GPL**：Linux 内核使用的开源许可证
+- **systemd**：现代 Linux 发行版的初始化系统和服务管理器
+- **Android**：基于 Linux 内核的移动操作系统
+
+## 信源
+
+| 来源 | 等级 | 内容摘要 |
+|------|------|---------|
+| [Linux Kernel 官方源码](https://kernel.org/) | T1 | Linux 内核源码发布站点 |
+| [Linux Kernel Documentation](https://docs.kernel.org/) | T1 | 官方内核文档 |
+| [Linus Torvalds - Just for Fun (自传)](https://en.wikipedia.org/wiki/Just_for_Fun) | T1 | Linux 创建者的自传，记录 Linux 诞生经过 |
+| [Linux Foundation](https://www.linuxfoundation.org/) | T1 | 支持 Linux 发展的非营利组织 |
+| [Wikipedia - Linux](https://en.wikipedia.org/wiki/Linux) | T2 | 百科全书介绍 |
+| [LWN.net](https://lwn.net/) | T2 | Linux 和开源社区的权威新闻网站 |
+
+## 变更记录
+
+| 版本 | 日期 | 变更内容 |
+|------|------|---------|
+| v1.0 | 2026-07-08 | 初始创建 |

@@ -1,0 +1,156 @@
+---
+title: Elasticsearch
+description: 基于 Lucene 的分布式搜索与分析引擎，支持全文搜索、日志分析和数据可视化。
+version: 1.0
+created: 2026-07-08
+updated: 2026-07-08
+status: confirmed
+consensus: 广泛共识
+category: 技术
+---
+
+## 定义
+
+**Elasticsearch** 是一个开源的**分布式搜索与分析引擎**（Distributed Search and Analytics Engine），基于 **Apache Lucene** 构建。它提供了 RESTful API，支持全文搜索、结构化搜索、聚合分析等功能，能够存储、搜索和分析海量数据，并以近实时的速度返回结果。
+
+Elasticsearch 由 **Shay Banon** 于 2010 年首次发布，最初目标是构建一个可水平扩展的全文搜索引擎。它现在是 **Elastic Stack**（ELK Stack）的核心组件，与 **Logstash**（数据管道）和 **Kibana**（可视化）配合，构成了业界最流行的日志管理和数据分析平台之一。
+
+2024 年，Elasticsearch 从 SSPL 许可证回归 Apache 2.0 开源许可。
+
+## 英文术语拆解
+
+| 英文全称 | Elasticsearch |
+|----------|--------------|
+| 音标 | /ɪˈlæstɪksɜːrtʃ/ |
+
+**词源说明：**
+
+"Elasticsearch" 是组合词：
+
+- **Elastic** /ɪˈlæstɪk/ — 意为"弹性的、灵活的"，指系统可弹性扩展
+  - 源自希腊语 "elastós"（ἐλαστός），意为"可塑的、可延展的"
+- **Search** /sɜːrtʃ/ — 意为"搜索、检索"
+  - 源自古法语 "cerchier"，意为"寻找"
+
+**组合理解：** "弹性搜索"——一个可以根据数据量灵活扩展的搜索引擎。
+
+## 核心功能/特性
+
+### 全文搜索（Full-Text Search）
+基于倒排索引（Inverted Index）实现，支持分词、同义词、模糊匹配、相关性评分（BM25 算法）。
+
+### 分布式架构
+数据自动分片（Shard）到多个节点，支持水平扩展。每个分片本身就是一个完整的 Lucene 实例。
+
+### 近实时搜索（Near Real-Time）
+文档写入后约 1 秒内即可被搜索到，通过刷新（Refresh）机制实现。
+
+### 聚合分析（Aggregation）
+支持对数据进行分组统计、指标计算、桶聚合、管道聚合等，类似 SQL 的 GROUP BY 但更强大。
+
+### 多种数据类型支持
+支持文本、数值、日期、IP 地址、地理位置（Geo-point/Geo-shape）、嵌套对象等丰富数据类型。
+
+### RESTful API
+通过 HTTP + JSON 进行所有操作（增删查改、搜索、聚合），无需专用客户端协议。
+
+### 生态系统
+与 Kibana（可视化）、Logstash（数据采集）、Beats（轻量数据采集器）组成完整的 Elastic Stack。
+
+## 常见用法示例
+
+```json
+// 创建索引
+PUT /products
+{
+  "mappings": {
+    "properties": {
+      "name": { "type": "text", "analyzer": "ik_max_word" },
+      "price": { "type": "float" },
+      "category": { "type": "keyword" },
+      "created_at": { "type": "date" }
+    }
+  }
+}
+
+// 插入文档
+POST /products/_doc/1
+{
+  "name": "MacBook Pro 16寸",
+  "price": 19999,
+  "category": "笔记本电脑",
+  "created_at": "2026-07-08"
+}
+
+// 全文搜索 + 过滤 + 聚合
+GET /products/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        { "match": { "name": "MacBook" } }
+      ],
+      "filter": [
+        { "range": { "price": { "lte": 25000 } } }
+      ]
+    }
+  },
+  "aggs": {
+    "categories": {
+      "terms": { "field": "category" }
+    }
+  }
+}
+
+// 搜索建议（自动补全）
+POST /products/_search
+{
+  "suggest": {
+    "product-suggest": {
+      "prefix": "Mac",
+      "completion": {
+        "field": "suggest"
+      }
+    }
+  }
+}
+```
+
+```bash
+# 健康检查
+GET /_cluster/health
+
+# 查看所有索引
+GET /_cat/indices?v
+
+# 集群状态
+GET /_cluster/stats
+```
+
+## 相关概念
+
+- **Apache Lucene**：Elasticsearch 底层的全文检索库
+- **倒排索引（Inverted Index）**：将词项映射到文档列表的核心数据结构
+- **ELK Stack**：Elasticsearch + Logstash + Kibana 的经典组合
+- **Kibana**：Elasticsearch 的数据可视化和仪表盘工具
+- **分片（Shard）**：索引的水平切分单元，实现分布式存储和并行搜索
+- **BM25**：Elasticsearch 默认使用的相关性评分算法
+- **Solr**：另一款基于 Lucene 的开源搜索平台
+- **OpenSearch**：AWS fork 的 Elasticsearch 开源分支
+
+## 信源
+
+| 来源 | 等级 | 内容摘要 |
+|------|------|---------|
+| [Elasticsearch 官方文档](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html) | T1 | Elasticsearch 官方参考文档 |
+| [Elasticsearch GitHub 仓库](https://github.com/elastic/elasticsearch) | T1 | Elasticsearch 核心代码仓库 |
+| [Elastic 官方博客](https://www.elastic.co/blog) | T1 | Elastic 团队的技术博客 |
+| [Elasticsearch: The Definitive Guide](https://www.elastic.co/guide/en/elasticsearch/guide/current/index.html) | T1 | 官方权威指南 |
+| [Wikipedia - Elasticsearch](https://en.wikipedia.org/wiki/Elasticsearch) | T2 | 百科全书介绍 |
+| [Lucene in Action - Michael McCandless](https://www.manning.com/books/lucene-in-action) | T2 | Lucene 底层技术的经典书籍 |
+
+## 变更记录
+
+| 版本 | 日期 | 变更内容 |
+|------|------|---------|
+| v1.0 | 2026-07-08 | 初始创建 |

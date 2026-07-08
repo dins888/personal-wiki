@@ -1,0 +1,139 @@
+---
+title: Redis
+description: 高性能内存数据结构存储，支持缓存、消息队列和实时数据处理。
+version: 1.0
+created: 2026-07-08
+updated: 2026-07-08
+status: confirmed
+consensus: 广泛共识
+category: 技术
+---
+
+## 定义
+
+**Redis**（**Re**mote **Di**ctionary **S**erver）是一个开源的**内存数据结构存储**（In-Memory Data Structure Store），支持字符串、哈希、列表、集合、有序集合等多种数据结构，可用作数据库、缓存、消息中间件和流处理引擎。
+
+Redis 由意大利程序员 **Salvatore Sanfilippo**（网名 antirez）于 2009 年创建。其核心设计目标是将所有数据保存在内存中以实现极致的读写速度（单线程模型下可达每秒 10 万次以上操作），同时通过持久化机制（RDB 快照和 AOF 日志）保证数据不丢失。
+
+2024 年，Redis 修改了许可证，从 BSD 变更为 RSALv2/SSPLv1 双许可，引发社区分支 fork 出 Valkey 等替代项目。
+
+## 英文术语拆解
+
+| 英文全称 | Redis |
+|----------|-------|
+| 音标 | /ˈrɛdɪs/ |
+
+**词源说明：**
+
+"Redis" 是缩写词：
+
+- **Re** — 来自 **Remote**（远程的）
+- **Di** — 来自 **Dictionary**（字典/键值对）
+- **S** — 来自 **Server**（服务器）
+
+**组合理解：** "远程字典服务器"——一个存储键值对的远程服务。
+
+**常见称呼：** 社区中常称 Redis 为"数据结构服务器"（Data Structure Server），因为它不仅存储简单键值对，还直接支持列表、集合、有序集合等复杂数据结构的操作。
+
+## 核心功能/特性
+
+### 丰富的数据结构
+支持 String（字符串）、Hash（哈希）、List（列表）、Set（集合）、Sorted Set（有序集合）、Bitmap、HyperLogLog、Stream 等多种数据类型。
+
+### 极高的读写性能
+数据存储在内存中，单实例每秒可处理超过 10 万次读写操作，响应延迟在微秒级别。
+
+### 持久化机制
+- **RDB（Redis Database）**：定时生成数据快照（snapshot），以二进制文件保存到磁盘
+- **AOF（Append Only File）**：记录每一条写命令，类似 MySQL 的 binlog，数据更安全
+
+### 发布/订阅（Pub/Sub）
+客户端可以订阅频道，实现消息广播和实时通知。
+
+### Lua 脚本支持
+可在服务端执行 Lua 脚本，保证多条命令的原子性执行。
+
+### 高可用与分布式
+- **Redis Sentinel**：自动故障转移和监控
+- **Redis Cluster**：数据自动分片，支持水平扩展
+- **主从复制**：数据异步复制到从节点
+
+### 事务与原子性
+支持 MULTI/EXEC 事务，保证一组命令的原子性执行。
+
+## 常见用法示例
+
+```bash
+# 字符串操作
+SET user:name "张三"
+GET user:name
+
+# 设置过期时间（秒）
+SET session:token "abc123" EX 3600
+
+# 计数器
+INCR page:views
+GET page:views
+
+# 哈希操作
+HSET user:1001 name "张三" age 28 city "北京"
+HGETALL user:1001
+HGET user:1001 name
+
+# 列表操作（消息队列）
+LPUSH queue:tasks "task-001"
+RPUSH queue:tasks "task-002"
+RPOP queue:tasks
+
+# 有序集合（排行榜）
+ZADD leaderboard 100 "player-a"
+ZADD leaderboard 200 "player-b"
+ZREVRANGE leaderboard 0 9 WITHSCORES
+
+# 发布订阅
+SUBSCRIBE news:channel
+PUBLISH news:channel "突发新闻内容"
+```
+
+```python
+# Python 客户端示例
+import redis
+
+r = redis.Redis(host='localhost', port=6379, db=0, decode_responses=True)
+
+# 缓存
+r.set('cache:key', 'value', ex=300)  # 5 分钟过期
+value = r.get('cache:key')
+
+# 排行榜
+r.zadd('ranking', {'Alice': 95, 'Bob': 87, 'Charlie': 92})
+top3 = r.zrevrange('ranking', 0, 2, withscores=True)
+```
+
+## 相关概念
+
+- **Memcached**：另一款流行的内存缓存系统，功能较 Redis 更简单
+- **缓存穿透/击穿/雪崩**：使用 Redis 做缓存时的经典问题
+- **消息队列（Message Queue）**：Redis 的 List 和 Stream 可实现轻量级消息队列
+- **Valkey**：Redis 更改许可证后社区 fork 的开源分支
+- **KeyDB**：Redis 的多线程兼容分支
+- **RDB/AOF**：Redis 两种不同的持久化方式
+- **Redis Sentinel**：Redis 的高可用解决方案
+- **NoSQL**：非关系型数据库的统称，Redis 属于其中的键值存储类
+
+## 信源
+
+| 来源 | 等级 | 内容摘要 |
+|------|------|---------|
+| [Redis 官方文档](https://redis.io/docs/) | T1 | Redis 官方技术文档 |
+| [Redis GitHub 仓库](https://github.com/redis/redis) | T1 | Redis 核心代码仓库 |
+| [Redis 命令参考](https://redis.io/commands) | T1 | 所有 Redis 命令的完整参考 |
+| [antirez 的博客](http://antirez.com/latest/0) | T1 | Redis 创始人 Salvatore Sanfilippo 的技术博客 |
+| [Redis in Action - Josiah Carlson](https://www.manning.com/books/redis-in-action) | T2 | 经典 Redis 应用实战书籍 |
+| [Wikipedia - Redis](https://en.wikipedia.org/wiki/Redis) | T2 | 百科全书介绍 |
+
+## 变更记录
+
+| 版本 | 日期 | 变更内容 |
+|------|------|---------|
+| v1.0 | 2026-07-08 | 初始创建 |

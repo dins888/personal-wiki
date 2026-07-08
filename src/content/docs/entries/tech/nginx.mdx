@@ -1,0 +1,143 @@
+---
+title: Nginx
+description: 高性能 Web 服务器、反向代理和负载均衡器，驱动全球大量高流量网站。
+version: 1.0
+created: 2026-07-08
+updated: 2026-07-08
+status: confirmed
+consensus: 广泛共识
+category: 技术
+---
+
+## 定义
+
+**Nginx**（发音为 "engine-x"）是一个开源的**高性能 Web 服务器**、**反向代理服务器**和**负载均衡器**。它由俄罗斯程序员 **Igor Sysoev** 于 2004 年首次发布，最初目的是解决俄罗斯高流量网站 C10K 问题（同时处理 1 万个并发连接）。
+
+Nginx 采用**事件驱动（Event-Driven）、异步非阻塞**的架构，与 Apache 的每请求一线程模型相比，能够以极低的内存消耗处理大量并发连接，是高并发场景下的首选 Web 基础设施。
+
+2019 年，Nginx 被 **F5 Networks** 以 6.7 亿美元收购。2024 年，F5 将 Nginx 以 7 亿美元出售给私募基金 Thoma Bravo。
+
+## 英文术语拆解
+
+| 英文全称 | Nginx |
+|----------|-------|
+| 音标 | /ˌɛndʒɪnˈɛks/（口语常读作 "engine-x"） |
+
+**词源说明：**
+
+"Nginx" 并非一个完整的英文缩写，其名称来源于其创建者 Igor Sysoev 的项目代号：
+
+- **Nginx** 的核心含义是 **"Engine-X"**，即"引擎 X"
+- 强调其底层是一个高性能的事件处理**引擎**（Engine）
+- **X** 是项目代号，无特定含义
+
+**发音惯例：** 官方推荐的发音为 /ˌɛndʒɪnˈɛks/，即 "engine-ex"。但在中文技术社区中，常读作 /ˈɛnɪks/ 或 /ˈɛndʒɪŋks/。
+
+## 核心功能/特性
+
+### Web 服务器
+提供静态文件服务（HTML、CSS、JS、图片等），性能远超传统 Apache 的 prefork 模型。
+
+### 反向代理（Reverse Proxy）
+将客户端请求转发到后端服务器，隐藏后端架构，支持协议转换（HTTP/HTTPS/WebSocket）。
+
+### 负载均衡（Load Balancing）
+支持多种负载均衡算法：轮询（Round Robin）、最少连接（Least Connections）、IP 哈希（IP Hash）、加权轮询等。
+
+### SSL/TLS 终止
+在 Nginx 层统一处理 HTTPS 加密解密，减轻后端服务器负担。支持 HTTP/2 和 HTTP/3。
+
+### 缓存
+支持代理缓存、FastCGI 缓存等，减少对后端服务器的重复请求。
+
+### 动态内容（通过 uWSGI/PHP-FPM）
+通过 FastCGI、uWSGI 等协议与后端应用通信，支持 PHP、Python、Ruby 等动态语言。
+
+### 配置热加载
+修改配置文件后，通过 `reload` 命令实现零停机配置更新，无需中断服务。
+
+### 限流与安全
+支持连接数限制、请求速率限制，可用于防御简单的 DDoS 攻击。
+
+## 常见用法示例
+
+```nginx
+# 基本的反向代理配置
+server {
+    listen 80;
+    server_name example.com;
+
+    # 静态文件服务
+    location /static/ {
+        alias /var/www/static/;
+        expires 30d;
+    }
+
+    # 反向代理到后端应用
+    location / {
+        proxy_pass http://127.0.0.1:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+
+# HTTPS + 负载均衡配置
+upstream backend_servers {
+    least_conn;
+    server 10.0.0.1:8080 weight=3;
+    server 10.0.0.2:8080 weight=2;
+    server 10.0.0.3:8080 backup;
+}
+
+server {
+    listen 443 ssl http2;
+    server_name api.example.com;
+
+    ssl_certificate     /etc/ssl/certs/api.example.com.crt;
+    ssl_certificate_key /etc/ssl/private/api.example.com.key;
+
+    location / {
+        proxy_pass http://backend_servers;
+        proxy_next_upstream error timeout invalid_header;
+    }
+}
+```
+
+```bash
+# 常用命令
+nginx -t              # 测试配置文件语法
+nginx -s reload       # 重新加载配置（零停机）
+nginx -s stop         # 快速停止
+nginx -s quit         # 优雅停止（等待请求处理完成）
+nginx -v              # 查看版本
+```
+
+## 相关概念
+
+- **Apache**：另一款广泛使用的 Web 服务器，以灵活性和 .htaccess 著称
+- **反向代理（Reverse Proxy）**：代理后端服务器响应的中间层，Nginx 的核心用法
+- **负载均衡（Load Balancing）**：将请求分发到多台服务器以提升可用性和性能
+- **SSL/TLS**：传输层加密协议，Nginx 可在此层统一处理
+- **HTTP/2 与 HTTP/3**：新一代 HTTP 协议，Nginx 原生支持
+- **OpenResty**：基于 Nginx + LuaJIT 的高性能 Web 平台
+- **Caddy**：自动 HTTPS 的现代 Web 服务器，Nginx 的替代选择之一
+- **HAProxy**：专业的负载均衡器，与 Nginx 在负载均衡场景形成互补
+
+## 信源
+
+| 来源 | 等级 | 内容摘要 |
+|------|------|---------|
+| [Nginx 官方文档](https://nginx.org/en/docs/) | T1 | Nginx 官方技术文档 |
+| [Nginx 源码仓库](https://hg.nginx.org/nginx) | T1 | Nginx 核心代码仓库 |
+| [Nginx Admin Guide](https://docs.nginx.com/nginx/admin-guide/) | T1 | NGINX Plus 管理指南（内容同样适用于开源版） |
+| [Nginx 创始人访谈 - Igor Sysoev](https://www.aosabook.org/en/posa/nginx.html) | T1 | Nginx 创建者撰写的架构介绍文章 |
+| [Wikipedia - Nginx](https://en.wikipedia.org/wiki/Nginx) | T2 | 百科全书介绍 |
+| [Nginx 中文文档](http://www.nginx.cn/doc/) | T2 | 社区维护的中文文档翻译 |
+
+## 变更记录
+
+| 版本 | 日期 | 变更内容 |
+|------|------|---------|
+| v1.0 | 2026-07-08 | 初始创建 |

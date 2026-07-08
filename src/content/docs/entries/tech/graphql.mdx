@@ -1,0 +1,191 @@
+---
+title: GraphQL
+description: API 查询语言和运行时，让客户端精确指定所需数据结构。
+version: 1.0
+created: 2026-07-08
+updated: 2026-07-08
+status: confirmed
+consensus: 广泛共识
+category: 技术
+---
+
+## 定义
+
+**GraphQL** 是一种用于 API 的**查询语言**（Query Language）和**运行时**（Runtime），允许客户端精确定义所需的数据结构，由服务端一次性返回完整数据。它由 **Facebook**（现 Meta）于 2012 年内部开发，2015 年正式开源。
+
+GraphQL 的核心思想是**"客户端驱动数据获取"**——与 REST API 中由服务端定义多个端点不同，GraphQL 只有一个端点，客户端通过声明式查询精确指定需要的字段，避免了"过度获取"（Over-fetching）和"获取不足"（Under-fetching）的问题。
+
+GraphQL 规范由 GraphQL 基金会（现属于 Linux Foundation）维护，已有 JavaScript、Python、Java、Go、Ruby、Rust 等多种语言的实现。
+
+## 英文术语拆解
+
+| 英文全称 | GraphQL |
+|----------|---------|
+| 音标 | /ˌɡræfkjuːˈɛl/（口语常读作 "graf-que-el"） |
+
+**词源说明：**
+
+"GraphQL" 是组合词：
+
+- **Graph** /ɡræf/ — 意为"图"
+  - 源自希腊语 "gráphein"（γράφειν），意为"书写、描绘"
+  - 在 GraphQL 语境中，"图"指的是数据的**关系图**结构——数据对象之间的关联形成一张图
+- **QL** — **Query Language**（查询语言）的缩写
+
+**组合理解：** "图查询语言"——一种基于数据关系图模型的查询语言。
+
+## 核心功能/特性
+
+### 声明式数据获取
+客户端精确指定需要的字段和结构，服务端严格按照查询返回对应数据，不多不少。
+
+### 单一端点
+所有操作（查询、变更、订阅）都发送到同一个端点（通常为 `/graphql`），无需为不同资源设计多个 URL。
+
+### 强类型系统（Type System）
+所有数据都有明确的类型定义，类型系统既是文档也是合约，提供编辑时自动补全和编译时验证。
+
+### 内省（Introspection）
+客户端可以通过内省查询获取 API 的完整类型系统，这是 GraphiQL 和 Apollo Studio 等工具实现自动补全的基础。
+
+### 变更（Mutation）
+通过 Mutation 操作修改服务端数据，语法与 Query 类似但语义不同。
+
+### 订阅（Subscription）
+基于 WebSocket 实现实时数据推送，服务端数据变更时主动通知客户端。
+
+### 解析器（Resolver）
+服务端通过 Resolver 函数定义每个字段如何获取数据，可以将多个数据源聚合为一个统一 API。
+
+### 分页与错误规范
+规范定义了标准的光标分页（Cursor-based Pagination）和错误响应格式。
+
+## 常见用法示例
+
+```graphql
+# 查询示例 - 获取用户及其文章
+query GetUserWithPosts {
+  user(id: "123") {
+    name
+    email
+    posts {
+      title
+      createdAt
+      tags
+    }
+  }
+}
+
+# 对应的 JSON 响应
+{
+  "data": {
+    "user": {
+      "name": "张三",
+      "email": "zhangsan@example.com",
+      "posts": [
+        {
+          "title": "GraphQL 入门",
+          "createdAt": "2026-07-01",
+          "tags": ["技术", "API"]
+        }
+      ]
+    }
+  }
+}
+
+# 变更示例 - 创建新文章
+mutation CreatePost {
+  createPost(input: {
+    title: "GraphQL 进阶"
+    content: "深入学习 GraphQL..."
+    tags: ["技术"]
+  }) {
+    id
+    title
+    createdAt
+  }
+}
+
+# 订阅示例 - 实时监听新消息
+subscription OnNewMessage {
+  messageSent(channelId: "general") {
+    id
+    sender
+    content
+    timestamp
+  }
+}
+
+# 带变量的查询
+query GetProduct($id: ID!, $includeReviews: Boolean!) {
+  product(id: $id) {
+    name
+    price
+    reviews @include(if: $includeReviews) {
+      rating
+      comment
+    }
+  }
+}
+```
+
+```javascript
+// Apollo Client 使用示例
+import { gql, useQuery } from '@apollo/client';
+
+const GET_USER = gql`
+  query GetUser($id: ID!) {
+    user(id: $id) {
+      name
+      email
+      posts {
+        title
+      }
+    }
+  }
+`;
+
+function UserProfile({ userId }) {
+  const { loading, error, data } = useQuery(GET_USER, {
+    variables: { id: userId }
+  });
+
+  if (loading) return <p>加载中...</p>;
+  if (error) return <p>出错了: {error.message}</p>;
+
+  return (
+    <div>
+      <h1>{data.user.name}</h1>
+      <p>{data.user.email}</p>
+    </div>
+  );
+}
+```
+
+## 相关概念
+
+- **REST API**：传统的 API 设计风格，以资源为中心端点模型
+- **GraphQL Schema**：定义 API 可用类型和操作的类型定义文件
+- **Apollo**：最流行的 GraphQL 客户端和服务端框架
+- **Relay**：Facebook 开发的 GraphQL 客户端框架，针对大规模应用优化
+- **gRPC**：Google 的高性能 RPC 框架，使用 Protocol Buffers
+- **BFF（Backend For Frontend）**：为前端量身定制的后端，GraphQL 常作为 BFF 层
+- **Over-fetching / Under-fetching**：REST 的常见痛点，GraphQL 设计之初即解决这些问题
+- **Introspection**：GraphQL 内省机制，客户端可查询 API 的完整类型信息
+
+## 信源
+
+| 来源 | 等级 | 内容摘要 |
+|------|------|---------|
+| [GraphQL 官方规范](https://spec.graphql.org/) | T1 | GraphQL 语言的正式规范文档 |
+| [GraphQL 官方网站](https://graphql.org/) | T1 | GraphQL 官方介绍和教程 |
+| [GraphQL GitHub 组织](https://github.com/graphql) | T1 | GraphQL 规范和各语言参考实现的代码仓库 |
+| [GraphQL Foundation (Linux Foundation)](https://graphql.org/foundation/) | T1 | GraphQL 基金会的官方页面 |
+| [How to GraphQL](https://www.howtographql.com/) | T2 | 社区维护的免费完整教程 |
+| [Facebook Engineering - GraphQL 发布博文](https://engineering.fb.com/2015/09/web/under-the-hood-graphql/) | T1 | Facebook 工程团队介绍 GraphQL 诞生的博文 |
+
+## 变更记录
+
+| 版本 | 日期 | 变更内容 |
+|------|------|---------|
+| v1.0 | 2026-07-08 | 初始创建 |

@@ -1,0 +1,135 @@
+---
+title: Kubernetes（K8s）
+description: 开源容器编排系统，自动化部署、扩缩和管理容器化应用。
+version: 1.0
+created: 2026-07-08
+updated: 2026-07-08
+status: confirmed
+consensus: 广泛共识
+category: 技术
+---
+
+## 定义
+
+**Kubernetes**（常缩写为 **K8s**）是一个开源的**容器编排系统**（Container Orchestration System），用于自动化部署、扩展和管理容器化应用程序。它最初由 Google 基于内部项目 Borg 的经验设计开发，于 2014 年开源，现由 **CNCF**（Cloud Native Computing Foundation，云原生计算基金会）托管。
+
+Kubernetes 将组成应用的容器组织为逻辑单元，便于管理和服务发现。其核心目标是提供"以应用为中心"的容器管理，让用户专注于应用本身而非基础设施。
+
+## 英文术语拆解
+
+| 英文全称 | Kubernetes |
+|----------|-----------|
+| 音标 | /ˌk(j)uːbərˈnɛtɪs/ |
+
+**词源说明：**
+
+"Kubernetes" 源自希腊语 "κυβερνήτης"（kybernḗtēs），意为"舵手"或"飞行员"。
+
+- **kyber**（κυβερ）— 希腊语词根，意为"引导、操控、掌舵"
+- **-nētēs**（-νήτης）— 希腊语名词后缀，表示"从事某事的人"
+
+**组合理解：** 正如舵手引导船队航行，Kubernetes 引导和管理容器集群的运行。
+
+**缩写 K8s：** "Kubernetes" 中间有 8 个字母（ubernete），因此缩写为 K + 8 + s = K8s。
+
+## 核心功能/特性
+
+### 自动化部署与回滚
+声明式配置定义应用的期望状态，Kubernetes 自动将实际状态收敛到期望状态，并支持一键回滚。
+
+### 自动扩缩容（Auto-scaling）
+根据 CPU、内存使用率或自定义指标自动增减 Pod 数量，应对流量波动。
+
+### 服务发现与负载均衡
+为容器提供稳定的 DNS 名称或 IP 地址，自动分配流量以保持稳定性。
+
+### 自愈（Self-healing）
+当容器崩溃、节点故障时，自动重启、替换或重新调度容器。
+
+### 存储编排（Storage Orchestration）
+自动挂载本地存储、公有云存储或网络存储（如 NFS、Ceph）。
+
+### 配置与密钥管理
+以 ConfigMap 和 Secret 的方式管理应用配置和敏感信息，无需重建镜像。
+
+### 批量执行
+支持定时任务（CronJob）和批量处理作业。
+
+## 常见用法示例
+
+```yaml
+# Deployment 配置示例 - 部署一个 Nginx 应用
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.25
+        ports:
+        - containerPort: 80
+```
+
+```yaml
+# Service 配置示例 - 暴露服务
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: nginx
+  ports:
+  - port: 80
+    targetPort: 80
+```
+
+```bash
+# 常用 kubectl 命令
+kubectl apply -f deployment.yaml    # 应用配置
+kubectl get pods                    # 查看 Pod 状态
+kubectl scale --replicas=5 deploy/nginx-deployment  # 扩容
+kubectl logs pod-name               # 查看日志
+kubectl describe pod pod-name       # 查看详细信息
+```
+
+## 相关概念
+
+- **Pod**：Kubernetes 中最小的可部署单元，包含一个或多个容器
+- **Node（节点）**：运行 Pod 的工作机器，可以是物理机或虚拟机
+- **Namespace（命名空间）**：用于在同一集群中隔离资源和环境
+- **Helm**：Kubernetes 的包管理器，简化应用的部署和管理
+- **Ingress**：管理外部访问集群内服务的 HTTP 路由规则
+- **CNCF**：云原生计算基金会，Kubernetes 的托管组织
+- **Docker**：容器运行时技术，Kubernetes 编排的对象
+- **etcd**：Kubernetes 使用的分布式键值存储，保存集群状态
+
+## 信源
+
+| 来源 | 等级 | 内容摘要 |
+|------|------|---------|
+| [Kubernetes 官方文档](https://kubernetes.io/docs/) | T1 | Kubernetes 官方技术文档和教程 |
+| [Kubernetes GitHub 仓库](https://github.com/kubernetes/kubernetes) | T1 | Kubernetes 核心代码仓库 |
+| [CNCF 官网](https://www.cncf.io/projects/kubernetes/) | T1 | 云原生基金会项目页面 |
+| [The Kubernetes Book - Nigel Poulton](https://nigelpoulton.com/books/) | T2 | 知名 Kubernetes 教程书籍 |
+| [Wikipedia - Kubernetes](https://en.wikipedia.org/wiki/Kubernetes) | T2 | 百科全书介绍 |
+| [Google Borg 论文](https://research.google/pubs/pub43438/) | T1 | Kubernetes 前身 Borg 系统的学术论文 |
+
+## 变更记录
+
+| 版本 | 日期 | 变更内容 |
+|------|------|---------|
+| v1.0 | 2026-07-08 | 初始创建 |
