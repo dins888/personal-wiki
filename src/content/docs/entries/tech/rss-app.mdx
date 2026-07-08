@@ -1,0 +1,138 @@
+---
+title: RSS.app
+description: 将任意网页内容转化为 RSS 订阅源的工具，支持对不提供原生 RSS 的网站进行内容监控和聚合。
+version: 1.0
+created: 2026-07-08
+updated: 2026-07-08
+status: confirmed
+consensus: 广泛共识
+category: 技术应用
+---
+
+## 定义
+
+**RSS.app** 是一个在线 **RSS 订阅源生成与管理平台**，能够将任意网页、社交媒体账号或博客等内容源转化为标准 RSS Feed，尤其适用于不提供原生 RSS 支持的网站。它通过网页内容提取技术自动抓取并结构化网页信息，生成可被 RSS 阅读器订阅的标准化信息流。RSS.app 同时提供内容过滤、多源聚合、自动推送至 Slack/Discord/Telegram 等协作工具、HTML 嵌入式网页小部件以及 Webhook/API 接口等能力，帮助个人和团队实现自动化的内容监控与信息聚合。
+
+## 英文术语拆解
+
+| 英文全称 | RSS.app |
+|----------|---------|
+| 音标 | /ˌɑːr.ɛs.ˈɛs ˌæp/ |
+
+**逐词解释：**
+
+### RSS
+
+- **R** (Really)：/ˈriːəli/，意为"真正地"
+- **S** (Simple)：/ˈsɪmpl/，意为"简单的"
+- **S** (Syndication)：/ˌsɪndɪˈkeɪʃən/，意为"内容联合发布"
+
+RSS 是一种基于 XML 的标准格式（也称为 **Really Simple Syndication**），用于发布和订阅网站的更新内容。当网站发布新文章或更新时，RSS Feed 会自动包含这些新内容的标题、摘要和链接，用户通过 RSS 阅读器即可一站式获取所有订阅源的更新，无需逐一访问各个网站。
+
+### app
+
+- **app**：/&aelig;p/，是 application（应用程序）的缩写，泛指软件应用
+
+**组合理解：** RSS.app 即"RSS 应用平台"，是一个专注于将互联网上各种内容源转化为 RSS 订阅源并加以管理的在线应用服务。
+
+## 核心功能/特性
+
+### RSS 生成器（RSS Generator）
+
+对不提供原生 RSS 功能的网站，用户只需输入网页 URL，RSS.app 即可自动提取页面中的结构化内容（标题、描述、图片、日期等），生成标准格式的 RSS Feed。支持博客、新闻网站、YouTube、X（Twitter）、Instagram、Facebook、Reddit、LinkedIn、TikTok、Telegram 等多种内容源。
+
+### 可视化 Feed 构建器（Visual RSS Builder）
+
+提供可视化的页面内容选择界面，用户可以精确指定要提取的网页区域，包括标题、描述、图片、日期等字段，实现自定义 RSS 内容输出。
+
+### 智能过滤器（Smart Filters）
+
+支持丰富的内容过滤规则，包括关键词白名单/黑名单、正则表达式匹配、自动隐藏缺少元数据的帖子、手动隐藏与域名黑名单、置顶重要帖子、替换或移除文本、添加前后缀、自动隐藏旧帖、替换链接等，确保用户只接收最相关的更新。
+
+### Feed 聚合与捆绑（Feed Bundler）
+
+支持将多个 RSS Feed 合并为一个聚合流，将来自不同来源的内容整合到单一的 Feed 中，方便统一管理。
+
+### 手动策展（Collections &amp; Curation）
+
+允许用户手动挑选和收藏来自各 Feed 的文章，构建个性化的内容合集，便于后续回顾和分享。
+
+### 订阅邮件转 RSS（Newsletter to RSS）
+
+支持将电子邮件订阅刊物（Newsletter）转化为 RSS Feed，让用户在 RSS 阅读器中统一阅读，避免邮箱被大量邮件淹没。
+
+### 关键词主题监控
+
+支持通过输入关键词创建 RSS Feed，RSS.app 自动扫描互联网上与关键词相关的文章、博客和新闻，实现类似 Google Alerts 的主题监控功能。
+
+### 多语言自动翻译
+
+支持将 RSS Feed 内容自动翻译为 30 余种语言，适合跨国团队和全球化内容消费场景。
+
+### 多平台自动推送（Bots &amp; Alerts）
+
+支持将 Feed 更新自动推送到 Telegram、Discord、Slack 以及电子邮件摘要，用户无需手动检查即可接收最新内容。
+
+### HTML 嵌入式小部件（Widgets）
+
+提供可嵌入网站的响应式小部件，包括新闻墙（News Wall）、轮播（Carousel）、滚动字幕（Ticker）等多种模板，无需编码即可在任意网页上展示 RSS 内容。
+
+### Webhook 与 API 集成
+
+付费方案支持 Webhook 通知和 REST API 访问，开发者可通过编程方式获取和管理 Feed，与 n8n、Zapier、Make 等自动化工具无缝对接。
+
+## 常见用法示例
+
+### 典型使用场景
+
+1. **网站内容监控**：为不提供 RSS 的企业博客或行业新闻网站生成 RSS Feed，在 RSS 阅读器中统一订阅
+2. **社交媒体追踪**：将 Reddit 子版块、X（Twitter）用户时间线、YouTube 频道等社交媒体内容转化为 RSS Feed
+3. **竞品动态监测**：监控竞争对手官网的产品更新和新闻发布，自动推送至 Slack 团队频道
+4. **新闻聚合**：将 Google News 搜索结果转化为 RSS Feed，按主题或关键词自动追踪行业动态
+5. **邮件订阅管理**：将频繁收到的 Newsletter 邮件转为 RSS Feed，在阅读器中集中阅读，保持邮箱整洁
+6. **团队内部信息共享**：将行业资讯 Feed 嵌入公司内部 Wiki 或 Notion 页面，自动更新团队知识库
+7. **自动化工作流**：通过 Webhook 或 API 将 Feed 数据接入 n8n/Zapier，触发自动摘要、归档或 AI 分析等下游流程
+
+### 配置示例
+
+```
+# 典型工作流：监控行业新闻并推送至 Slack
+1. 在 Google News 搜索目标关键词
+2. 复制搜索结果 URL 粘贴到 RSS.app 的 Google News RSS 生成器
+3. 生成 Feed 并设置关键词过滤规则
+4. 创建 Slack Bot 通知，将新文章推送到 #industry-news 频道
+
+# 典型配置参数
+Feed URL:    https://rss.app/feeds/xxxxx.xml
+JSON URL:    https://rss.app/feeds/xxxxx.json
+刷新频率:    15 分钟（Developer 及以上方案）
+每 Feed 条目: 50 条（Developer 方案）
+```
+
+## 相关概念
+
+- **RSS（Really Simple Syndication）**：一种基于 XML 的标准内容发布格式，网站通过 RSS Feed 向订阅者推送最新更新，是内容聚合和信息分发的基础设施。
+- **RSS Feed Reader**：RSS 阅读器，如 Feedly、Inoreader、NetNewsWire 等，用于订阅、阅读和管理 RSS Feed 的客户端应用。
+- **Web Scraping（网页抓取）**：通过程序自动从网页中提取数据的技术。RSS.app 的核心能力之一即为网页内容提取，但相比通用爬虫，它专注于输出标准化的 RSS 格式。
+- **Content Aggregation（内容聚合）**：将来自多个不同来源的内容汇集到统一平台或 Feed 中的过程，RSS.app 的 Feed Bundler 功能即是此概念的典型应用。
+- **Atom**：另一种基于 XML 的内容联合发布标准（RFC 4287），与 RSS 功能类似但格式不同，两者均为 Feed 阅读器所兼容。
+- **Feedly**：一款流行的 RSS 阅读器和内容策展平台，常作为 RSS.app 生成 Feed 的消费端使用。
+- **Google Alerts**：Google 提供的关键词监控服务，RSS.app 的主题监控功能可视为其 RSS 友好的替代方案。
+- **Webhook**：一种基于 HTTP 回调的事件通知机制，RSS.app 通过 Webhook 在 Feed 有新内容时自动触发外部系统的后续操作。
+
+## 信源
+
+| 等级 | 来源 | 说明 |
+|------|------|------|
+| T1 | [RSS.app 官方网站](https://rss.app/) | 产品主页，介绍核心功能、定价和支持的内容源类型 |
+| T1 | [RSS.app 帮助中心 — What is RSS.app?](https://help.rss.app/en/articles/10729478-what-is-rss-app) | 官方帮助文档，详细说明产品功能、过滤规则和适用场景 |
+| T1 | [RSS.app 定价页面](https://rss.app/pricing) | 官方定价信息，含 Free/Basic/Developer/Pro 各方案功能对比 |
+| T2 | [RSS.app 帮助中心 — Guide to pricing and feed limits](https://help.rss.app/en/articles/10657918-guide-to-pricing-and-feed-limits) | 官方定价指南，解释 Feed 数量、刷新频率、条目限制等关键参数 |
+| T3 | [n8n Workflow — Scrape AI news from multiple sources to Markdown](https://n8n.io/workflows/5416-scrape-ai-news-from-multiple-sources-to-markdown-and-google-drive-with-rssapp/) | 第三方自动化工作流示例，展示 RSS.app 与 Firecrawl/n8n 的集成实践 |
+| T3 | [Jean Galea — 5 Ways to Get Data From Any Website](https://jeangalea.com/web-data-extraction/) | 第三方技术文章，将 RSS.app 列为无代码网页数据获取方式之一 |
+
+## 变更记录
+
+| 版本 | 日期 | 变更内容 |
+|------|------|----------|
+| 1.0 | 2026-07-08 | 初始创建，涵盖定义、术语拆解、核心功能、使用示例、相关概念和信源 |
