@@ -1,0 +1,217 @@
+---
+title: Batch（批处理）
+description: Batch（批处理）的定义、术语拆解与核心机制，覆盖从传统 Batch File 到现代大数据批处理的全谱系。
+version: 1.0
+created: 2026-07-09
+updated: 2026-07-09
+status: confirmed
+consensus: 广泛共识
+category: 技术应用
+---
+
+## 定义
+
+**Batch（批处理）** 是一种将大量任务或数据收集成组（即"批次"），由计算机程序自动、统一执行的处理模式。与交互式处理（用户逐条提交指令并等待结果）不同，批处理在后台运行，无需人工干预，适合处理数据量大、重复性高、可预定义执行逻辑的任务。
+
+批处理是计算机科学中最古老的处理范式之一。早期大型机（Mainframe）时代，程序员将作业（Job）写入打孔卡（Punch Card），由操作员统一提交给操作系统按序执行——这就是最早的批处理系统（Batch Processing System）。如今，批处理已演化到大数据框架（如 Hadoop、Spark）、CI/CD 流水线、数据库批量操作和 AI 模型批量推理等现代场景。
+
+## 英文术语拆解
+
+| 英文全称 | Batch Processing |
+|----------|-----------------|
+| 音标 | /bætʃ ˈprɒsesɪŋ/ |
+
+**逐词解释：**
+
+| 单词 | 音标 | 含义 |
+|------|------|------|
+| Batch | /bætʃ/ | 批次、一批。源自古法语 *bache*（意为"容器中的水"），引申为"一批物品"。在计算语境中指一组被收集在一起、等待统一处理的任务或数据。 |
+| Processing | /ˈprɒsesɪŋ/ | 处理、加工。指计算机对数据或任务执行操作的过程。 |
+
+**组合理解：** "Batch"（批次）+ "Processing"（处理）= 将任务或数据按批收集后统一执行的处理模式。
+
+**关联术语 Batch File：**
+
+| 单词 | 音标 | 含义 |
+|------|------|------|
+| File | /faɪl/ | 文件。指存储在磁盘上的命名数据集合。 |
+
+Batch File（批处理文件）是 Windows/DOS 中以 `.bat` 或 `.cmd` 为扩展名的脚本文件，内含一系列按顺序执行的命令。
+
+## 核心功能/特性
+
+### 批量处理
+
+将大量同类任务或数据收集为一个批次，一次性提交给系统执行，避免逐条手动操作。这是批处理的根本特征。
+
+### 队列管理
+
+批处理系统通常维护一个或多个任务队列（Job Queue），将待执行的任务按优先级、到达时间或资源需求排序，确保任务有序执行。
+
+### 定时执行
+
+通过调度器（Scheduler）或定时任务工具（如 Cron）设定执行时间，使批处理任务在指定时刻自动启动。典型场景包括每日凌晨的数据备份、月末报表生成等。
+
+### 错误重试
+
+批处理框架通常内置错误处理与重试机制：当某个任务执行失败时，系统可自动记录失败原因、跳过当前任务继续执行后续任务，或在修正后重新提交失败批次。
+
+### 资源调度
+
+批处理系统根据可用计算资源（CPU、内存、存储 I/O）动态分配任务，最大化资源利用率。在分布式环境中（如 Hadoop YARN、Kubernetes），资源调度器决定哪些任务在哪些节点上执行。
+
+### 可审计性
+
+每个批次的执行日志、输入数据、输出结果均可记录，便于事后审计和问题排查。
+
+## 常见用法示例
+
+### 1. 批处理脚本（Batch File）
+
+Windows 下最经典的批处理形式，文件扩展名为 `.bat` 或 `.cmd`：
+
+```bat
+@echo off
+REM 一个简单的批处理脚本示例
+echo 开始备份文件...
+xcopy C:\Users\*.docx D:\Backup\ /Y /D
+echo 清理临时文件...
+del C:\Temp\*.tmp /Q
+echo 备份完成！
+pause
+```
+
+在 Linux/macOS 上，Shell 脚本（`.sh`）承担类似角色：
+
+```bash
+#!/bin/bash
+# 每日数据备份脚本
+echo "开始备份..."
+tar -czf /backup/data_$(date +%Y%m%d).tar.gz /data/
+echo "清理 7 天前的备份..."
+find /backup/ -name "*.tar.gz" -mtime +7 -delete
+echo "备份完成"
+```
+
+### 2. 大数据批处理（Hadoop MapReduce / Apache Spark）
+
+大数据领域的批处理典型代表：
+
+```python
+# PySpark 批处理示例：统计日志文件中各状态码出现的次数
+from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.appName("LogAnalysis").getOrCreate()
+df = spark.read.text("hdfs://logs/2026-07-08/")
+result = df.filter(df.value.contains("HTTP")) \
+           .groupBy("status_code") \
+           .count()
+result.write.csv("hdfs://output/status_counts/")
+spark.stop()
+```
+
+Hadoop MapReduce 将任务拆分为 Map 和 Reduce 两个阶段，数据在磁盘上分批流转；Spark 则将中间结果缓存在内存中，大幅提升批处理速度。
+
+### 3. CI/CD 批量任务
+
+持续集成/持续部署流水线本质上是批处理的现代应用——每次代码提交触发一组预定义的构建、测试、部署任务：
+
+```yaml
+# GitHub Actions 批量测试示例
+name: Batch Test
+on:
+  push:
+    branches: [main]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run tests
+        run: pytest tests/ -v
+```
+
+### 4. 数据库批量操作
+
+将大量数据一次性插入或更新，而非逐行操作，性能差异可达数个数量级：
+
+```sql
+-- 批量插入
+INSERT INTO orders (id, product, quantity)
+VALUES
+  (1, 'Widget A', 100),
+  (2, 'Widget B', 200),
+  (3, 'Widget C', 150);
+
+-- 批量更新（PostgreSQL）
+UPDATE products
+SET price = price * 0.9
+WHERE id = ANY(ARRAY[101, 102, 103, 104]);
+```
+
+### 5. AI 模型批量推理（Batch Inference）
+
+将多条输入数据打包为一个批次（Batch），一次性送入模型进行推理，利用 GPU 并行能力大幅提升吞吐量：
+
+```python
+import torch
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
+
+tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
+model = AutoModelForSequenceClassification.from_pretrained("bert-base-uncased")
+
+# 批量输入
+texts = ["Great movie!", "Terrible experience.", "Not bad at all."]
+inputs = tokenizer(texts, padding=True, truncation=True, return_tensors="pt")
+
+# 批量推理（batch inference）
+with torch.no_grad():
+    outputs = model(**inputs)
+    predictions = torch.argmax(outputs.logits, dim=-1)
+```
+
+批量推理的关键参数是 **batch size**——每批同时处理多少条数据。batch size 过大会超出显存，过小则无法充分利用 GPU 算力。
+
+## 批处理 vs 流处理
+
+| 维度 | 批处理（Batch Processing） | 流处理（Stream Processing） |
+|------|--------------------------|---------------------------|
+| 数据单位 | 有限数据集（bounded data） | 无限数据流（unbounded data） |
+| 执行方式 | 按批次收集后统一处理 | 逐条或微批次实时处理 |
+| 延迟 | 秒级到小时级，容忍较高延迟 | 毫秒级到秒级，追求低延迟 |
+| 典型场景 | 日报生成、月度结算、离线分析、大规模 ETL | 实时监控、欺诈检测、实时推荐、日志流分析 |
+| 代表框架 | Hadoop MapReduce、Apache Spark Batch、Apache Flink Batch Mode | Apache Kafka Streams、Apache Flink Streaming、Apache Storm |
+| 数据完整性 | 可等所有数据到齐后再处理，结果更完整 | 需要在数据不完整时做出决策 |
+| 容错 | 失败可重新执行整个批次 | 需要 checkpoint + exactly-once 语义 |
+| 资源利用 | 可集中调度大量资源一次性处理 | 需持续占用资源保持运行 |
+
+**融合趋势：** 现代框架（如 Apache Flink、Apache Spark Structured Streaming）正在模糊批处理与流处理的边界，提出 "Stream is the new batch" 的理念——将批处理视为流处理的特殊情况（有界流），用统一的编程模型同时处理两种模式。
+
+## 相关概念
+
+- **Stream Processing（流处理）**：批处理的对立面，对持续到达的数据进行实时处理
+- **Queue（队列）**：批处理系统中存放待执行任务的数据结构，遵循 FIFO 或优先级排序
+- **Scheduler（调度器）**：决定何时、在哪里执行批处理任务的组件，如 Kubernetes Job Scheduler、SLURM
+- **MapReduce**：Google 提出的分布式批处理编程模型，包含 Map（映射）和 Reduce（归约）两个阶段
+- **ETL（Extract-Transform-Load）**：数据仓库中的经典批处理流程——抽取、转换、加载数据
+- **Cron（定时任务）**：Unix/Linux 下的定时调度工具，常用于触发周期性批处理任务
+
+## 信源
+
+| 来源 | 等级 | 内容摘要 |
+|------|------|---------|
+| [IBM - Batch Processing](https://www.ibm.com/topics/batch-processing) | T1 | IBM 官方对批处理的定义：将复杂任务分组后自动执行的处理方式 |
+| [AWS - What is Batch Processing?](https://aws.amazon.com/what-is/batch-processing/) | T1 | AWS 对批处理的全面阐述，包含批处理与流处理的对比 |
+| [Apache Spark Documentation](https://spark.apache.org/docs/latest/) | T1 | Spark 官方文档，描述其批处理引擎的架构与用法 |
+| [Wikipedia - Batch processing](https://en.wikipedia.org/wiki/Batch_processing) | T2 | 百科全书定义，追溯批处理从打孔卡时代到现代的演变 |
+| [Microsoft - Batch Files](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/) | T2 | Windows 命令行与批处理脚本的官方参考文档 |
+| [Hadoop MapReduce Tutorial](https://hadoop.apache.org/docs/stable/hadoop-mapreduce-client/hadoop-mapreduce-client-core/MapReduceTutorial.html) | T2 | Hadoop 官方 MapReduce 教程，分布式批处理的经典实现 |
+
+## 变更记录
+
+| 版本 | 日期 | 变更内容 |
+|------|------|---------|
+| v1.0 | 2026-07-09 | 初始创建，完成定义、术语拆解、核心特性、用法示例、批处理与流处理对比及信源验证 |

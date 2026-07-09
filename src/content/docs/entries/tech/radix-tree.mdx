@@ -1,0 +1,218 @@
+---
+title: Radix Tree（基数树）
+description: Radix Tree（基数树）的定义、术语拆解、核心特性和在 IP 路由、DNS、文本索引、Linux 内核调度、Redis 有序集合等领域的应用。
+version: 1.0
+created: 2026-07-09
+updated: 2026-07-09
+status: confirmed
+consensus: 广泛共识
+category: 技术应用
+---
+
+## 定义
+
+**Radix Tree**（基数树），又称 **Patricia Tree**、**Compressed Trie**（压缩字典树）或 **Compact Trie**，是一种空间优化的 **Trie**（字典树）变体。其核心思想是：当 Trie 中某个节点仅有唯一子节点时，将该节点与其子节点**合并**，从而消除冗余的单分支路径，大幅减少节点数量和内存占用。
+
+在 Radix Tree 中，每条边不再仅代表单个字符或比特，而是可以代表**一段字符序列**（即一个"压缩段"）。查找、插入、删除操作的时间复杂度为 **O(k)**，其中 k 为键（key）的长度，与树中存储的键的数量无关。
+
+Radix Tree 的核心应用价值在于**前缀匹配**场景——尤其是**最长前缀匹配**（Longest Prefix Match），即在所有匹配的前缀中找到最长的那个。这一特性使其在互联网路由、域名解析、文本索引等场景中不可替代。
+
+## 英文术语拆解
+
+| 英文全称 | Radix Tree |
+|----------|-----------|
+| 音标 | /ˈreɪdɪks triː/ |
+
+**逐词解释：**
+
+| 单词 | 音标 | 含义 |
+|------|------|------|
+| Radix | /ˈreɪdɪks/ | 基数、底数。源自拉丁语 *radix*，意为"根"（root）。在数学中指进位制的底（如二进制的基数为 2）。在数据结构中，表示按"位/字符段"进行分支的基准单位。 |
+| Tree | /triː/ | 树。一种分层数据结构，由节点（Node）和边（Edge）组成，具有唯一的根节点，且任意两个节点之间恰好存在一条路径。无环、连通。 |
+
+**组合理解：** "Radix"（基数/根）+ "Tree"（树）= 一种以"基数位段"为分支依据的树结构。其命名强调了两个核心特征：按位/字符段的**基数**分支方式，以及树形的分层组织结构。
+
+**别名来源：**
+
+- **Patricia Tree**：来自 *PATricia* = **P**ractical **A**lgorithm **T**o **R**etrieve **I**ntegrated **C**oded **A**ddresses，是 Radix Tree 在二进制（基数为 2）时的特化形式，由 Donald Morrison 于 1968 年提出。
+- **Compressed Trie / Compact Trie**：强调其相对于普通 Trie 的"路径压缩"特性。
+
+## 核心功能与特性
+
+Radix Tree 的关键特性使其在字符串集合的高效存储与查询中表现卓越：
+
+### 1. 前缀压缩（Prefix Compression）
+
+Radix Tree 与普通 Trie 最本质的区别在于**路径压缩**：
+
+- **普通 Trie**：每个字符对应一层节点，即使某条路径上所有节点都只有一个子节点（即"单链"），也不会合并。
+- **Radix Tree**：将只有单一子节点的路径"折叠"成一条边，边上的标签是一段完整的字符串而非单个字符。
+
+```
+普通 Trie 存储 "romane" 和 "romanus"：
+
+    r → o → m → a → n → e
+                    ↘
+                      s
+
+Radix Tree 存储同样的键：
+
+    root
+     └─ "roman" ──→ "e" (终)
+                 └─ "us" (终)
+
+节点数：从 9 个压缩到 4 个（root + "roman" + "e" + "us"）
+```
+
+当存储大量具有共同前缀的字符串时，压缩效果极为显著。例如存储 100 万个以 "com." 开头的域名，公共前缀 "com." 只需一个节点。
+
+### 2. 空间效率（Space Efficiency）
+
+Radix Tree 的空间复杂度远优于普通 Trie：
+
+- **节点数量**：对于 n 个键、最长键长为 k 的集合，Radix Tree 的节点数**不超过 2n**（每个键最多引入一个分支节点和一个叶子节点）
+- **内存占用**：由于消除了大量中间节点，实际内存使用量通常比普通 Trie 减少 **50%-90%**（取决于键集的冗余程度）
+- **边的存储**：每条边存储一段字符串（而非单个字符），需要额外的字符串存储，但总体仍是空间优化
+
+### 3. 快速查找（Fast Lookup）
+
+查找操作沿树向下，逐段匹配键的前缀：
+
+- **时间复杂度**：O(k)，k 为键的长度。每一步比较的是一段字符串而非单个字符，但由于总比较字符数不超过 k，复杂度仍为 O(k)
+- **与键集大小无关**：查找时间仅取决于键的长度，与树中存储了多少个键无关
+- **缓存友好**：节点数量远少于普通 Trie，树的高度更低，CPU 缓存命中率更高
+
+### 4. 插入与删除（Insertion &amp; Deletion）
+
+- **插入**：沿已有路径匹配最长前缀，在剩余未匹配部分创建新分支。若新键与已有边部分重叠，需要**拆分**该边
+- **删除**：删除叶子节点后，若其父节点变为仅有单一子节点的中间节点，则需要将该父节点与其子节点**合并**，维持 Radix Tree 的压缩性质
+- **懒删除（Lazy Deletion）**：在实际系统中（如 Linux 内核），删除操作有时仅做标记而不立即合并，以 amortize 成本
+
+### 5. 最长前缀匹配（Longest Prefix Match）
+
+这是 Radix Tree 最具价值的能力之一：
+
+- 给定一个查询字符串 S，在所有存储的键中，找到是 S 的前缀的**最长**那个键
+- 从根节点出发，沿树向下匹配，记录匹配过程中经过的最后一个终节点（标记为有效键的节点）
+- 该操作在普通 Trie 中也可以完成，但 Radix Tree 由于路径压缩，遍历更快、更省内存
+
+### 6. 有序遍历（Ordered Traversal）
+
+Radix Tree 按字典序（lexicographic order）组织键，支持高效的有序遍历：
+
+- **前驱/后继查询**：找到给定键在有序集合中的前一个或后一个键
+- **范围查询**：找出字典序在某个区间 [a, b) 内的所有键
+- 这些操作在哈希表中需要 O(n) 排序才能完成，Radix Tree 则可以在 O(k + m) 内完成（m 为结果数量）
+
+## 常见用法示例
+
+### 一、IP 路由表与最长前缀匹配
+
+Radix Tree 最经典的工程应用是**互联网路由表**（IP Routing Table）中的最长前缀匹配。
+
+路由器需要决定：当一个目标 IP 地址到达时，应该将它转发到哪个下一跳（Next Hop）？路由表中存储了大量 CIDR 前缀（如 `192.168.0.0/16`），路由器需要找到与目标 IP **最长匹配**的那条路由规则。
+
+```
+路由表条目：
+  10.0.0.0/8       → 下一跳 A
+  10.1.0.0/16      → 下一跳 B
+  10.1.2.0/24      → 下一跳 C
+
+目标 IP: 10.1.2.5
+
+最长前缀匹配过程：
+  10.0.0.0/8   ← 匹配（8 位前缀）
+  10.1.0.0/16  ← 匹配（16 位前缀，更长）
+  10.1.2.0/24  ← 匹配（24 位前缀，最长！）
+
+结果：转发到下一跳 C
+```
+
+**实现方式：**
+
+- 将 IP 地址的二进制表示作为 Radix Tree 的键
+- 每个路由前缀对应树中的一个节点，标记为终节点并附带下一跳信息
+- 查找时从根节点出发，逐位匹配，记录最后一个终节点
+
+**性能：** 现代路由器的 Radix Tree 实现可在 O(W) 时间内完成查找（W 为地址位数，IPv4 为 32，IPv6 为 128），支持百万级路由条目的实时查找。
+
+### 二、域名系统（DNS）
+
+DNS 的域名层级结构天然适合用 Radix Tree 建模：
+
+- 域名如 `www.example.com`、`mail.example.com`、`api.example.com` 共享大量公共前缀（反转后为 `moc.elpmaxe.`）
+- Radix Tree 压缩这些公共前缀，使得域名查找和通配符匹配（如 `*.example.com`）非常高效
+- DNS 服务器的递归查找、区域传输（Zone Transfer）等操作均受益于 Radix Tree 的结构
+
+### 三、文本索引与自动补全（Autocomplete）
+
+Radix Tree 是文本索引和自动补全系统的核心数据结构：
+
+- **搜索引擎建议**：当用户输入 "rad" 时，系统从 Radix Tree 中查找以 "rad" 为前缀的所有键，按频率排序返回 "radix tree"、"radio"、"radar" 等建议
+- **拼写检查**：将词典中的单词存入 Radix Tree，快速判断输入是否为有效单词（精确匹配）或提供前缀匹配候选
+- **T9 输入法**：早期手机 T9 输入法使用 Radix Tree 实现多键位到单词的快速映射
+
+### 四、Linux 内核进程调度（CFS）
+
+Linux 内核的 **CFS**（Completely Fair Scheduler，完全公平调度器）使用 Radix Tree（具体为 `rbtree` 的一个变体，内核中有专用的 `radix-tree` 实现）来管理进程的时间片调度：
+
+- **`struct radix_tree_root`**：Linux 内核中实现了一个通用的 Radix Tree 数据结构，广泛用于页面缓存（Page Cache）管理、文件描述符表等
+- **进程调度**：CFS 使用红黑树（red-black tree）维护进程的虚拟运行时间（vruntime），但内核中的 Radix Tree 也被用于索引调度实体（scheduling entities），按 CPU 编号快速查找
+- **页面缓存**：内核的 `address_space` 结构使用 Radix Tree 索引文件的各个页面，按页偏移量（page offset）查找，支持 O(log n) 的页面插入和查找
+
+### 五、Redis 有序集合的底层实现
+
+Redis 的 **Sorted Set**（有序集合，ZSET）在特定条件下使用 Radix Tree 的变体——**压缩列表**（ziplist）或 **跳跃表**（skiplist）——来实现。但 Redis 7.0 引入的 **Listpack** 以及社区中广泛讨论的 Radix Tree 实现方案也值得关注：
+
+- Redis 的 Stream 数据类型内部使用了类 Radix Tree 结构来组织消息 ID
+- 一些 Redis 兼容存储（如 **Dragonfly**）使用真正的 Radix Tree 来加速前缀扫描和范围查询
+- Radix Tree 的优势在于：支持前缀匹配、有序遍历、内存紧凑，恰好满足有序集合的核心需求
+
+## 与其他树的对比
+
+| 特性 | Radix Tree | Trie | Patricia Tree | B-Tree |
+|------|-----------|------|---------------|--------|
+| **别名** | Compressed Trie, Patricia Tree | 前缀树 | Radix Tree 的二进制特化 | 多路平衡查找树 |
+| **边的含义** | 一段字符串（压缩路径） | 单个字符 | 单个比特 | 键值范围（区间分隔） |
+| **基数（Radix）** | 可变（通常按字符或比特段） | 字符集大小（如 256 for ASCII） | 2（二进制） | 分支因子 B（可配置） |
+| **节点数** | &lt;= 2n（n 为键数） | 与总字符数成正比 | &lt;= 2n | 与键数成正比 |
+| **空间效率** | 高（压缩单分支路径） | 低（大量冗余中间节点） | 高（二进制压缩） | 中（块对齐有少量浪费） |
+| **查找时间** | O(k)（k 为键长） | O(k) | O(k) | O(log\_B n) |
+| **前缀匹配** | 原生支持，核心优势 | 支持，但效率较低 | 支持 | 不擅长 |
+| **有序遍历** | 支持（字典序） | 支持（字典序） | 支持（字典序） | 支持（键序） |
+| **适合场景** | 前缀匹配、路由表、稀疏键集 | 简单前缀查询、小字符集 | 二进制键（IP 地址等） | 数据库索引、文件系统、大块存储 |
+| **磁盘友好度** | 低（指针密集） | 低 | 低 | 高（为磁盘 I/O 设计） |
+| **典型实现** | 路由器 FIB、Linux radix-tree | 简单字典查询 | 早期 IP 路由 | MySQL InnoDB、SQLite、ext4 |
+
+**关键区别总结：**
+
+- **Radix Tree vs Trie**：Radix Tree 是 Trie 的压缩版本。Trie 每条边代表一个字符，Radix Tree 将连续的单分支路径合并为一条边。功能等价，但 Radix Tree 空间和常数时间更优。
+- **Radix Tree vs Patricia Tree**：Patricia Tree 是 Radix Tree 在基数为 2（按单个比特分支）时的特例。实际工程中两者常混用。Patricia Tree 更适合二进制键（如 IP 地址），而广义 Radix Tree 可以按字符或多比特段分支，更适合字符串键。
+- **Radix Tree vs B-Tree**：两者解决不同的问题。Radix Tree 擅长前缀匹配和字符串键的字典序组织；B-Tree 擅长磁盘环境下的范围查询和等值查找。数据库中索引几乎都用 B-Tree 变体而非 Radix Tree。
+
+## 相关概念
+
+- **Trie（字典树）**：Radix Tree 的基础数据结构。Trie 每条边代表单个字符，Radix Tree 对其进行路径压缩。两者功能等价但 Radix Tree 空间更优。
+- **Patricia Tree**：Radix Tree 的二进制特化形式（基数为 2），按单个比特分支。由 Donald Morrison 于 1968 年命名，缩写 PATRICIA 意为 Practical Algorithm To Retrieve Integrated Coded Addresses。
+- **前缀树（Prefix Tree）**：Trie 的中文别称，强调其"按前缀组织键"的特性。Radix Tree 是压缩的前缀树。
+- **哈希表（Hash Table）**：另一种常用的键值存储结构，支持 O(1) 平均查找，但**不支持前缀匹配和有序遍历**——这是 Radix Tree 相对于哈希表的核心优势。
+- **B-Tree**：一种自平衡的多路查找树，为磁盘 I/O 优化，广泛用于数据库索引和文件系统。与 Radix Tree 面向不同场景。
+- **最长前缀匹配（Longest Prefix Match, LPM）**：在所有匹配的前缀中找到最长者。Radix Tree 的核心应用场景，尤其在 IP 路由中不可或缺。
+- **跳跃表（Skip List）**：另一种支持有序操作的数据结构，Redis Sorted Set 的默认底层实现之一。与 Radix Tree 在有序集合场景中存在竞争关系。
+
+## 信源
+
+| 来源 | 等级 | 内容摘要 |
+|------|------|---------|
+| [Knuth, The Art of Computer Programming, Vol. 3, Section 6.2.2](https://www-cs-faculty.stanford.edu/~knuth/taocp.html) | T1 | 算法经典巨著，系统论述了 Trie 与 Radix Tree 的数学定义和分析 |
+| [Morrison, D.R. (1968). "PATRICIA — Practical Algorithm To Retrieve Information Coded In Alphanumeric", Journal of the ACM](https://dl.acm.org/doi/10.1145/321466.321472) | T1 | Patricia Tree 的原始论文，定义了 Radix Tree 二进制特化形式的完整算法 |
+| [Linux Kernel Source - radix-tree.h / radix-tree.c](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/linux/radix-tree.h) | T1 | Linux 内核官方源码，展示 Radix Tree 在内核页面缓存、调度器等子系统中的工程实现 |
+| [Cisco, "Longest Prefix Match Routing" — Cisco Developer Network](https://developer.cisco.com/docs/nxos/sdk/longest-prefix-match/) | T1 | Cisco 官方文档，说明 Radix Tree 在 IP 路由最长前缀匹配中的核心地位 |
+| [Wikipedia - Radix tree](https://en.wikipedia.org/wiki/Radix_tree) | T2 | 百科全书定义，涵盖 Radix Tree 的定义、变体、实现和应用场景 |
+| [Redis Documentation - Data Types - Sorted Sets](https://redis.io/docs/data-types/sorted-sets/) | T2 | Redis 官方文档，说明 Sorted Set 的底层数据结构实现细节 |
+
+## 变更记录
+
+| 版本 | 日期 | 变更内容 |
+|------|------|---------|
+| v1.0 | 2026-07-09 | 初始创建，涵盖定义、术语拆解、六大核心特性、五大应用场景（IP 路由/DNS/文本索引/Linux 内核/Redis）、四类树对比、相关概念与信源 |
