@@ -1,0 +1,175 @@
+---
+title: IDE（集成开发环境）
+description: IDE（Integrated Development Environment）的定义、术语拆解、核心功能与信源考证。
+version: 1.0
+created: 2026-07-09
+updated: 2026-07-09
+status: confirmed
+consensus: 广泛共识
+category: 技术
+---
+
+## 定义
+
+**IDE**（Integrated Development Environment，集成开发环境）是一种将代码编辑、编译/解释、调试、版本控制等多种软件开发工具集成在统一图形界面中的应用程序。开发者在 IDE 内即可完成从编写代码到构建、测试、部署的完整开发流程，无需频繁切换多个独立工具。
+
+IDE 的核心设计理念是**一站式开发**——通过深度整合各类开发辅助功能，降低工具间切换的成本，提升编码效率。
+
+## 英文术语拆解
+
+| 英文全称 | Integrated Development Environment |
+|----------|-----------------------------------|
+| 音标 | /ˈɪntɪɡreɪtɪd dɪˈvɛləpmənt ɪnˈvaɪrənmənt/ |
+
+**逐词解释：**
+
+| 单词 | 音标 | 含义 |
+|------|------|------|
+| Integrated | /ˈɪntɪɡreɪtɪd/ | 集成的、整合的。指多种工具和功能被组合在同一个应用程序中，而非各自独立运行。 |
+| Development | /dɪˈvɛləpmənt/ | 开发。此处特指软件开发（Software Development），即编写、测试和维护程序的过程。 |
+| Environment | /ɪnˈvaɪrənmənt/ | 环境。指为开发者提供的一整套工作空间与工具集合，类似于"工作台"。 |
+
+**组合理解：** "Integrated"（集成的）+ "Development"（开发）+ "Environment"（环境）= 将多种开发工具整合在一起的统一工作环境。
+
+## 核心功能/特性
+
+一个成熟的 IDE 通常具备以下核心功能模块：
+
+### 代码编辑
+
+IDE 提供专门的代码编辑区域，支持多种编程语言的语法识别。这是 IDE 最基础的功能，也是最核心的交互界面。
+
+### 语法高亮（Syntax Highlighting）
+
+根据编程语言的语法规则，对关键字、变量、字符串、注释等不同元素以不同颜色显示，帮助开发者快速识别代码结构，减少语法错误。
+
+### 智能代码补全（Intelligent Code Completion）
+
+基于上下文分析、类型推断和代码索引，自动提示可能的变量名、函数名、方法参数等信息。现代 IDE 还支持基于 AI 的代码补全（如 Copilot、Codeium 等）。
+
+### 调试器（Debugger）
+
+内置可视化调试工具，支持设置断点（Breakpoint）、单步执行（Step Over / Step Into）、查看变量值、调用栈分析等功能，帮助开发者定位和修复程序中的缺陷。
+
+### 版本控制集成（Version Control Integration）
+
+原生集成 Git、SVN 等版本控制系统，开发者可在 IDE 内完成代码提交（Commit）、分支管理（Branch）、合并（Merge）、冲突解决等操作，无需切换到命令行。
+
+### 终端集成（Integrated Terminal）
+
+在 IDE 窗口内嵌入命令行终端，开发者可以直接运行构建命令、测试脚本、包管理工具等，无需在 IDE 和外部终端之间来回切换。
+
+### 插件/扩展系统（Plugin / Extension System）
+
+通过插件市场安装扩展功能，如主题、语言支持、代码检查工具、数据库管理器等。插件机制使 IDE 具备高度可定制性，能够适应不同技术栈和开发偏好。
+
+### 构建与运行（Build &amp; Run）
+
+内置项目构建系统，一键完成编译、打包、运行等操作，通常支持配置多种构建目标和运行环境。
+
+### 代码重构（Refactoring）
+
+提供安全的代码重构工具，如重命名变量/方法、提取函数、内联变量、移动类等功能，在修改代码结构的同时保证引用关系的正确性。
+
+### 项目导航（Project Navigation）
+
+支持快速跳转至文件、类、方法、符号定义处，提供文件树、大纲视图、面包屑导航等多种项目结构浏览方式。
+
+## 常见用法示例
+
+以下按语言/平台分类介绍主流 IDE：
+
+### 通用 / 前端开发
+
+| IDE | 说明 |
+|-----|------|
+| **VS Code** | 由 Microsoft 开发的轻量级代码编辑器，通过丰富的扩展生态可兼具完整 IDE 能力。详见[独立词条](../tech/vs-code)。支持几乎所有主流编程语言，拥有庞大的插件市场和活跃的社区。 |
+| **WebStorm** | JetBrains 出品，专为 JavaScript/TypeScript 及前端框架（React、Vue、Angular）设计，开箱即用的智能补全和重构能力。 |
+
+### Java / Kotlin 开发
+
+| IDE | 说明 |
+|-----|------|
+| **IntelliJ IDEA** | JetBrains 出品的 Java 旗舰 IDE，提供深度代码分析、框架支持（Spring、Jakarta EE）、数据库工具等。社区版免费，旗舰版（Ultimate）提供企业级功能。 |
+
+### Python 开发
+
+| IDE | 说明 |
+|-----|------|
+| **PyCharm** | JetBrains 出品的 Python IDE，支持 Django、Flask 等 Web 框架，集成科学计算工具（Jupyter、NumPy）。社区版免费，专业版提供远程开发和数据库支持。 |
+
+### iOS / macOS 开发
+
+| IDE | 说明 |
+|-----|------|
+| **Xcode** | Apple 官方 IDE，专用于开发 iOS、iPadOS、macOS、watchOS、tvOS 应用。集成 Swift/Objective-C 编译器、Interface Builder 界面设计器、Instruments 性能分析工具。仅在 macOS 上运行。 |
+
+### Android 开发
+
+| IDE | 说明 |
+|-----|------|
+| **Android Studio** | Google 官方 Android IDE，基于 IntelliJ IDEA 构建。集成 Android SDK 管理器、Gradle 构建系统、Layout Editor、Emulator 模拟器，支持 Kotlin 和 Java。 |
+
+### .NET / C# 开发
+
+| IDE | 说明 |
+|-----|------|
+| **Visual Studio** | Microsoft 旗舰 IDE，支持 C#、C++、F#、VB.NET 等语言，内置 Azure 云服务集成、性能分析器、单元测试框架。Windows 平台上最强大的 .NET 开发工具。注意与 VS Code 不同，Visual Studio 是完整 IDE，VS Code 是轻量编辑器。 |
+
+### C / C++ 开发
+
+| IDE | 说明 |
+|-----|------|
+| **CLion** | JetBrains 出品的 C/C++ IDE，基于 CMake 构建系统，支持远程开发、调试和测试。 |
+| **Eclipse CDT** | Eclipse 平台的 C/C++ 开发插件，开源免费，适合嵌入式和跨平台开发。 |
+
+## IDE vs 编辑器
+
+IDE 与纯文本编辑器（如 Vim、Sublime Text、Neovim）之间的界限在某些场景下已变得模糊，但核心差异仍然存在：
+
+| 维度 | IDE | 纯文本编辑器 |
+|------|-----|-------------|
+| **定位** | 一站式开发环境，功能全面 | 轻量级文本/代码编辑工具 |
+| **启动速度** | 较慢，需要加载项目索引和多个服务 | 极快，几乎即时启动 |
+| **资源占用** | 较高（内存、CPU） | 极低 |
+| **调试能力** | 内置图形化调试器，功能完善 | 通常无内置调试器，需借助外部工具 |
+| **构建集成** | 深度集成编译/构建系统 | 需手动配置或借助外部终端 |
+| **代码分析** | 深度语义分析、跨文件引用追踪 | 基础的语法高亮和简单补全 |
+| **学习曲线** | 功能多，上手相对复杂 | 部分（如 Vim）学习曲线陡峭但熟练后效率极高 |
+| **可定制性** | 通过插件扩展，但核心架构固定 | 高度可定制（尤其 Vim/Neovim） |
+| **适用场景** | 大型项目、团队协作、复杂框架开发 | 快速编辑、脚本编写、远程服务器操作 |
+
+**选择建议：**
+
+- 如果开发大型项目、使用复杂框架（如 Spring、.NET）、需要频繁调试——选 **IDE**
+- 如果需要快速编辑文件、编写脚本、在远程服务器上操作——选**轻量编辑器**
+- 如果使用 VS Code + 丰富插件——你已经处于两者之间的"中间地带"
+
+值得注意的是，以 VS Code 为代表的现代编辑器通过插件生态不断侵蚀传统 IDE 的领地，两者的边界正在逐渐模糊。
+
+## 相关概念
+
+- **编辑器（Editor）**：IDE 的核心组件之一，负责代码文本的输入与显示。IDE 可以理解为"编辑器 + 更多工具"的集合体。
+- **调试器（Debugger）**：用于诊断和修复程序缺陷的工具，IDE 通过图形界面封装了调试器的核心能力。
+- **编译器（Compiler）**：将高级语言源代码转换为机器码或中间代码的程序（如 GCC、Clang、Javac）。IDE 通常内置或集成编译器。
+- **构建工具（Build Tool）**：自动化编译、打包、测试流程的工具（如 Maven、Gradle、Webpack、CMake），IDE 通常提供构建系统集成。
+- **插件系统（Plugin System）**：允许第三方开发者扩展 IDE 功能的架构机制，是 IDE 生态活力的关键。
+- **LSP（Language Server Protocol，语言服务器协议）**：由 Microsoft 提出的标准化协议，使编辑器/IDE 能以统一方式获得代码智能功能（补全、跳转定义、诊断等），极大扩展了编辑器的语言支持能力。
+- **GUI**（Graphical User Interface）：图形用户界面，IDE 本身即是一种面向开发者的 GUI 应用。
+- **REPL**（Read-Eval-Print Loop）：交互式解释环境，部分 IDE 内置 REPL 用于快速验证代码片段。
+
+## 信源
+
+| 来源 | 等级 | 内容摘要 |
+|------|------|---------|
+| [JetBrains - What is an IDE?](https://www.jetbrains.com/ides/) | T1 | JetBrains 官方对 IDE 的定义和功能说明，作为 IDE 领域头部厂商的权威阐述 |
+| [Microsoft - Visual Studio Documentation](https://learn.microsoft.com/en-us/visualstudio/) | T1 | Microsoft 官方文档，Visual Studio IDE 的功能定义和使用指南 |
+| [Wikipedia - Integrated development environment](https://en.wikipedia.org/wiki/Integrated_development_environment) | T2 | 百科全书定义，梳理了 IDE 的历史演进和功能分类 |
+| [LSP Specification - Microsoft](https://microsoft.github.io/language-server-protocol/) | T1 | 语言服务器协议的官方规范文档，定义了编辑器与语言工具之间的标准化通信协议 |
+| [Stack Overflow Developer Survey](https://survey.stackoverflow.co/) | T2 | 年度开发者调查，统计全球开发者最常使用的 IDE 和编辑器排名 |
+
+## 变更记录
+
+| 版本 | 日期 | 变更内容 |
+|------|------|---------|
+| v1.0 | 2026-07-09 | 初始创建，完成定义、术语拆解、核心功能、主流 IDE 示例及信源验证 |
