@@ -1,0 +1,116 @@
+---
+title: SVG（可缩放矢量图形）
+description: 基于 XML 的矢量图形格式，用数学描述图形，可无限缩放而不失真
+version: 1.0
+created: 2026-07-09
+updated: 2026-07-09
+status: confirmed
+consensus: 广泛共识
+category: tech
+---
+
+## 定义
+
+SVG（Scalable Vector Graphics，可缩放矢量图形）是一种基于 XML 的矢量图形标记语言，由 W3C 制定标准。与位图（如 PNG、JPEG）用像素网格记录颜色不同，SVG 用数学公式（点、线、曲线、形状）描述图形内容，因此可以在任意分辨率下无损缩放。SVG 文件本质上是纯文本的 XML 文档，可直接嵌入 HTML 页面，也可通过 CSS 和 JavaScript 进行样式控制和动态交互。
+
+## 第一性
+
+> 用数学而非像素描述图形——放大一万倍，边缘依然锐利。
+
+## 比方
+
+> 乐谱与录音的区别——乐谱记录的是"怎么演奏"的指令，无论用什么音响播放都能还原；而录音是某一次的固定采样，放大只会听到噪点。SVG 就是图形的"乐谱"。
+
+## 英文术语拆解
+
+| 英文词 | IPA 音标 | 词性 | 中文含义 | 在本术语中的含义 |
+|--------|----------|------|----------|------------------|
+| Scalable | /ˈskeɪləbl/ | adj. | 可缩放的；可 proportionally 放大或缩小的 | 拉丁语 *scala*（阶梯）→ 英语 *scale*；图形可在任意尺寸间平滑缩放而不损失清晰度 |
+| Vector | /ˈvektər/ | n./adj. | 矢量；用方向和大小定义的几何量 | 拉丁语 *vector*（携带者）；与位图（raster/pixel）相对，用数学公式（坐标、路径）而非像素网格描述图形 |
+| Graphics | /ˈɡræfɪks/ | n. | 图形；视觉图像的总称 | 希腊语 *graphikos*（书写的、绘画的）；此处指由计算机生成和渲染的视觉图形 |
+
+### 组合理解
+
+"Scalable Vector Graphics" 三个词的组合含义为"可任意缩放的、基于矢量的图形"。核心词是"Vector"（矢量）——它决定了图形的描述方式是数学公式而非像素阵列。"Scalable"是矢量描述的天然优势：因为图形由公式定义，缩放只是改变参数，不会引入锯齿或模糊。"Graphics"标明其用途是视觉图形的呈现。该标准由 W3C 于 1999 年启动制定，SVG 1.0 于 2001 年成为推荐标准，SVG 2.0 仍在持续演进中。
+
+## 核心功能/特性
+
+- **无损缩放**：图形由数学公式定义，任意放大缩小均不产生锯齿或模糊，天然适配 Retina 等高 DPI 屏幕
+- **文件体积小**：简单图形（图标、Logo、图表）的 SVG 文件通常远小于同等视觉效果的位图
+- **可编程性**：SVG 是 XML 文本，可用 CSS 控制样式（颜色、动画），用 JavaScript 操作 DOM 实现交互
+- **可访问性**：支持 `&lt;title&gt;`、`&lt;desc&gt;` 等语义标签，屏幕阅读器可读取图形描述
+- **DOM 可集成**：内联 SVG 直接嵌入 HTML DOM 树，图形元素可绑定事件、参与布局
+- **丰富的图形能力**：支持路径（path）、基本形状（rect/circle/polygon）、渐变（gradient）、滤镜（filter）、裁剪（clipPath）、蒙版（mask）、动画（animate）等
+- **可压缩优化**：可通过工具（如 SVGO）移除冗余信息，生成体积极小的 SVG；SVGZ 格式支持 gzip 压缩
+
+## 常见用法示例
+
+### 内联 SVG 嵌入 HTML
+
+```html
+<!-- 一个简单的笑脸图标 -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <circle cx="50" cy="50" r="45" fill="#FFD700" stroke="#333" stroke-width="2"/>
+  <circle cx="35" cy="40" r="5" fill="#333"/>
+  <circle cx="65" cy="40" r="5" fill="#333"/>
+  <path d="M 30 60 Q 50 80 70 60" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+</svg>
+```
+
+### 作为图片引用
+
+```html
+<img src="logo.svg" alt="Company Logo" />
+```
+
+### CSS 控制 SVG 样式
+
+```css
+/* 通过 CSS 修改内联 SVG 的颜色 */
+.icon-heart path {
+  fill: #e74c3c;
+  transition: fill 0.3s ease;
+}
+.icon-heart:hover path {
+  fill: #c0392b;
+}
+```
+
+### 典型应用场景
+
+| 场景 | 说明 |
+|------|------|
+| 图标 / Icon | 网页 UI 图标，可随字体大小缩放、CSS 换色 |
+| Logo | 品牌标识，确保在任何尺寸下清晰 |
+| 数据可视化 | D3.js、ECharts 等图表库底层使用 SVG 渲染 |
+| 动画 | CSS 或 SMIL 驱动的矢量动画，文件小且流畅 |
+| 插画 / 矢量图 | 扁平风格插画、信息图 |
+| 字体图标 | iconfont 等方案将图标编码为字体字符 |
+
+## 相关概念
+
+- **矢量图形 vs 位图**：矢量图形（SVG、AI、EPS）用数学公式描述，无限缩放不失真；位图（PNG、JPEG、GIF）用像素网格记录，放大后出现锯齿。两者是图形世界的两大阵营。
+
+- **Canvas**：HTML5 的另一套图形 API，基于像素逐帧绘制，适合游戏、实时数据可视化等高性能场景。SVG 是保留模式的 DOM 图形，Canvas 是即时模式的像素绘制——前者适合交互元素，后者适合大量动态绘制。
+
+- **WebGL / Three.js**：基于 GPU 加速的 3D 图形技术。SVG 主要处理 2D 矢量图形，WebGL 处理 3D 场景——维度不同，各有所长。
+
+- **CSS / CSS Animations**：SVG 的样式和动画可以完全由 CSS 控制，两者结合可以实现丰富的视觉效果，无需 JavaScript。
+
+- **Gzip / SVGZ**：SVG 是纯文本 XML，压缩率极高。SVGZ 即 gzip 压缩后的 SVG，体积可缩减 50%-80%。
+
+## 信源
+
+| 来源 | 等级 | 内容摘要 |
+|------|------|---------|
+| [W3C SVG 规范](https://www.w3.org/Graphics/SVG/) | T1 | SVG 标准的制定机构，权威规范文档 |
+| [MDN - SVG: Scalable Vector Graphics](https://developer.mozilla.org/en-US/docs/Web/SVG) | T1 | Mozilla 开发者文档，最全面的 SVG 技术参考 |
+| [SVG 教程 - MDN](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial) | T1 | MDN 官方 SVG 入门教程 |
+| [Wikipedia - Scalable Vector Graphics](https://en.wikipedia.org/wiki/Scalable_Vector_Graphics) | T2 | SVG 技术的百科介绍与历史沿革 |
+| [CSS-Tricks - Using SVG](https://css-tricks.com/using-svg/) | T3 | SVG 在前端开发中的实用技巧与最佳实践 |
+
+## 变更记录
+
+| 版本 | 日期 | 变更内容 |
+|------|------|----------|
+| 1.0 | 2026-07-09 | 初始版本，包含定义、术语拆解、核心功能、用法示例、相关概念与信源 |
