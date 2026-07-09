@@ -1,0 +1,216 @@
+---
+title: Spec Kit（规格驱动开发工具包）
+description: Spec Kit 是 GitHub 官方开源的规格驱动开发（SDD）工具包，通过结构化的多阶段工作流将规格从沟通文档变为可执行的工程资产，配合 AI 编程助手实现规格到代码的自动化生成。
+version: 1.0
+created: 2026-07-09
+updated: 2026-07-09
+status: confirmed
+consensus: 广泛共识（GitHub 官方出品，28K+ GitHub Stars）
+category: 技术应用
+---
+
+## 定义
+
+**Spec Kit**（全称 Specification Kit）是由 GitHub 官方开源的一款**规格驱动开发**（Spec-Driven Development, SDD）工具包。它的核心理念是将规格从传统开发中"写完即弃"的沟通文档，转变为项目全生命周期中的**可执行工程资产**——规格不仅指导开发，还直接驱动代码生成。
+
+Spec Kit 通过 Python CLI 工具 `specify` 进行项目初始化，在选定的 AI 编程助手（如 Claude Code、GitHub Copilot、Cursor 等）中注入一系列结构化的斜杠命令，引导开发者和 AI 按照严格的阶段流程完成从需求定义到代码实现的全过程。
+
+Spec Kit 特别优化用于**绿地项目**（Greenfield，从零开始构建），与侧重棕地开发的 OpenSpec 形成互补。截至 2026 年初，Spec Kit 已获得超过 28,000 颗 GitHub Stars。
+
+## 英文术语拆解
+
+| 英文全称 | Spec Kit（Specification Kit） |
+|----------|-------------------------------|
+| 音标 | /spɛk kɪt/ |
+
+**逐词解释：**
+
+| 单词 | 音标 | 含义 |
+|------|------|------|
+| Spec | /spɛk/ | 规格（Specification 的缩写）。在软件工程中指对系统需求、行为和接口的结构化描述。 |
+| Kit | /kɪt/ | 工具包、套件。指一组配套的工具、模板和规范集合。 |
+
+**组合理解：** "Spec"（规格）+ "Kit"（工具包）= 一套以规格为核心的开发工具包，将规格贯穿开发全流程。
+
+## 核心功能与特性
+
+### 1. 多阶段标准化开发流程
+
+Spec Kit 内置严格的多阶段开发流程，每个阶段都有校验规则，不符合规范无法进入下一环节：
+
+| 阶段 | 斜杠命令 | 核心动作 | 输出产物 |
+|------|---------|---------|---------|
+| 项目宪法 | `/speckit.constitution` | 定义项目治理原则、编码规范、测试标准 | `constitution.md` |
+| 需求规格 | `/speckit.specify` | 定义"做什么、为什么"（不含技术栈） | `specs/NNN-feature/spec.md` |
+| 需求澄清 | `/speckit.clarify` | 通过结构化提问消除需求歧义 | 更新后的 `spec.md` |
+| 技术计划 | `/speckit.plan` | 确定技术栈、架构方案、数据模型 | `plan.md`、`research.md`、`data-model.md`、`contracts/` |
+| 质量检查 | `/speckit.checklist` | 生成质量清单，验证需求完整性 | 检查清单 |
+| 任务分解 | `/speckit.tasks` | 将计划拆解为可执行的开发任务 | `tasks.md` |
+| 一致性分析 | `/speckit.analyze` | 跨文档一致性检查与覆盖率分析 | 分析报告 |
+| 代码实现 | `/speckit.implement` | 按任务顺序执行代码生成 | 源代码 |
+
+### 2. 单一事实源校验机制
+
+Spec Kit 最核心的工程价值在于其**单一事实源**（Single Source of Truth）机制：
+
+- 生成的规格文档是整个项目的**唯一标准**
+- 后续所有代码、测试、评审都必须与规格对齐
+- 内置 `lint` 校验和 `check-align` 对齐检查能力
+- 代码与规格不符时自动拦截，从流程上杜绝 AI 偏离需求
+
+### 3. 项目宪法（Constitution）
+
+在首次使用 Spec Kit 时，开发者通过 `/speckit.constitution` 命令建立项目治理原则。这不是简单的编码规范，而是定义项目技术哲学的核心文档，涵盖：
+
+- 代码质量标准
+- 测试覆盖要求
+- 用户体验一致性
+- 性能要求
+- 隐私与安全规则
+
+项目宪法在后续所有开发阶段被 AI 持续引用，确保技术决策的一致性。
+
+### 4. 广泛的 AI 助手支持
+
+Spec Kit 支持 11+ 种 AI 编程助手：
+
+| AI 助手 | 支持状态 |
+|---------|---------|
+| Claude Code | 完全支持 |
+| GitHub Copilot | 完全支持 |
+| Cursor | 完全支持 |
+| Gemini CLI | 完全支持 |
+| Windsurf | 完全支持 |
+| 其他多家 | 持续扩展中 |
+
+### 5. Python 编程库
+
+除 CLI 工具外，Spec Kit 还提供 `speckit-ai` Python 库（通过 pip 安装），支持以编程方式调用规格生成、计划制定、任务分解等功能，可集成到自定义工具和 CI/CD 流水线中。
+
+## 常见用法示例
+
+### 一、安装与初始化
+
+```bash
+# 使用 uv 安装（推荐）
+uv tool install specify-cli --from git+https://github.com/github/spec-kit.git
+
+# 创建新项目
+specify init my-project --ai claude
+
+# 或在已有项目中初始化
+specify init . --ai copilot
+```
+
+### 二、完整开发流程示例
+
+```
+# 步骤 1：建立项目宪法
+/speckit.constitution This project follows TDD strictly.
+All APIs must have OpenAPI specs.
+Performance: API responses under 200ms.
+
+# 步骤 2：编写功能规格（聚焦 what/why，不涉及技术栈）
+/speckit.specify Build a task management app with user authentication,
+real-time collaboration, and mobile support. Users should be able to
+create projects, assign tasks, and track progress with Kanban boards.
+
+# 步骤 3：澄清需求
+/speckit.clarify Focus on security and performance requirements.
+
+# 步骤 4：制定技术计划
+/speckit.plan Use React with TypeScript, Node.js backend,
+PostgreSQL database, WebSocket for real-time.
+
+# 步骤 5：检查质量
+/speckit.checklist
+
+# 步骤 6：分解任务
+/speckit.tasks
+
+# 步骤 7：一致性分析
+/speckit.analyze
+
+# 步骤 8：执行实现
+/speckit.implement
+```
+
+### 三、推荐完整工作流
+
+```
+/speckit.constitution
+  → /speckit.specify
+    → /speckit.clarify
+      → /speckit.plan
+        → /speckit.checklist
+          → /speckit.tasks
+            → /speckit.analyze
+              → /speckit.implement
+                → /speckit.converge（验证完整性）
+```
+
+### 四、Python 编程库调用示例
+
+```python
+from speckit import SpecKit, SpecKitConfig, LLMConfig
+
+# 初始化
+kit = SpecKit(
+    project_path="./my-project",
+    config=SpecKitConfig(
+        llm=LLMConfig(
+            model="claude-3-haiku-20240307",
+            temperature=0.7,
+            max_tokens=4096,
+        )
+    )
+)
+
+# 生成规格
+spec = kit.specify(
+    "A todo list feature with add, complete, and delete",
+    feature_id="001-todo-list"
+)
+
+# 创建技术计划
+plan = kit.plan(spec)
+
+# 生成实现任务
+tasks = kit.tasks(plan)
+
+# 保存所有产物
+kit.save(spec)
+kit.save(plan)
+kit.save(tasks)
+
+# 分析一致性
+report = kit.analyze(spec, plan, tasks)
+print(report.to_markdown())
+```
+
+## 相关概念
+
+- **规格驱动开发（Spec-Driven Development, SDD）**：Spec Kit 所归属的开发方法论，核心思想是规格可执行、规格即事实源，而非传统开发中写完即弃的沟通文档。
+- **OpenSpec**：由 Fission AI 开发的轻量级 SDD 框架，与 Spec Kit 同属 SDD 工具生态。OpenSpec 更轻量（5 分钟设置）、适合棕地项目；Spec Kit 更重量级（约 30 分钟设置）、适合绿地项目。
+- **Kiro**：AWS 推出的规格驱动 IDE，与 Spec Kit 理念相近但锁定特定 IDE 生态。
+- **BMAD Method**：多代理系统开发框架，适用于企业级多仓库项目，设置复杂度远高于 Spec Kit。
+- **项目宪法（Constitution）**：Spec Kit 特有的概念，定义项目级治理原则，贯穿所有后续开发阶段。
+- **单一事实源（Single Source of Truth）**：Spec Kit 的核心工程原则，确保规格文档是项目所有决策和验证的唯一标准。
+- **氛围编程（Vibe Coding）**：Andrej Karpathy 提出的概念，指凭感觉接受 AI 生成的代码而不深入审查。Spec Kit 正是为解决氛围编程带来的需求漂移问题而设计。
+- **Given-When-Then 格式**：Spec Kit 在验收场景中采用的行为驱动开发（BDD）格式，用于精确定义用户故事的预期行为。
+
+## 信源
+
+| 来源 | 等级 | 内容摘要 |
+|------|------|---------|
+| [Spec Kit 官方网站](https://speckit.org/) | T1 | 官方主页，定义 Spec Kit 为"规格驱动开发工具包"，详述核心特性、快速入门和支持工具 |
+| [GitHub - github/spec-kit](https://github.com/github/spec-kit) | T1 | 官方开源仓库，28K+ Stars，包含完整源码、模板、CLI 工具 |
+| [Spec Kit Quick Start Guide](https://github.github.io/spec-kit/quickstart.html) | T1 | 官方快速入门指南，详细介绍完整工作流和各斜杠命令用法 |
+| [PyPI - speckit-ai](https://pypi.org/project/speckit-ai/) | T1 | Python 库官方发布页面，提供安装指南和编程 API 示例 |
+| [CSDN - SpecKit 规格驱动开发工具包详细介绍](https://d3y12u.blog.csdn.net/article/details/162399497) | T3 | 中文技术博客，从产品定位、核心能力、实操 Demo 等维度全面解析 Spec Kit |
+
+## 变更记录
+
+| 版本 | 日期 | 变更内容 |
+|------|------|---------|
+| v1.0 | 2026-07-09 | 初始创建，涵盖定义、术语拆解、核心特性（多阶段开发流程、单一事实源校验、项目宪法、AI 助手支持、Python 编程库）、典型用法示例、相关概念与信源 |
