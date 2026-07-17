@@ -1,0 +1,120 @@
+---
+title: MoE（混合专家模型）
+description: MoE（Mixture of Experts）的定义、核心概念、术语拆解和信源考证。
+version: 1.0
+created: 2026-07-17
+updated: 2026-07-17
+status: confirmed
+consensus: 广泛共识
+category: 大语言模型
+---
+
+## 定义
+
+**MoE（Mixture of Experts，混合专家模型）** 是一种稀疏架构的大语言模型设计：模型内部包含多个"专家"子网络，每次推理时由一个**路由门控（Router/Gate）** 动态选择少量专家参与计算，其余专家不激活。
+
+MoE 的核心优势是：**总参数量大（知识容量大），但每次推理的计算量小（只激活少数参数）**。这使得 MoE 模型能在保持较低推理成本的同时，拥有远超同规模稠密模型的知识容量。
+
+代表性 MoE 模型：GPT-4（传闻）、Mixtral 8x7B、DeepSeek-V2/V3、Qwen1.5-MoE、DBRX。
+
+
+## 第一性
+
+> 不养闲人——模型内部有大量专家，每次只叫最相关的几位出场，用最少算力干最大的事。
+
+## 比方
+
+> 医院的专家会诊——你挂了个号，导诊台（路由器）根据你的症状只叫相关的两三个专家来看，而不是把全院几十个科室的医生都叫来。医院规模越大（总参数越多），能覆盖的病症越广，但你每次看病只花两三个专家的挂号费（计算成本）。
+
+## 英文术语拆解
+
+| 英文全称 | Mixture of Experts |
+|----------|-------------------|
+| 音标 | /ˈmɪkstʃər əv ˈekspɜːrts/ |
+| 缩写 | MoE |
+
+**词源说明：**
+
+- **Mixture**：混合物、组合。多个组件协同工作
+- **Experts**：专家。每个"专家"是一个独立的子网络（通常是一组前馈神经网络 FFN），专注于处理特定类型的输入模式
+
+该概念最早由 Shazeer 等人（1996）在论文 "Outrageous Large Neural Networks" 中提出，后经 Google 的 Switch Transformer（2021）和 Mixtral（2024）等工作发扬光大。
+
+## 核心概念
+
+### 专家（Expert）
+MoE 中的独立子网络。在 LLM 中，每个专家通常是一组前馈神经网络（FFN）。一个 MoE 层包含 N 个专家，每个专家有不同的权重，擅长处理不同类型的输入。
+
+### 路由器/门控（Router / Gate）
+决定每个 Token 分配给哪些专家的决策模块。路由器接收 Token 的隐藏状态，输出每个专家的权重分数，选择 Top-K 个专家处理该 Token。
+
+### Top-K 选择
+路由器不激活所有专家，而是只选择得分最高的 K 个（通常 K=1 或 K=2）。K 越小，计算越省，但信息利用可能不充分。
+
+### 稀疏激活（Sparse Activation）
+MoE 的本质特征：推理时只激活部分参数。例如 Mixtral 8x7B 有 46.7B 总参数，但每次推理只激活约 12.9B，计算成本接近 13B 的稠密模型。
+
+### 负载均衡（Load Balancing）
+MoE 训练中的关键挑战。如果路由器总是选择同样的专家，会导致部分专家过载、其余"闲置"。通常通过辅助损失函数（auxiliary loss）强制均衡各专家的负载。
+
+### 专家容量（Expert Capacity）
+每个专家在一次前向传播中最多处理的 Token 数量上限，防止单个专家被过多 Token 压垮。
+
+## MoE vs 稠密模型
+
+| 维度 | 稠密模型（Dense） | 混合专家（MoE） |
+|------|------------------|----------------|
+| 参数利用 | 推理时全部参数参与计算 | 推理时只激活部分专家 |
+| 计算成本 | 与总参数量成正比 | 远小于总参数量对应的稠密模型 |
+| 知识容量 | 受限于总参数量 | 可用更多参数存储更多知识 |
+| 显存需求 | 全部参数都要加载 | 全部参数也要加载（推理时不计算但需要加载） |
+| 训练稳定性 | 较稳定 | 需要处理负载均衡问题 |
+| 推理速度 | 较慢 | 较快（同等推理算力下） |
+| 代表模型 | GPT-4o、LLaMA 3、Qwen2 | Mixtral、DeepSeek-V2、DBRX |
+
+## 常见 MoE 架构
+
+### Top-1 Routing（Switch Transformer）
+每个 Token 只路由到 1 个专家。最极端的稀疏化，计算最省，但信息利用最粗粒度。
+
+### Top-2 Routing（Mixtral）
+每个 Token 路由到 2 个专家，两个专家的加权输出相加。在计算效率和信息利用之间取得平衡。Mixtral 8x7B 采用此方案。
+
+### DeepSeekMoE（细粒度专家 + 共享专家）
+DeepSeek-V2/V3 的创新：大量细粒度专家（256个）+ 少量共享专家（始终激活）。细粒度专家覆盖更多专业领域，共享专家处理通用知识。配合辅助设备的动态调度策略。
+
+## 典型 MoE 模型一览
+
+| 模型 | 总参数 | 激活参数 | 专家数 | Top-K |
+|------|--------|---------|--------|-------|
+| Mixtral 8x7B | 46.7B | ~12.9B | 8 | 2 |
+| Mixtral 8x22B | 141B | ~39B | 8 | 2 |
+| DeepSeek-V2 | 236B | 21B | 160 | 6 |
+| DeepSeek-V3 | 671B | 37B | 256 | 8 |
+| Qwen1.5-MoE-A2.7B | 72B | 2.7B | 60 | 4 |
+| DBRX | 132B | 36B | 16 | 2 |
+
+## 相关概念
+
+- **Dense（稠密）**：MoE 的反面，推理时全部参数参与计算
+- **Sparse（稀疏）**：MoE 属于稀疏模型的一种
+- **FFN（前馈神经网络）**：LLM 中专家的具体实现形式
+- **Router/Gate**：MoE 的核心调度组件
+- **KV Cache**：MoE 模型的注意力缓存机制，与专家选择无关
+- **量化（Quantization）**：MoE 模型因参数量大，量化部署尤为重要
+
+## 信源
+
+| 来源 | 等级 | 内容摘要 |
+|------|------|---------|
+| [Fedus et al. (2021) - Switch Transformers](https://arxiv.org/abs/2101.03961) | T1 | Google 的 Switch Transformer 论文，现代 MoE LLM 的奠基工作 |
+| [Jiang et al. (2024) - Mixtral of Experts](https://arxiv.org/abs/2401.04088) | T1 | Mistral AI 的 Mixtral 论文，开源 Top-2 MoE 模型 |
+| [DeepSeek-AI (2024) - DeepSeek-V2](https://arxiv.org/abs/2405.04434) | T1 | DeepSeek-V2 论文，细粒度专家 + 共享专家的 MoE 创新 |
+| [Shazeer et al. (1996) - Outrageous Large Neural Networks](https://arxiv.org/abs/1701.06538) | T2 | MoE 概念的早期论文 |
+| [Mistral AI - Mixtral 发布公告](https://mistral.ai/news/mixtral-of-experts) | T2 | Mixtral 模型的官方发布说明 |
+
+## 变更记录
+
+| 版本 | 日期 | 变更内容 |
+|------|------|---------|
+| v1.0 | 2026-07-17 | 初始创建 |

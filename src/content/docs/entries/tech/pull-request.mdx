@@ -1,0 +1,121 @@
+---
+title: PR（Pull Request）
+description: PR（Pull Request）的定义、核心概念、术语拆解和信源考证。
+version: 1.0
+created: 2026-07-17
+updated: 2026-07-17
+status: confirmed
+consensus: 广泛共识
+category: 技术
+---
+
+## 定义
+
+**PR（Pull Request，拉取请求）** 是代码协作中的一种工作流程：开发者在自己分支上完成代码修改后，向项目维护者发出"请求拉入我的改动"的正式提案。维护者和其他成员可以在合并前对代码进行审查（Code Review）、讨论、提出修改意见，确认无误后才将代码合入主分支。
+
+PR 最早由 GitHub 在 2008 年推出，现已成为几乎所有代码托管平台（GitLab、Bitbucket、Gitee 等）的标准协作机制。部分平台使用等价术语 **Merge Request（MR）**，如 GitLab。
+
+
+## 第一性
+
+> 一段代码从"我改好了"到"可以合入"之间的正式审批通道——不是技术动作，而是协作契约。
+
+## 比方
+
+> 公司里的"审批单"——你写好了方案，提交给领导审批，领导可以批准、打回、要求修改，通过后方案才能正式执行。
+
+## 英文术语拆解
+
+| 英文全称 | Pull Request |
+|----------|-------------|
+| 音标 | /pʊl rɪˈkwest/ |
+| 缩写 | PR |
+
+**词源说明：**
+
+- **Pull**：拉取。代码托管平台"拉入"你的改动到主分支
+- **Request**：请求。你不是直接修改主分支，而是"请求"维护者合并
+
+"Pull Request"这个命名是从项目维护者的视角出发的——维护者需要"拉取"你的代码。等价概念 **Merge Request（MR）** 则是从提交者的视角命名——你"请求合并"你的代码。两者本质相同，只是命名视角不同。
+
+## 核心概念
+
+### 分支（Branch）
+PR 的基础。你在自己的分支上开发，完成后向主分支（如 main）发起 PR。
+
+### Code Review（代码审查）
+PR 的核心价值所在。团队成员在 PR 页面逐行审查代码，提出评论和建议。
+
+### Diff（差异对比）
+PR 页面自动展示你的修改与目标分支的差异，红绿标注增删内容。
+
+### CI 检查
+现代 PR 流程中通常自动触发 CI（持续集成）流水线，运行测试、lint 检查等，确保代码质量。
+
+### Approve / Request Changes
+审查者的两种关键操作：批准（Approve）或要求修改（Request Changes）。通常需要至少一个 Approve 才能合并。
+
+### Merge（合并）
+PR 通过后，将你的分支改动合入目标分支。常见合并策略有 Squash Merge、Rebase Merge 等。
+
+## 典型 PR 工作流程
+
+```
+1. 从 main 分支创建 feature 分支
+   git checkout -b feature/new-login
+
+2. 在 feature 分支上开发、提交
+   git add . && git commit -m "Add login feature"
+
+3. 推送分支到远程
+   git push origin feature/new-login
+
+4. 在 GitHub/GitLab 上发起 PR
+   - 选择目标分支（如 main）
+   - 填写标题和描述
+   - 指定审查者（Reviewer）
+
+5. Code Review
+   - 审查者查看 Diff
+   - 提出评论和修改建议
+   - 提交者修改后再次推送
+
+6. CI 自动检查通过
+
+7. 审查者 Approve → 合并 PR
+
+8. 删除已合并的 feature 分支
+```
+
+## PR 描述的最佳实践
+
+一个好的 PR 通常包含：
+- **标题**：简明描述做了什么
+- **背景**：为什么需要这个改动
+- **变更内容**：具体修改了哪些文件和逻辑
+- **测试方式**：如何验证改动正确
+- **截图**：如涉及 UI 变更，附上前后对比
+
+## 相关概念
+
+- **Git**：PR 底层的版本控制工具
+- **Code Review（代码审查）**：PR 的核心协作环节
+- **CI（持续集成）**：PR 流程中自动触发的质量检查
+- **Merge Request（MR）**：GitLab 对 PR 的等价叫法
+- **分支（Branch）**：PR 的基础，每个 PR 对应至少一个分支
+- **合并（Merge）**：PR 通过后的最终动作
+
+## 信源
+
+| 来源 | 等级 | 内容摘要 |
+|------|------|---------|
+| [GitHub - About Pull Requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests) | T1 | GitHub 官方文档对 PR 的完整说明 |
+| [GitLab - Merge Requests](https://docs.gitlab.com/ee/user/project/merge_requests/) | T1 | GitLab 官方文档对 MR 的说明（等价概念） |
+| [Atlassian - Pull Request Tutorial](https://www.atlassian.com/git/tutorials/making-a-pull-request) | T2 | Atlassian 提供的 PR 工作流程教程 |
+| [Google - Engineering Practices: Code Review](https://google.github.io/eng-practices/review/) | T2 | Google 开源的 Code Review 最佳实践指南 |
+
+## 变更记录
+
+| 版本 | 日期 | 变更内容 |
+|------|------|---------|
+| v1.0 | 2026-07-17 | 初始创建 |

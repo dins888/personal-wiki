@@ -1,0 +1,154 @@
+---
+title: CI（持续集成）
+description: CI（持续集成）的定义、核心概念、术语拆解和信源考证。
+version: 1.0
+created: 2026-07-17
+updated: 2026-07-17
+status: confirmed
+consensus: 广泛共识
+category: 技术
+---
+
+## 定义
+
+**CI（Continuous Integration，持续集成）** 是一种软件开发实践：开发者频繁地（通常每天多次）将代码变更合并到共享主分支，每次合并都会自动触发构建和测试，以尽早发现集成错误。
+
+CI 的核心理念是：**越早发现问题，修复成本越低**。与其让代码在各自分支上长期独立开发、最后合并时爆出一堆冲突，不如持续地集成、持续地验证。
+
+CI 通常与 **CD（Continuous Delivery / Continuous Deployment，持续交付/持续部署）** 连用，合称 CI/CD，构成现代软件交付的核心流水线。
+
+
+## 第一性
+
+> 每次代码变更都自动跑一遍构建和测试——用机器的勤奋替代人的侥幸。
+
+## 比方
+
+> 体检制度——每次你提交代码，系统就自动给你做一次全面体检，指标异常立刻报警，而不是等到年终大检查才发现问题。
+
+## 英文术语拆解
+
+| 英文全称 | Continuous Integration |
+|----------|----------------------|
+| 音标 | /kənˈtɪnjuəs ˌɪntɪˈɡreɪʃən/ |
+| 缩写 | CI |
+
+**词源说明：**
+
+- **Continuous**：持续的、不间断的。强调这是一个常态化的流程，而非一次性动作
+- **Integration**：集成、整合。指将不同开发者的代码"整合"到一起
+
+这个术语最早由 Kent Beck 和 Martin Fowler 在极限编程（XP）实践中推广。Martin Fowler 在 2000 年发表的经典文章中对 CI 做了系统性定义。
+
+## 核心概念
+
+### 持续集成（CI）
+开发者频繁将代码合并到主分支，每次合并自动触发构建和测试。
+
+### 持续交付（Continuous Delivery, CD）
+在 CI 基础上，确保代码随时可以安全地发布到生产环境。代码通过自动化测试后，进入"可发布"状态，但需要人工触发部署。
+
+### 持续部署（Continuous Deployment, CD）
+持续交付的进一步自动化：代码通过所有测试后，自动部署到生产环境，无需人工干预。
+
+### Pipeline（流水线）
+CI/CD 的执行单元。一条流水线定义了从代码提交到部署的完整自动化步骤：构建 → 测试 → 检查 → 部署。
+
+### Pipeline as Code
+用配置文件（如 `.github/workflows/*.yml`）定义流水线，与代码一起版本管理。
+
+### Artifact（制品）
+构建过程的输出产物，如编译后的二进制文件、打包后的 Docker 镜像等。
+
+## CI 的核心原则
+
+Martin Fowler 总结的 CI 核心实践：
+
+1. **维护单一代码仓库**：所有代码集中在一个仓库中
+2. **自动化构建**：一条命令即可完成构建
+3. **自动化测试**：构建后自动运行测试套件
+4. **每天至少集成一次**：开发者频繁推送代码到主分支
+5. **每次集成在干净环境上构建**：避免环境差异导致的隐蔽问题
+6. **快速构建**：构建应该在几分钟内完成，不阻塞开发者
+7. **在克隆环境中测试**：测试环境应尽量模拟生产环境
+8. **任何人都可以获取最新可执行文件**：构建产物对团队可见
+9. **所有人都能看到正在发生什么**：构建状态透明公开
+10. **自动化部署**：一键即可部署到任何环境
+
+## 常见 CI/CD 工具
+
+| 工具 | 类型 | 特点 |
+|------|------|------|
+| **GitHub Actions** | 云托管 | 与 GitHub 深度集成，YAML 配置，社区生态丰富 |
+| **GitLab CI/CD** | 自托管/云托管 | 与 GitLab 一体化，功能全面 |
+| **Jenkins** | 自托管 | 老牌开源 CI 服务器，插件生态庞大 |
+| **CircleCI** | 云托管 | 配置简洁，速度快 |
+| **Travis CI** | 云托管 | 开源项目免费，早期 CI 先驱 |
+| **Azure DevOps** | 云托管 | 微软生态，企业级 |
+
+## CI 配置文件示例（GitHub Actions）
+
+```yaml
+# .github/workflows/ci.yml
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+      
+      - name: 安装依赖
+        run: npm ci
+      
+      - name: 代码检查
+        run: npm run lint
+      
+      - name: 运行测试
+        run: npm test
+      
+      - name: 构建
+        run: npm run build
+```
+
+## CI 与 PR 的关系
+
+CI 和 PR 天然搭档：
+
+- 每次发起 PR 时，CI 自动触发，运行构建和测试
+- CI 结果直接显示在 PR 页面上（✅ 通过 / ❌ 失败）
+- CI 未通过的 PR 通常不允许合并
+- 这形成了一个质量门禁：**代码不仅要人审通过，还要机器验证通过**
+
+## 相关概念
+
+- **PR（Pull Request）**：CI 最常见的触发场景
+- **Git**：CI 的代码来源和版本管理基础
+- **Docker**：CI 环境中常用容器保证构建一致性
+- **Pipeline**：CI 的执行单元
+- **Artifact**：CI 构建的产物
+- **CD（持续交付/持续部署）**：CI 的自然延伸
+- **GitHub Actions**：最广泛使用的 CI/CD 平台之一
+
+## 信源
+
+| 来源 | 等级 | 内容摘要 |
+|------|------|---------|
+| [Martin Fowler - Continuous Integration](https://martinfowler.com/articles/continuousIntegration.html) | T1 | CI 领域的经典定义文章，Martin Fowler 撰写 |
+| [GitHub Actions 官方文档](https://docs.github.com/en/actions) | T1 | GitHub Actions CI/CD 的完整文档 |
+| [Atlassian - Continuous Integration](https://www.atlassian.com/continuous-delivery/continuous-integration) | T2 | Atlassian 对 CI 概念和实践的系统介绍 |
+| [ThoughtWorks - CI 书籍](https://www.thoughtworks.com/insights/books/continuous-integration) | T2 | ThoughtWorks 团队关于 CI 的系统性方法论 |
+
+## 变更记录
+
+| 版本 | 日期 | 变更内容 |
+|------|------|---------|
+| v1.0 | 2026-07-17 | 初始创建 |
