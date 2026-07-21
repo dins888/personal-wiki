@@ -1,6 +1,6 @@
 ---
-title: Honcho（头儿）
-description: Honcho 的定义、词源考证、用法和信源。
+title: Honcho
+description: Honcho 的定义、核心概念、架构设计和信源考证。Hermes Agent 的 AI 原生记忆后端。
 version: 1.0
 created: 2026-07-21
 updated: 2026-07-21
@@ -11,97 +11,141 @@ category: 技术
 
 ## 定义
 
-**Honcho**（/ˈhɒntʃoʊ/）是英语俚语，意为"负责人、头儿、老大"，用来非正式地指代某个团队、项目或组织中掌权的人。常见搭配 **head honcho**，强调"最大的头儿"。
+**Honcho** 是一个 AI 原生的跨会话记忆后端（Memory Provider），为 [Hermes Agent](/entries/tech/hermes/) 提供持久化用户建模和深度记忆能力。它替代了 Hermes 内置的简单文件存储（MEMORY.md / USER.md），在服务端维护一个关于用户"是谁"的动态模型——偏好、沟通风格、目标、行为模式——并在对话结束后通过 **辩证推理（Dialectic Reasoning）** 持续更新这个模型。
 
-这个词也可以当动词用：**to honcho something** = 负责某事、牵头某事。
+Honcho 由 [Nous Research](https://nousresearch.com/) 开发，支持云端托管（app.honcho.dev）或本地自托管。官网：[honcho.dev](https://honcho.dev)。
+
 
 ## 第一性
 
-> 一个日语军事词汇漂洋过海变成美国俚语——战争的副产品之一是语言流通。
+> 不是记住用户说了什么，而是推理出用户是什么样的人——从对话中提炼，跨会话累积。
 
 ## 比方
 
-> 美剧里常见的 "head honcho"——就像中文说"一把手"、"头儿"，不正式但谁都懂。
+> 一个极其细心的私人助理——每次对话结束后都在小本子上记录"老板喜欢什么、讨厌什么、工作习惯如何"，下次见面时已经准备好了你需要的背景信息，而不是每次都从零开始了解你。
 
 ## 英文术语拆解
 
 | 英文全称 | Honcho |
 |----------|--------|
-| 音标 | /ˈhɒntʃoʊ/（英） /ˈhɑːntʃoʊ/（美） |
+| 音标 | /ˈhɒntʃoʊ/ |
 
-**词源说明：**
+**命名说明：**
 
-Honcho 是日语 **班長（はんちょう，hanchō）** 的音译变体：
+"Honcho" 在英语俚语中意为"头儿、负责人"。作为项目名，它暗示了这个系统对用户记忆拥有"管理权"——它负责记住你是谁、你需要什么。
 
-- **班（はん, han）**：班、小组、小队
-- **長（ちょう, chō）**：长、首领、负责人
-- 合在一起：**班长、小队负责人**
+## 核心概念
 
-### 流传路径
+### 记忆提供者插件（Memory Provider Plugin）
+Honcho 以插件形式集成到 Hermes 的 Memory Provider 系统中，替代内置的文件存储。通过 `hermes memory setup` 选择 "honcho" 即可启用。
 
-1. **二战后（1945-1953）**：美军驻扎日本和韩国期间，从日语借入此词。据 Merriam-Webster 记载，日军曾在战俘营中用"hanchō"称呼负责管理劳工队的英澳军官
-2. **1950年代**：进入美军内部俚语，指"负责人"
-3. **1960年代**：扩散到美国大众口语，成为通用俚语
-4. **首次有记录的英语使用**：1945-1947年
+### 双对等体架构（Dual-Peer Architecture）
+Honcho 将对话建模为两个"对等体"之间的交互：
+- **用户对等体（User Peer）**：从用户消息中学习，构建用户表征（偏好、习惯、目标）
+- **AI 对等体（AI Peer）**：从 AI 消息中学习，构建 AI 自身的知识表征
 
-拼写从日语罗马字 "hanchō" 简化为 "honcho"，是英语母语者对日语发音的自然简化。
+每个 Hermes 配置文件拥有独立的 AI Peer，多个 Agent 同时服务同一用户时，各自的观察和结论互不干扰。
 
-### 语义漂变
+### 辩证推理（Dialectic Reasoning）
+Honcho 的核心差异化能力。对话发生后，Honcho 用 LLM 对用户交互进行分析，提炼出关于用户的洞察（偏好、习惯、行为模式）。这些洞察随时间累积，形成对用户日益加深的理解。
 
-| 阶段 | 含义 | 语境 |
-|------|------|------|
-| 日语原义 | 班长、小队长 | 军事编制 |
-| 美军驻日期 | 负责人、主管 | 军事俚语 |
-| 美国口语 | 头儿、老大、掌权者 | 通用俚语 |
-| 现代用法 | 项目负责人 / 动词：牵头负责 | 商业、日常口语 |
+支持多轮辩证深度（1-3 轮）：
+- **第 0 轮**：冷启动（通用查询）或热启动（会话范围查询）
+- **第 1 轮**：自我审计——识别初始评估中的漏洞
+- **第 2 轮**：调和——检查矛盾，生成最终综合
 
-## 常见用法
+### 两层上下文注入
+每轮对话中，Honcho 向系统提示注入两层上下文：
+1. **基础上下文**：会话摘要 + 用户表征 + 用户卡片 + AI 表征 + AI 身份卡片 → "用户是谁"
+2. **辩证补充**：LLM 合成的关于用户当前状态和需求的推理 → "当前什么重要"
 
+### 会话策略（Session Strategy）
+控制消息和观察记录的作用域范围：
+
+| 策略 | 行为 |
+|------|------|
+| per-directory（默认） | 每个工作目录一个会话 |
+| per-repo | 每个 Git 仓库根目录一个会话 |
+| per-session | 每次 Hermes 运行一个新会话 |
+| global | 所有目录共享一个会话 |
+
+## Honcho 提供的 5 个工具
+
+Hermes 暴露给 Agent 的 Honcho 工具集：
+
+| 工具 | 功能 |
+|------|------|
+| `honcho_profile` | 快速检索对等体卡片（不调用 LLM），返回关于用户的关键事实 |
+| `honcho_search` | 语义搜索记忆，返回按相关性排序的原始摘录 |
+| `honcho_context` | 辩证 Q&A，由 Honcho 的 LLM 综合对话历史生成答案 |
+| `honcho_conclude` | 当用户表达偏好、纠正或重要上下文时，将持久化事实写入 Honcho |
+| `honcho_status` | 显示当前 Honcho 配置、连接测试和对等体信息 |
+
+## Honcho vs 内置记忆
+
+| 能力 | 内置记忆 | Honcho |
+|------|---------|--------|
+| 跨会话持久化 | ✔ 文件 MEMORY.md/USER.md | ✔ 服务端 API |
+| 用户画像 | ✔ Agent 手动维护 | ✔ 自动辩证推理 |
+| 会话摘要 | ✘ | ✔ 自动注入 |
+| 多 Agent 隔离 | ✘ | ✔ 按 Peer 分离 |
+| 观察模式 | ✘ | ✔ 统一/定向观察 |
+| 衍生洞察 | ✘ | ✔ 服务端推理 |
+| 跨历史搜索 | ✔ 全文检索 FTS5 | ✔ 语义搜索 |
+
+## 召回模式（Recall Modes）
+
+| 模式 | 自动注入上下文 | 工具可用 | 适用场景 |
+|------|--------------|---------|---------|
+| hybrid（默认） | ✔ | ✔ | Agent 自主决定何时用工具、何时依赖自动上下文 |
+| context | ✔ | ✘ | 仅需自动注入，不暴露工具 |
+| tools | ✘ | ✔ | 仅通过工具按需检索 |
+
+## 快速配置
+
+```bash
+# 交互式设置向导
+hermes memory setup    # 选择 "honcho"
+
+# 云端托管
+hermes honcho setup    # 选择 "cloud"，粘贴 API Key
+
+# 本地自托管
+hermes honcho setup    # 选择 "local"，输入 http://localhost:8000
+
+# 验证
+hermes honcho status   # 查看配置、连接状态、Peer 信息
 ```
-# 名词用法
-"He's the head honcho around here."
-（他是这儿的头儿。）
 
-"We need to get the honcho to approve this."
-（得让负责人批一下这个。）
+## 关键配置旋钮
 
-# 动词用法
-"She volunteered to honcho the new project."
-（她主动提出牵头负责新项目。）
+| 旋钮 | 控制项 | 默认值 |
+|------|--------|--------|
+| `contextCadence` | 基础上下文刷新间隔（轮数） | 1 |
+| `dialecticCadence` | 辩证推理 LLM 调用间隔（轮数） | 2 |
+| `dialecticDepth` | 每次辩证推理的轮数（1-3） | 1 |
 
-# 搭配
-"head honcho" = 一把手、最高负责人
-"project honcho" = 项目负责人
-"tech honcho" = 技术负责人
-```
-
-## 语义辨析
-
-| 近义词 | 语体 | 细微差别 |
-|--------|------|---------|
-| **Honcho** | 俚语/非正式 | 带点调侃意味，不严肃 |
-| **Boss** | 通用 | 最常见的"老板"说法 |
-| **Chief** | 正式/通用 | 更正式，也用于头衔 |
-| **Bigwig** | 俚语 | 强调"大人物"，带戏谑感 |
-| **Hotshot** | 俚语 | 强调"厉害的人"，未必是负责人 |
+三个旋钮相互正交——可以频繁刷新上下文但少用辩证，也可以低频深度多轮辩证。
 
 ## 相关概念
 
-- **Loanword（借词）**：Honcho 是英语从日语借入的词汇
-- **G.I. Slang**：美军俚语，二战和韩战后大量日语/韩语词汇进入英语
-- **班長（はんちょう）**：Honcho 的日语源头
-- **Skosh**：另一个从日语（少し，sukoshi）借入英语的军俚词汇，意为"一点点"
+- **Hermes Agent**：Honcho 的宿主 Agent 框架，由 Nous Research 开发
+- **MEMORY.md / USER.md**：Hermes 内置的简单文件记忆，Honcho 替代/增强之
+- **Dialectic Reasoning（辩证推理）**：Honcho 的核心差异化能力
+- **Peer（对等体）**：Honcho 中用户和 AI 各自的身份表征
+- **Context Engine**：Hermes 的上下文引擎，Honcho 是其记忆提供者之一
 
 ## 信源
 
 | 来源 | 等级 | 内容摘要 |
 |------|------|---------|
-| [Merriam-Webster - Honcho](https://www.merriam-webster.com/dictionary/honcho) | T1 | 权威词典，含词源、首次使用年份（1945）和用法说明 |
-| [Etymonline - Honcho](https://www.etymonline.com/word/honcho) | T1 | 词源词典，确认日语 hanchō → 英语 honcho 的演变路径 |
-| [Collins Dictionary - Honcho](https://www.collinsdictionary.com/us/dictionary/english/honcho) | T2 | 含名词和动词用法的完整释义 |
+| [Honcho 官方文档](https://honcho.dev/docs/v3/guides/integrations/hermes) | T1 | Honcho + Hermes 集成指南，含架构说明和配置参考 |
+| [Hermes Agent - Honcho Memory 文档](https://hermes-agent.nousresearch.com/docs/user-guide/features/honcho) | T1 | Hermes 官方文档中 Honcho 功能的完整说明 |
+| [DeepWiki - Honcho Integration](https://deepwiki.com/nousresearch/hermes-agent/4.4-honcho-integration) | T2 | 对 Honcho 集成代码的自动化文档分析 |
+| [Honcho 中文文档](https://hermes-doc.aigc.green/user-guide/features/honcho) | T2 | Hermes Agent 中文社区提供的 Honcho 翻译文档 |
 
 ## 变更记录
 
 | 版本 | 日期 | 变更内容 |
 |------|------|---------|
-| v1.0 | 2026-07-21 | 初始创建 |
+| v1.0 | 2026-07-21 | 初始创建（v0 为日语俚语词条，已重写） |
