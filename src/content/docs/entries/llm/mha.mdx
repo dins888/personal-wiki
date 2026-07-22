@@ -1,0 +1,182 @@
+---
+title: MHA（多头注意力）
+description: MHA（Multi-Head Attention）的定义、核心概念、术语拆解和信源考证。
+version: 1.0
+created: 2026-07-22
+updated: 2026-07-22
+status: confirmed
+consensus: 广泛共识
+category: 大语言模型
+---
+
+## 定义
+
+**MHA（Multi-Head Attention，多头注意力）** 是 Transformer 架构的核心机制，负责让序列中的每个 Token "看到"其他所有 Token 并提取相关信息。它将注意力计算分成多个**并行的"头"（Head）**，每个头在不同的表示子空间中独立运行，捕捉不同类型的关系（如语法依赖、语义相似、位置邻近、指代消解等），最后将所有头的输出拼接并投影。
+
+MHA 的本质：**用多个不同的"视角"同时观察同一组 Token，让模型能同时理解一句话中的多种关系。**
+
+公式：`MultiHead(Q,K,V) = Concat(head₁, ..., headₕ) · Wₒ`
+其中每个头：`headᵢ = Attention(Q·Wᵢᵠ, K·Wᵢᵏ, V·Wᵢᵛ)`
+
+由 Vaswani 等人在 2017 年论文 "Attention Is All You Need" 中提出，是现代所有 LLM（GPT、LLaMA、Claude、Gemini 等）的基础组件。
+
+
+## 第一性
+
+> 读一句话时，你同时在做好几件事——找主语、看修饰语、追代词指代、判断语气。多头注意力就是让模型也这样：用多双眼睛同时看，每双眼睛关注不同维度的信息。
+
+## 比方
+
+> 一场圆桌会议上同时有 8 位专家在听同一段发言。语法专家关注句子结构，语义专家关注词义关联，逻辑专家关注因果关系，情感专家关注语气态度……每位专家从自己的角度理解这段话，最后把各自的理解汇总成一份综合报告。多头注意力就是这个"多专家并行听取、综合汇总"的过程。
+
+## 英文术语拆解
+
+| 英文全称 | Multi-Head Attention |
+|----------|---------------------|
+| 音标 | /ˌmʌlti hɛd əˈtɛnʃən/ |
+| 缩写 | MHA |
+
+**词源说明：**
+
+- **Multi（多）**：多个、并行
+- **Head（头）**：独立的注意力计算单元，每个头有自己的权重，学习关注不同的模式
+- **Attention（注意力）**：一种机制，让模型在处理某个 Token 时，"关注"序列中其他 Token 的信息
+
+概念起源：Bahdanau 等人（2014）在机器翻译中首次引入注意力机制；Vaswani 等人（2017）将其扩展为"多头"形式，成为 Transformer 的核心创新。
+
+## 核心概念
+
+### Q、K、V 三元组
+注意力机制的核心是三个向量：
+
+| 向量 | 全称 | 角色 | 比方 |
+|------|------|------|------|
+| **Q** | Query（查询） | 当前 Token 想"找"什么信息 | 你在图书馆想找的书的主题 |
+| **K** | Key（键） | 每个 Token 的"索引标签" | 每本书封面上的标签 |
+| **V** | Value（值） | 每个 Token 实际携带的信息内容 | 书里面的实际内容 |
+
+计算过程：用 Q 和所有 K 计算相似度（点积），得到注意力权重，再用权重对所有 V 加权求和。
+
+### 缩放点积注意力（Scaled Dot-Product Attention）
+单个注意头的核心计算：
+
+```
+Attention(Q, K, V) = softmax(QKᵀ / √dₖ) · V
+```
+
+- **QKᵀ**：Query 和 Key 的点积，衡量相似度
+- **/ √dₖ**：缩放因子，防止点积值过大导致 softmax 梯度消失
+- **softmax**：将相似度转化为概率分布（权重之和为 1）
+- **· V**：用注意力权重对 Value 加权求和
+
+### 多头的意义
+如果只用一个头，注意力权重是所有关系的"平均"——语法、语义、位置信息全混在一起，互相稀释。
+
+多头把 d_model 维的表示拆分成 h 个子空间（每个头 dₖ = d_model / h 维），每个头在自己的子空间里独立学习注意力模式：
+
+- 头 1 可能学会了关注**语法结构**（主谓关系）
+- 头 2 可能学会了关注**语义相似**（同义词关联）
+- 头 3 可能学会了关注**位置邻近**（相邻词搭配）
+- 头 4 可能学会了关注**指代消解**（代词指向谁）
+
+最后把所有头的输出拼接起来，模型就同时拥有了多个维度的理解。
+
+### 标准 MHA 参数配置
+
+| 模型 | d_model | 头数 h | dₖ（每头维度） |
+|------|---------|--------|---------------|
+| 原始 Transformer | 512 | 8 | 64 |
+| BERT-base | 768 | 12 | 64 |
+| GPT-2 | 1600 | 25 | 64 |
+| LLaMA-7B | 4096 | 32 | 128 |
+| LLaMA-70B | 8192 | 64 | 128 |
+
+### KV Cache：推理加速的关键
+在自回归生成（一个 Token 一个 Token 地输出）时，每生成一个新 Token 都需要计算注意力。如果不缓存，每步都要重新计算所有历史 Token 的 K、V，复杂度为 O(n²)。
+
+KV Cache 把历史 Token 的 K、V 缓存起来，新 Token 只需和自己缓存的 K、V 做注意力计算，复杂度降为 O(n)。但代价是显存随序列长度线性增长：
+
+```
+KV Cache 大小 = 2 × 层数 × 头数 × dₖ × 序列长度 × batch size × 数据类型字节数
+```
+
+对于 70B 模型 + 长序列，KV Cache 动辄占用数十 GB 显存——这是 GQA、MQA、MLA 等变体诞生的直接动机。
+
+## MHA 的演进谱系
+
+标准 MHA 的 KV Cache 成本太高，后续出现了多个优化变体：
+
+| 变体 | 全称 | 核心思路 | 代表模型 |
+|------|------|---------|---------|
+| **MHA** | Multi-Head Attention | 每个头独立的 Q、K、V | GPT-2、BERT |
+| **MQA** | Multi-Query Attention | 所有头共享一套 K、V，只有 Q 独立 | Falcon、PaLM 2 |
+| **GQA** | Grouped-Query Attention | Q 分成若干组，每组共享一套 K、V | LLaMA 2/3、Mistral、Qwen2 |
+| **MLA** | Multi-Head Latent Attention | K、V 用低秩投影压缩缓存 | DeepSeek-V2/V3 |
+
+演进方向：**在保持 MHA 表达能力的前提下，尽可能减少 KV Cache 的显存占用。**
+
+### GQA（分组查询注意力）——当前主流
+GQA 是 MHA 和 MQA 的折中方案：将 h 个查询头分成 g 组，每组共享一套 K、V。g=h 时退化为标准 MHA，g=1 时退化为 MQA。
+
+```
+标准 MHA:  Q₁Q₂Q₃Q₄ → (K₁V₁)(K₂V₂)(K₃V₃)(K₄V₄)  4套KV
+GQA (g=2): Q₁Q₂Q₃Q₄ → (K₁V₁)(K₂V₂)               2套KV
+MQA:       Q₁Q₂Q₃Q₄ → (K₁V₁)                       1套KV
+```
+
+## 常见用法示例
+
+### 示例：一个头如何工作
+输入句子："The cat sat on the mat because it was tired"
+
+当模型处理 "it" 这个词时，注意力机制需要理解 "it" 指的是 "the cat"：
+
+```
+Q("it") 与所有 Token 的 K 计算相似度:
+  "The"     → 0.02
+  "cat"     → 0.71  ← 最高！
+  "sat"     → 0.05
+  "on"      → 0.01
+  "the"     → 0.03
+  "mat"     → 0.04
+  "because" → 0.02
+  "it"      → 0.08
+  "was"     → 0.03
+  "tired"   → 0.01
+
+softmax 后注意力权重集中在 "cat" 上
+→ "it" 的表示被 "cat" 的信息大幅更新
+→ 模型理解了 "it" 指的是 "cat"
+```
+
+另一个注意力头可能同时在学习："tired" 应该关注 "cat"（语义关联），而 "because" 应该关注 "sat"（因果逻辑）。
+
+## 相关概念
+
+- **FFN（前馈神经网络）**：Transformer 的另一半，负责 Token 独立的信息加工
+- **Self-Attention（自注意力）**：MHA 的基础形式，Q、K、V 来自同一序列
+- **Cross-Attention（交叉注意力）**：Q 来自一个序列，K、V 来自另一个序列（编码器-解码器架构中使用）
+- **GQA（分组查询注意力）**：MHA 的显存优化变体，当前主流
+- **MQA（多查询注意力）**：所有头共享 K、V
+- **MLA（多头潜在注意力）**：DeepSeek 的低秩 KV 压缩方案
+- **KV Cache**：MHA 推理时的缓存机制
+- **FlashAttention**：MHA 的高效 GPU 实现，避免显式构造注意力矩阵
+- **Transformer**：MHA 所属的整体架构
+
+## 信源
+
+| 来源 | 等级 | 内容摘要 |
+|------|------|---------|
+| [Vaswani et al. (2017) - Attention Is All You Need](https://arxiv.org/abs/1706.03762) | T1 | Transformer + MHA 的原始论文 |
+| [Bahdanau et al. (2014) - Neural Machine Translation by Jointly Learning to Align and Translate](https://arxiv.org/abs/1409.0473) | T1 | 注意力机制的奠基工作 |
+| [Ainslie et al. (2023) - GQA: Training Generalized Multi-Query Transformer Models](https://arxiv.org/abs/2305.13245) | T1 | GQA 论文，MHA→GQA 的演进 |
+| [Shazeer et al. (2019) - Fast Transformer Decoding: One Write-Head is All You Need](https://arxiv.org/abs/1911.02150) | T1 | MQA 论文 |
+| [DeepSeek-AI (2024) - DeepSeek-V2](https://arxiv.org/abs/2405.04434) | T1 | MLA（多头潜在注意力）的提出 |
+| [Dao et al. (2022) - FlashAttention](https://arxiv.org/abs/2205.14135) | T1 | MHA 的高效 GPU 实现 |
+| [AIWiki - Multi-Head Self-Attention](https://aiwiki.ai/wiki/multi-head_self-attention) | T2 | MHA 的综合梳理 |
+
+## 变更记录
+
+| 版本 | 日期 | 变更内容 |
+|------|------|---------|
+| v1.0 | 2026-07-22 | 初始创建 |
