@@ -5,24 +5,28 @@ description: 个人百科知识库
 
 import { CardGrid, LinkCard } from '@astrojs/starlight/components';
 
-持续积累、科学查证、版本化管理的个人知识百科。共计 **67 个词条**，分属 **4 大分类**。
+持续积累、科学查证、版本化管理的个人知识百科。共计 **67 个词条**，分属 **8 大分类**。
 
 ## 分类导航
 
 <CardGrid>
-  <LinkCard title="📚 AI 基础概念" href="./entries/ai-basics/" description="9 个词条 — AI、机器学习、深度学习、神经网络、生成式 AI、Stable Diffusion、分布外等" />
-  <LinkCard title="🤖 大语言模型" href="./entries/llm/" description="9 个词条 — LLM、Token、上下文窗口、提示词、MoE、FFN、MHA、稀疏/稠密" />
-  <LinkCard title="🎓 训练与优化" href="./entries/training/" description="5 个词条 — 微调、RLHF、数据集、算法、方差" />
-  <LinkCard title="🔧 技术应用" href="./entries/tech/" description="44 个词条 — Agent、Agentic、RAG、提示工程、Coze、Docker、Kubernetes、Git、CI/CD 等" />
+  <LinkCard title="📚 AI 基础概念" href="./entries/ai-basics/" description="9 个词条 — AI、机器学习、深度学习、神经网络、生成式 AI、Stable Diffusion 等" />
+  <LinkCard title="🤖 大语言模型" href="./entries/llm/" description="10 个词条 — LLM、Token、上下文窗口、提示词、思维链、MoE、FFN、MHA、稀疏/稠密" />
+  <LinkCard title="🎓 训练与优化" href="./entries/training/" description="4 个词条 — 微调、RLHF、数据集、方差" />
+  <LinkCard title="✨ AI 应用与智能体" href="./entries/ai-apps/" description="10 个词条 — Agent、Agentic、RAG、Coze、Cherry Studio、Hermes、Honcho 等" />
+  <LinkCard title="🧮 计算机科学基础" href="./entries/cs-basics/" description="5 个词条 — 算法、DAG、基数树、SVG、康威定律" />
+  <LinkCard title="💻 开发工具与工程实践" href="./entries/dev-tools/" description="12 个词条 — Git、PR、CI、IDE、VS Code、Postman、提示工程、GraphQL 等" />
+  <LinkCard title="🗄️ 基础设施与运维" href="./entries/infra/" description="10 个词条 — Docker、Kubernetes、Linux、Nginx、Elasticsearch、Redis 等" />
+  <LinkCard title="🛠️ 效率工具与软件" href="./entries/tools/" description="7 个词条 — uTools、WizTree、Discord、RSS.app、V2EX 等" />
 </CardGrid>
 
 ## 最近更新
 
 - 2026-07-29：新增 [方差（Variance）](./entries/training/variance/) 词条
-- 2026-07-28：新增 [Agentic（能动性）](./entries/tech/agentic/) 词条
+- 2026-07-28：新增 [Agentic（能动性）](./entries/ai-apps/agentic/) 词条
 - 2026-07-22：新增 [MHA（多头注意力）](./entries/llm/mha/)、[FFN（前馈神经网络）](./entries/llm/ffn/) 词条
-- 2026-07-21：[Honcho](./entries/tech/honcho/) 词条内容修正（Hermes Agent 的 AI 记忆后端）
-- 2026-07-17：新增 [MoE（混合专家模型）](./entries/llm/moe/)、[PR（Pull Request）](./entries/tech/pull-request/)、[CI（持续集成）](./entries/tech/continuous-integration/) 词条
+- 2026-07-21：[Honcho](./entries/ai-apps/honcho/) 词条内容修正（Hermes Agent 的 AI 记忆后端）
+- 2026-07-17：新增 [MoE（混合专家模型）](./entries/llm/moe/)、[PR（Pull Request）](./entries/dev-tools/pull-request/)、[CI（持续集成）](./entries/dev-tools/continuous-integration/) 词条
 - 2026-07-09：新增 SVG、OpenSpec、Spec Kit、Radix Tree、Batch、IDE 共 6 个词条
 - 2026-07-08：新增 CLIProxyAPI、RSS.app、Discord、分布外、Stable Diffusion、稀疏/稠密、康威定律等词条
 

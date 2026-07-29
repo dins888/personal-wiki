@@ -38,8 +38,24 @@ export default defineConfig({
           items: [{ autogenerate: { directory: 'entries/training' } }],
         },
         {
-          label: '🔧 技术应用',
-          items: [{ autogenerate: { directory: 'entries/tech' } }],
+          label: '✨ AI 应用与智能体',
+          items: [{ autogenerate: { directory: 'entries/ai-apps' } }],
+        },
+        {
+          label: '🧮 计算机科学基础',
+          items: [{ autogenerate: { directory: 'entries/cs-basics' } }],
+        },
+        {
+          label: '💻 开发工具与工程实践',
+          items: [{ autogenerate: { directory: 'entries/dev-tools' } }],
+        },
+        {
+          label: '🗄️ 基础设施与运维',
+          items: [{ autogenerate: { directory: 'entries/infra' } }],
+        },
+        {
+          label: '🛠️ 效率工具与软件',
+          items: [{ autogenerate: { directory: 'entries/tools' } }],
         },
         {
           label: '关于',

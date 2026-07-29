@@ -19,9 +19,10 @@ import { CardGrid, LinkCard } from '@astrojs/starlight/components';
   <LinkCard title="Stable Diffusion" href="./ai-basics/stable-diffusion/" description="开源的潜在扩散模型图像生成工具" />
 </CardGrid>
 
-## 🤖 大语言模型（9 个词条）
+## 🤖 大语言模型（10 个词条）
 
 <CardGrid>
+  <LinkCard title="思维链（CoT）" href="./llm/chain-of-thought/" description="一种通过引导大模型展示中间推理步骤来提升复杂推理能力的提示技术，让 AI &quot;展示思考过程&quot;而非直接给出答案。" />
   <LinkCard title="上下文窗口（Context Window）" href="./llm/context-window/" description="大语言模型单次推理能接收、处理和记住的最大词元数量，相当于模型的短期工作记忆容量" />
   <LinkCard title="稠密（Dense）" href="./llm/dense/" description="所有参数在推理时全部参与计算的模型架构" />
   <LinkCard title="FFN（前馈神经网络）" href="./llm/ffn/" description="Transformer 层中独立处理每个 Token 的非线性变换组件，模型知识的主要存储场所" />
@@ -33,61 +34,80 @@ import { CardGrid, LinkCard } from '@astrojs/starlight/components';
   <LinkCard title="词元（Token）" href="./llm/token/" description="大语言模型处理文本的最小语义单元，是连接人类自然语言与模型数学计算的桥梁" />
 </CardGrid>
 
-## 🎓 训练与优化（5 个词条）
+## 🎓 训练与优化（4 个词条）
 
 <CardGrid>
-  <LinkCard title="算法（Algorithm）" href="./training/algorithm/" description="解决特定问题的一系列明确、有限的步骤规则" />
   <LinkCard title="数据集（Dataset）" href="./training/dataset/" description="用于训练、验证和评估机器学习模型的结构化数据集合" />
   <LinkCard title="微调（Fine-tuning）" href="./training/fine-tuning/" description="在已训练好的模型基础上，用少量特定数据继续训练，使模型适配特定任务或领域的技术。" />
   <LinkCard title="基于人类反馈的强化学习（RLHF）" href="./training/rlhf/" description="一种通过收集人类偏好反馈来训练奖励模型，再用强化学习优化 AI 模型行为，使其输出更符合人类意图和价值观的技术方法。" />
   <LinkCard title="方差（Variance）" href="./training/variance/" description="衡量数据分散程度的统计学指标，在机器学习中特指模型对训练数据波动的敏感程度，是诊断过拟合的核心概念。" />
 </CardGrid>
 
-## 🔧 技术应用（44 个词条）
+## ✨ AI 应用与智能体（10 个词条）
 
 <CardGrid>
-  <LinkCard title="智能体（Agent）" href="./tech/agent/" description="一种能够感知环境、自主规划并执行行动以实现目标的 AI 系统，是大模型从&quot;被动回答&quot;走向&quot;主动做事&quot;的关键技术形态。" />
-  <LinkCard title="Agentic（能动性）" href="./tech/agentic/" description="描述 AI 系统具备自主规划、动态决策、自我纠偏能力的特质词，是生成式 AI 之后产业界公认的新范式标签。" />
-  <LinkCard title="应用程序接口（API）" href="./tech/api/" description="允许不同软件应用程序之间相互通信和交换数据的规则与协议集合" />
-  <LinkCard title="Attu" href="./tech/attu/" description="Apache Kafka 集群管理监控 GUI" />
-  <LinkCard title="Batch（批处理）" href="./tech/batch/" description="将多个任务集中一次性执行的计算模式，从 .bat 脚本到大数据 Hadoop/Spark 全谱系" />
-  <LinkCard title="CC Switch" href="./tech/cc-switch/" description="macOS 中英文输入法快速切换工具" />
-  <LinkCard title="思维链（CoT）" href="./tech/chain-of-thought/" description="一种通过引导大模型展示中间推理步骤来提升复杂推理能力的提示技术，让 AI &quot;展示思考过程&quot;而非直接给出答案。" />
-  <LinkCard title="Cherry Studio" href="./tech/cherry-studio/" description="开源多模型 AI 聊天客户端" />
-  <LinkCard title="CLI（命令列接口）" href="./tech/cli/" description="通过纯文本命令与计算机交互的界面" />
-  <LinkCard title="CLIProxyAPI" href="./tech/cliproxyapi/" description="开源 AI CLI 代理服务器，将 Gemini/Claude/Codex 等 CLI 接口统一转换为标准 API，支持 OAuth 和多账号负载均衡。" />
-  <LinkCard title="CI（持续集成）" href="./tech/continuous-integration/" description="开发者频繁将代码合并到主分支，每次自动触发构建和测试的软件开发实践" />
-  <LinkCard title="康威定律（Conway's Law）" href="./tech/conways-law/" description="系统架构必然反映组织沟通结构的经验法则" />
-  <LinkCard title="扣子（Coze）" href="./tech/coze/" description="字节跳动的一站式 AI Bot 开发平台" />
-  <LinkCard title="DAG（有向无环图）" href="./tech/dag/" description="由有向边组成且不含环路的数据结构，广泛用于任务调度、编译器与区块链" />
-  <LinkCard title="Discord" href="./tech/discord/" description="面向社区和团队的即时通讯与数字社区平台，支持语音、视频和文字交流。" />
-  <LinkCard title="Docker Desktop" href="./tech/docker-desktop/" description="Docker 官方桌面应用" />
-  <LinkCard title="Docker" href="./tech/docker/" description="开源容器化平台" />
-  <LinkCard title="Elasticsearch" href="./tech/elasticsearch/" description="基于 Lucene 的分布式搜索与分析引擎，支持全文搜索、日志分析和数据可视化。" />
-  <LinkCard title="Git" href="./tech/git/" description="分布式版本控制系统" />
-  <LinkCard title="GraphQL" href="./tech/graphql/" description="API 查询语言和运行时，让客户端精确指定所需数据结构。" />
-  <LinkCard title="Hermes" href="./tech/hermes/" description="隐私优先的轻量级 AI 聊天客户端" />
-  <LinkCard title="Honcho" href="./tech/honcho/" description="Hermes Agent 的 AI 原生记忆后端，由 Nous Research 开发，支持双 Peer 架构和辩证推理" />
-  <LinkCard title="IDE（集成开发环境）" href="./tech/ide/" description="集代码编辑、调试、构建于一体的软件开发工具" />
-  <LinkCard title="Kubernetes（K8s）" href="./tech/kubernetes/" description="开源容器编排系统，自动化部署、扩缩和管理容器化应用。" />
-  <LinkCard title="Legion Zone" href="./tech/legion-zone/" description="联想 Legion 游戏本控制中心" />
-  <LinkCard title="Linux" href="./tech/linux/" description="开源操作系统内核，现代服务器、移动设备和嵌入式系统的基石。" />
-  <LinkCard title="MongoDB Compass" href="./tech/mongodb-compass/" description="MongoDB 官方图形化管理工具" />
-  <LinkCard title="Neo4j Desktop" href="./tech/neo4j-desktop/" description="Neo4j 图数据库本地图形管理应用" />
-  <LinkCard title="Nginx" href="./tech/nginx/" description="高性能 Web 服务器、反向代理和负载均衡器，驱动全球大量高流量网站。" />
-  <LinkCard title="OpenSpec" href="./tech/openspec/" description="OpenSpec 是由 Fission AI 开发的轻量级开源规格驱动开发（SDD）框架，让人类与 AI 编程助手在编写代码前先就规格达成一致，确保可预测、可审查的开发工作流。" />
-  <LinkCard title="Postman" href="./tech/postman/" description="API 开发和测试工具" />
-  <LinkCard title="提示工程（Prompt Engineering）" href="./tech/prompt-engineering/" description="通过系统化设计、优化和迭代提示词，引导大语言模型生成更准确、更符合预期输出的工程方法论" />
-  <LinkCard title="PR（Pull Request）" href="./tech/pull-request/" description="代码协作工作流程，开发者向维护者发起&quot;请求拉入我的改动&quot;的正式提案" />
-  <LinkCard title="Python 3.1" href="./tech/python31/" description="Python 编程语言的 3.1 版本" />
-  <LinkCard title="Radix Tree（基数树）" href="./tech/radix-tree/" description="空间优化的前缀树，通过路径压缩实现高效键查找，广泛用于路由表和数据库索引" />
-  <LinkCard title="检索增强生成（RAG）" href="./tech/rag/" description="一种将外部知识检索与语言模型生成相结合的技术，让 AI 在回答问题时能查阅外部资料，从而提高回答的准确性和时效性。" />
-  <LinkCard title="Redis" href="./tech/redis/" description="高性能内存数据结构存储，支持缓存、消息队列和实时数据处理。" />
-  <LinkCard title="RSS.app" href="./tech/rss-app/" description="将任意网页内容转化为 RSS 订阅源的工具，支持对不提供原生 RSS 的网站进行内容监控和聚合。" />
-  <LinkCard title="Spec Kit（规格驱动开发工具包）" href="./tech/speckit/" description="Spec Kit 是 GitHub 官方开源的规格驱动开发（SDD）工具包，通过结构化的多阶段工作流将规格从沟通文档变为可执行的工程资产，配合 AI 编程助手实现规格到代码的自动化生成。" />
-  <LinkCard title="SVG（可缩放矢量图形）" href="./tech/svg/" description="基于 XML 的矢量图形格式，用数学描述图形，可无限缩放而不失真" />
-  <LinkCard title="uTools" href="./tech/utools/" description="跨平台效率工具启动器" />
-  <LinkCard title="V2EX" href="./tech/v2ex/" description="一个面向程序员、设计师和创意工作者的中文互联网技术社区，以高质量的技术讨论和分享著称。" />
-  <LinkCard title="Visual Studio Code" href="./tech/visual-studio-code/" description="微软开源的轻量级代码编辑器" />
-  <LinkCard title="WizTree" href="./tech/wiztree/" description="一款 Windows 平台上的磁盘空间分析工具，通过直接读取 NTFS 主文件表（MFT）实现极速扫描，以树状图和文件列表可视化展示硬盘上各文件与文件夹的大小分布。" />
+  <LinkCard title="智能体（Agent）" href="./ai-apps/agent/" description="一种能够感知环境、自主规划并执行行动以实现目标的 AI 系统，是大模型从&quot;被动回答&quot;走向&quot;主动做事&quot;的关键技术形态。" />
+  <LinkCard title="Agentic（能动性）" href="./ai-apps/agentic/" description="描述 AI 系统具备自主规划、动态决策、自我纠偏能力的特质词，是生成式 AI 之后产业界公认的新范式标签。" />
+  <LinkCard title="Cherry Studio" href="./ai-apps/cherry-studio/" description="开源多模型 AI 聊天客户端" />
+  <LinkCard title="CLIProxyAPI" href="./ai-apps/cliproxyapi/" description="开源 AI CLI 代理服务器，将 Gemini/Claude/Codex 等 CLI 接口统一转换为标准 API，支持 OAuth 和多账号负载均衡。" />
+  <LinkCard title="扣子（Coze）" href="./ai-apps/coze/" description="字节跳动的一站式 AI Bot 开发平台" />
+  <LinkCard title="Hermes" href="./ai-apps/hermes/" description="隐私优先的轻量级 AI 聊天客户端" />
+  <LinkCard title="Honcho" href="./ai-apps/honcho/" description="Hermes Agent 的 AI 原生记忆后端，由 Nous Research 开发，支持双 Peer 架构和辩证推理" />
+  <LinkCard title="OpenSpec" href="./ai-apps/openspec/" description="OpenSpec 是由 Fission AI 开发的轻量级开源规格驱动开发（SDD）框架，让人类与 AI 编程助手在编写代码前先就规格达成一致，确保可预测、可审查的开发工作流。" />
+  <LinkCard title="检索增强生成（RAG）" href="./ai-apps/rag/" description="一种将外部知识检索与语言模型生成相结合的技术，让 AI 在回答问题时能查阅外部资料，从而提高回答的准确性和时效性。" />
+  <LinkCard title="Spec Kit（规格驱动开发工具包）" href="./ai-apps/speckit/" description="Spec Kit 是 GitHub 官方开源的规格驱动开发（SDD）工具包，通过结构化的多阶段工作流将规格从沟通文档变为可执行的工程资产，配合 AI 编程助手实现规格到代码的自动化生成。" />
+</CardGrid>
+
+## 🧮 计算机科学基础（5 个词条）
+
+<CardGrid>
+  <LinkCard title="算法（Algorithm）" href="./cs-basics/algorithm/" description="解决特定问题的一系列明确、有限的步骤规则" />
+  <LinkCard title="康威定律（Conway's Law）" href="./cs-basics/conways-law/" description="系统架构必然反映组织沟通结构的经验法则" />
+  <LinkCard title="DAG（有向无环图）" href="./cs-basics/dag/" description="由有向边组成且不含环路的数据结构，广泛用于任务调度、编译器与区块链" />
+  <LinkCard title="Radix Tree（基数树）" href="./cs-basics/radix-tree/" description="空间优化的前缀树，通过路径压缩实现高效键查找，广泛用于路由表和数据库索引" />
+  <LinkCard title="SVG（可缩放矢量图形）" href="./cs-basics/svg/" description="基于 XML 的矢量图形格式，用数学描述图形，可无限缩放而不失真" />
+</CardGrid>
+
+## 💻 开发工具与工程实践（12 个词条）
+
+<CardGrid>
+  <LinkCard title="应用程序接口（API）" href="./dev-tools/api/" description="允许不同软件应用程序之间相互通信和交换数据的规则与协议集合" />
+  <LinkCard title="Batch（批处理）" href="./dev-tools/batch/" description="将多个任务集中一次性执行的计算模式，从 .bat 脚本到大数据 Hadoop/Spark 全谱系" />
+  <LinkCard title="CLI（命令列接口）" href="./dev-tools/cli/" description="通过纯文本命令与计算机交互的界面" />
+  <LinkCard title="CI（持续集成）" href="./dev-tools/continuous-integration/" description="开发者频繁将代码合并到主分支，每次自动触发构建和测试的软件开发实践" />
+  <LinkCard title="Git" href="./dev-tools/git/" description="分布式版本控制系统" />
+  <LinkCard title="GraphQL" href="./dev-tools/graphql/" description="API 查询语言和运行时，让客户端精确指定所需数据结构。" />
+  <LinkCard title="IDE（集成开发环境）" href="./dev-tools/ide/" description="集代码编辑、调试、构建于一体的软件开发工具" />
+  <LinkCard title="Postman" href="./dev-tools/postman/" description="API 开发和测试工具" />
+  <LinkCard title="提示工程（Prompt Engineering）" href="./dev-tools/prompt-engineering/" description="通过系统化设计、优化和迭代提示词，引导大语言模型生成更准确、更符合预期输出的工程方法论" />
+  <LinkCard title="PR（Pull Request）" href="./dev-tools/pull-request/" description="代码协作工作流程，开发者向维护者发起&quot;请求拉入我的改动&quot;的正式提案" />
+  <LinkCard title="Python 3.1" href="./dev-tools/python31/" description="Python 编程语言的 3.1 版本" />
+  <LinkCard title="Visual Studio Code" href="./dev-tools/visual-studio-code/" description="微软开源的轻量级代码编辑器" />
+</CardGrid>
+
+## 🗄️ 基础设施与运维（10 个词条）
+
+<CardGrid>
+  <LinkCard title="Attu" href="./infra/attu/" description="Apache Kafka 集群管理监控 GUI" />
+  <LinkCard title="Docker" href="./infra/docker/" description="开源容器化平台" />
+  <LinkCard title="Docker Desktop" href="./infra/docker-desktop/" description="Docker 官方桌面应用" />
+  <LinkCard title="Elasticsearch" href="./infra/elasticsearch/" description="基于 Lucene 的分布式搜索与分析引擎，支持全文搜索、日志分析和数据可视化。" />
+  <LinkCard title="Kubernetes（K8s）" href="./infra/kubernetes/" description="开源容器编排系统，自动化部署、扩缩和管理容器化应用。" />
+  <LinkCard title="Linux" href="./infra/linux/" description="开源操作系统内核，现代服务器、移动设备和嵌入式系统的基石。" />
+  <LinkCard title="MongoDB Compass" href="./infra/mongodb-compass/" description="MongoDB 官方图形化管理工具" />
+  <LinkCard title="Neo4j Desktop" href="./infra/neo4j-desktop/" description="Neo4j 图数据库本地图形管理应用" />
+  <LinkCard title="Nginx" href="./infra/nginx/" description="高性能 Web 服务器、反向代理和负载均衡器，驱动全球大量高流量网站。" />
+  <LinkCard title="Redis" href="./infra/redis/" description="高性能内存数据结构存储，支持缓存、消息队列和实时数据处理。" />
+</CardGrid>
+
+## 🛠️ 效率工具与软件（7 个词条）
+
+<CardGrid>
+  <LinkCard title="CC Switch" href="./tools/cc-switch/" description="macOS 中英文输入法快速切换工具" />
+  <LinkCard title="Discord" href="./tools/discord/" description="面向社区和团队的即时通讯与数字社区平台，支持语音、视频和文字交流。" />
+  <LinkCard title="Legion Zone" href="./tools/legion-zone/" description="联想 Legion 游戏本控制中心" />
+  <LinkCard title="RSS.app" href="./tools/rss-app/" description="将任意网页内容转化为 RSS 订阅源的工具，支持对不提供原生 RSS 的网站进行内容监控和聚合。" />
+  <LinkCard title="uTools" href="./tools/utools/" description="跨平台效率工具启动器" />
+  <LinkCard title="V2EX" href="./tools/v2ex/" description="一个面向程序员、设计师和创意工作者的中文互联网技术社区，以高质量的技术讨论和分享著称。" />
+  <LinkCard title="WizTree" href="./tools/wiztree/" description="一款 Windows 平台上的磁盘空间分析工具，通过直接读取 NTFS 主文件表（MFT）实现极速扫描，以树状图和文件列表可视化展示硬盘上各文件与文件夹的大小分布。" />
 </CardGrid>
