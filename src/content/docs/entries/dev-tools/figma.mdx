@@ -1,0 +1,71 @@
+---
+title: Figma
+description: 基于浏览器的协作式界面设计工具，以多人实时协作重构了 UI/UX 设计工作流，2025 年在纽交所上市。
+---
+
+## 定义
+
+**Figma** 是一款**基于浏览器的协作式界面设计工具**（Collaborative Interface Design Tool），由 Figma, Inc. 开发。它将矢量图形编辑、原型设计和设计交付完全搬到云端，核心特征是多人实时协作（Multiplayer）：多个设计师可以同时编辑同一文件并看到彼此的光标。Figma 已成为全球 UI/UX 设计领域的事实标准，产品矩阵覆盖设计（Figma Design）、白板（FigJam）、开发交付（Dev Mode）、AI 生成（Figma Make）、建站（Figma Sites）等。
+
+## 第一性
+
+设计本质上是一项多人协作的社会活动，而传统设计软件把它当成了单机工作——Figma 的第一性洞察是：**把设计工具原生建立在「协作」这个原语之上**，浏览器只是实现这一点的手段。
+
+## 比方
+
+Figma 之于设计软件，就像 Google Docs 之于 Word。传统设计软件（Photoshop、Sketch）像装在各自电脑上的 Word：文件传来传去，版本打架；Figma 则像一份共享在线文档——发一个链接，所有人同时在同一个文件里工作，看得到每个人的光标在动。设计评审从「导出截图发群里」变成了「大家进文件里边看边聊」。
+
+## 英文术语拆解
+
+- **Figma**：自创品牌名，无缩写含义。读音近似「菲格玛」。
+- **FigJam**：Fig(ma) + Jam，取自音乐人即兴合奏（Jam Session）的概念，指团队像即兴演奏一样在白板上碰撞想法。
+- **Dev Mode**：开发者模式，设计师与工程师之间的「交付界面」。
+
+## 详细说明
+
+### 发展时间线
+
+- **2012**：Dylan Field（布朗大学计算机科学辍学，蒂尔奖学金获得者）与图形学背景的 Evan Wallace 在旧金山创立 Figma，目标是做「浏览器里的 Photoshop」。
+- **2015–2016**：经历近四年隐身开发（基于 WebGL 自研浏览器渲染引擎），2015 年 12 月开放邀请制预览，2016 年 9 月 27 日公开发布。
+- **2019**：上线 Figma Community，设计师可发布作品供他人查看和复用。
+- **2021**：发布数字白板 FigJam；E 轮融资后估值达 100 亿美元。
+- **2022-09**：Adobe 宣布以约 200 亿美元现金加股票收购 Figma，为当时史上最大规模的私营软件公司收购案。
+- **2023-12**：因欧盟委员会和英国竞争与市场管理局（CMA）均表示将阻止交易，Adobe 放弃收购，并支付 10 亿美元终止费。
+- **2025-07-31**：在纽交所上市（代码 FIG），开盘价 85 美元，首日收盘市值达 563 亿美元，股价较发行价上涨逾两倍；2025 年全年营收 15.1 亿美元。
+- **2025–2026**：全面转向 AI——推出 Figma Make（提示词生成可交互原型和网页应用）、First Draft（AI 生成设计初稿）、MCP 服务器（让 AI 编程助手直接读写设计稿）；Config 2026 发布代码图层、Figma Motion 等新能力。
+
+### 核心概念
+
+- **Frame（画框）**：设计的容器，相当于一个页面或设备屏幕。
+- **Component（组件）**：可复用的设计单元，修改主组件，所有实例同步更新。
+- **Auto Layout（自动布局）**：让元素按规则自动排列，逻辑类似 CSS Flexbox。
+- **Prototype（原型）**：在画框间添加交互链接，模拟真实操作流程。
+- **Dev Mode（开发者模式）**：面向工程师的交付界面，可查看标注、复制 CSS/代码、导出切图（付费功能）。
+- **Multiplayer（多人协作）**：多人实时编辑同一文件，所有协作者光标互相可见。
+
+### 为什么 Figma 能赢
+
+1. **技术赌注**：花四年自研 WebGL 浏览器渲染引擎，性能媲美原生软件——竞争对手要追赶，必须重写自己的渲染层。
+2. **协作原语**：把「多人同时编辑」当地基而不是功能，改变了设计团队的工作方式。
+3. **零安装门槛**：浏览器打开即用，分享一个链接即可协作，Windows 和 macOS 无差别。
+4. **免费增值策略**：个人和小团队免费使用，快速占领教育和初创团队市场。
+
+## 相关概念
+
+- [SVG（可缩放矢量图形）](../cs-basics/svg/)：Figma 底层处理的正是矢量图形，设计稿可直接导出为 SVG。
+- [IDE（集成开发环境）](./ide/)：Figma 通过 Dev Mode、Code Connect 和 MCP 服务器与开发环境打通，分别处于「设计—开发」交付链的两端。
+- [API](./api/)：Figma 开放 API 和插件生态，允许程序化读取设计稿数据。
+
+## 信源
+
+| 来源 | 等级 | 内容摘要 |
+|------|------|---------|
+| [Figma 官方博客（Config 2026 公告，2026-06）](https://www.figma.com/blog/) | T1 | 官方产品矩阵与最新功能（代码图层、Figma Motion、Figma Weave）的一手发布渠道 |
+| [Figma 官方定价页](https://www.figma.com/pricing/) | T1 | 席位体系（Full/Dev/Collab）、Dev Mode 付费策略、Figma Make 与 MCP 能力的官方说明 |
+| [Wikipedia — Figma（HandWiki 镜像）](https://handwiki.org/wiki/Software:Figma) | T2 | 公司沿革、融资史、Adobe 收购始末、2025-07-31 纽交所上市（FIG）首日市值 563 亿美元、2025 年营收 15.1 亿美元等关键事实 |
+| [The Entrepreneur Story — Dylan Field and the design tool Adobe couldn't buy](https://www.theentrepreneurstory.com/articles/founders/dylan-field-figma-the-design-tool-adobe-couldnt-buy) | T3 | Adobe 200 亿美元收购案被欧盟与英国监管机构阻止、10 亿美元终止费及 Multiplayer 协作原语的分析 |
+| [LogRocket — Figma AI in 2026（2026-04）](https://blog.logrocket.com/ux-design/figma-ai-2026-quick-overview/) | T3 | 对 Figma AI 功能全景（First Draft、Figma Make、MCP、Code Connect）的第三方评测与能力边界分析 |
+
+## 变更记录
+
+- **v1.0**（2026-07-29）：初始版本
