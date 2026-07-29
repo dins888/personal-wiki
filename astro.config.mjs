@@ -47,6 +47,16 @@ export default defineConfig({
         },
       ],
       lastUpdated: true,
+      pagefind: {
+        ranking: {
+          // 标题匹配权重拉高：百科类站点最常见的搜索就是词条名本身，确保精确词条排第一
+          metaWeights: { title: 10 },
+          // 词频与饱和度：让反复提及该词的专属词条页胜过偶尔提及的长页面
+          termFrequency: 0.5,
+          termSaturation: 1.5,
+          pageLength: 0.3,
+        },
+      },
     }),
   ],
 });
