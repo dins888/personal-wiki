@@ -107,6 +107,10 @@ export default defineConfig({
           items: [{ autogenerate: { directory: 'entries/tools' } }],
         },
         {
+          label: '💰 商业与收款',
+          items: [{ autogenerate: { directory: 'entries/business' } }],
+        },
+        {
           label: '关于',
           link: '/about/',
         },
